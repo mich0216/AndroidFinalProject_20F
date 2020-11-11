@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AndroidFinalProject_20F</string>
+    <string name="cst_2335_android_final_project">CST_2335 Android Final Project</string>
+    <string name="ticketmaster_event_search">TicketMaster event search</string>
+    <string name="recipe_search">Recipe search</string>
+    <string name="covid_19_case_data_search">Covid-19 case data search</string>
+    <string name="the_audio_database_search">The Audio database search</string>
+    <string name="please_enter_recipe_name">Please enter recipe name</string>
+    <string name="welcome_recipe_search_by_ahmed">Hello!!\nWelcome to the Recipe Search by Ahmed.</string>
 </resources>
