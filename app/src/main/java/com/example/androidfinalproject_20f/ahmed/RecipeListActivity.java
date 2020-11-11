@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -188,6 +189,10 @@ public class RecipeListActivity extends AppCompatActivity {
 
             progressContainer.setVisibility(View.INVISIBLE);
             myListAdapter.notifyDataSetChanged();
+
+            if (elements.isEmpty()) {
+                Toast.makeText(RecipeListActivity.this, "No recipies found!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
