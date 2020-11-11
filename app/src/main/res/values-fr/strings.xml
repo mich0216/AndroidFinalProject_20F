@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidFinalProject_20F</string>
+    <string name="event_search"> Recherche d\'événements </string>
+    <string name="enter_city_name"> Entrez le nom de la ville </string>
+    <string name="search"> Rechercher </string>
+    <string name="please_enter_city_name"> Veuillez saisir le nom de la ville </string>
+    <string name="start_date"> Date de début: </string>
+    <string name="min_price"> Prix minimum: </string>
+    <string name="max_price"> Prix max: </string>
+    <string name="open_url"> Ouvrir l\'URL </string>
+    <string name="no_events_found"> Aucun événement trouvé! </string>
+    <string name="events_loaded"> Événements chargés! </string>
+</resources>
