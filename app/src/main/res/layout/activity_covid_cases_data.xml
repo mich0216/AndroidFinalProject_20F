@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:paddingTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:text="Country:" />
+
+    <EditText
+        android:id="@+id/countryEntered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/country"
+        android:paddingTop="10dp"
+        android:textSize="15dp"
+        android:inputType="text"
+        android:hint="countryEntered" />
+
+    <TextView
+        android:id="@+id/startDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/country"
+        android:layout_alignParentLeft="true"
+        android:paddingTop="10dp"
+        android:textSize="15dp"
+        android:text="From:" />
+
+    <EditText
+        android:id="@+id/startDateEntered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/country"
+        android:layout_toRightOf="@id/startDate"
+         android:padding="10dp"
+        android:textSize="15dp"
+        android:inputType="text"
+        android:hint="startDateEntered" />
+
+    <TextView
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/startDate"
+        android:paddingTop="10dp"
+        android:textSize="15dp"
+        android:layout_alignParentLeft="true"
+        android:text="To:" />
+
+    <EditText
+        android:id="@+id/endDateEntered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/startDate"
+        android:layout_toRightOf="@id/endDate"
+        android:padding="10dp"
+        android:textSize="15dp"
+        android:inputType="text"
+        android:hint="endDateEntered" />
+
+    <TextView
+        android:id="@+id/results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/endDate"
+        android:textSize="15dp"
+        android:text="Search results:" />
+
+
+    <ListView
+        android:id="@+id/listView"
+        android:dividerHeight="0dp"
+        android:layout_below="@id/results"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+</RelativeLayout>

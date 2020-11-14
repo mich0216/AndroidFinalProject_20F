@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25dp"
-        android:text="CST_2335 Android Final Project"
-        />
+        android:text="CST_2335 Android Final Project" />
 
     <Button
         android:id="@+id/button"
@@ -28,7 +27,7 @@
         android:text="Recipe search" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/covidButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Covid-19 case data search" />
