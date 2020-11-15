@@ -141,7 +141,7 @@ public class CovidCasesData extends AppCompatActivity {
             TextView province = newView.findViewById(R.id.provinceName);
             TextView caseNumber = newView.findViewById(R.id.caseNumber);
             province.setText(getItem(position).getProvince());
-            caseNumber.setText(getItem(position).getCaseNumber());
+            caseNumber.setText(String.valueOf(getItem(position).getCaseNumber()));
 
             return newView;
         }
