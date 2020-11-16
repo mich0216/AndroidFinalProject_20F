@@ -6,22 +6,10 @@
 
 
     <TextView
-        android:id="@+id/provinceName"
+        android:id="@+id/dateList"
         android:layout_gravity="fill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="30dp"
-        android:paddingEnd="5dp"
-        android:textSize="15dp"
-        android:text=" "/>
-
-
-    <TextView
-        android:id="@+id/caseNumber"
-        android:layout_gravity="fill"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/provinceName"
         android:paddingBottom="30dp"
         android:textSize="15dp"
         android:text=" "/>

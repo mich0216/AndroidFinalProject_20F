@@ -9,7 +9,7 @@
         android:id="@+id/country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:paddingTop="10dp"
         android:layout_alignParentLeft="true"
         android:text="Country:" />
@@ -20,9 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/country"
         android:paddingTop="10dp"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:inputType="text"
         android:hint="countryEntered" />
+
 
     <TextView
         android:id="@+id/startDate"
@@ -31,7 +32,7 @@
         android:layout_below="@id/country"
         android:layout_alignParentLeft="true"
         android:paddingTop="10dp"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:text="From:" />
 
     <TextView
@@ -40,8 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/country"
         android:layout_toRightOf="@id/startDate"
-         android:padding="10dp"
-        android:textSize="15dp"
+        android:padding="10dp"
+        android:textSize="20dp"
         android:inputType="text"
         android:hint="startDateEntered" />
 
@@ -49,34 +50,45 @@
         android:id="@+id/endDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/startDate"
+        android:layout_below="@id/country"
+        android:layout_toRightOf="@id/startDateEntered"
         android:paddingTop="10dp"
-        android:textSize="15dp"
-        android:layout_alignParentLeft="true"
+        android:textSize="20dp"
         android:text="To:" />
 
     <TextView
         android:id="@+id/endDateEntered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/startDate"
+        android:layout_below="@id/country"
         android:layout_toRightOf="@id/endDate"
         android:padding="10dp"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:inputType="text"
         android:hint="endDateEntered" />
+
+    <Button
+        android:id="@+id/historyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/endDateEntered"
+        android:text="View Search History"/>
+
 
     <TextView
         android:id="@+id/results"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/endDate"
-        android:textSize="15dp"
-        android:text="Search results:" />
+        android:layout_below="@id/historyButton"
+        android:layout_alignParentLeft="true"
+        android:textSize="20dp"
+
+        android:paddingBottom="20dp"
+        android:text="------------------------------------------------------------------------" />
 
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/searchListView"
         android:dividerHeight="0dp"
         android:layout_below="@id/results"
         android:layout_width="match_parent"

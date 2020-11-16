@@ -9,16 +9,18 @@ public class CovidData {
     private int caseNumber;
     private long databaseId;
     private String date;
+    private String country;
 
-    public CovidData(String province, int caseNumber, String date) {
-        this(province, caseNumber,date, 0);
+    public CovidData(String province, int caseNumber, String date, String country) {
+        this(province, caseNumber,date, country, 0);
     }
 
 
-    public CovidData(String province, int caseNumber,String date, long dId) {
+    public CovidData(String province, int caseNumber,String date, String country, long dId) {
         this.province = province;
         this.caseNumber = caseNumber;
         this.date = date;
+        this.country = country;
         databaseId=dId;
     }
 
@@ -51,5 +53,13 @@ public class CovidData {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

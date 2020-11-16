@@ -4,17 +4,18 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class MyOpener extends SQLiteOpenHelper {
+public class CovidDataOpener extends SQLiteOpenHelper {
 
     protected final static String DATABASE_NAME = "CovidDB";
     protected final static int VERSION_NUM = 1;
     public final static String TABLE_NAME = "COVIDDATA";
+    public final static String COL_COUNTRY = "COUNTRY";
     public final static String COL_PROVINCE = "PROVINCE";
     public final static String COL_CASES = "CASES" ;
     public final static String COL_DATE = "DATE" ;
     public final static String COL_ID = "_id";
 
-    public MyOpener(Context ctx)
+    public CovidDataOpener(Context ctx)
     {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
     }
@@ -26,9 +27,10 @@ public class MyOpener extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_COUNTRY + " text,"
                 + COL_PROVINCE + " text,"
                 + COL_CASES + " text,"
-                + COL_DATE + " text,"  + " text);");  // add or remove columns
+                + COL_DATE + " text);");  // add or remove columns
     }
 
 

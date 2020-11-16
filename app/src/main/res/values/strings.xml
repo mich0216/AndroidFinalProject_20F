@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AndroidFinalProject_20F</string>
+    <string name="wantdelete">Do you want to delete the row?</string>
+    <string name="selectedrow">The selected row is</string>
+    <string name="thedatabaseid">The database id is</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="additionalDetail">Additional Details of Selected Row:</string>
 </resources>

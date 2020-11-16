@@ -1,15 +1,19 @@
 package com.example.androidfinalproject_20f;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,16 +32,47 @@ public class CovidCasesData extends AppCompatActivity {
 
     private ArrayList<CovidData> list  = new ArrayList<>();
     private CovidDataAdaptor covidDataAdaptor;
+    private String country;
+    SQLiteDatabase db;
+
+    public void writeToDb(){
+        CovidDataOpener dbOpener = new CovidDataOpener(this);
+        db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_covid_cases_data);
 
-        ListView myList = findViewById(R.id.listView);
+        Button historyButton = findViewById(R.id.historyButton);
+        Intent goToViewHistoryPage = new Intent(this, ViewHistory.class);
+        historyButton.setOnClickListener(click ->
+        {
+            startActivity(goToViewHistoryPage);
+        });
+
+
+        ListView myList = findViewById(R.id.searchListView);
         myList.setAdapter(covidDataAdaptor = new CovidDataAdaptor());
 
+        myList.setOnItemLongClickListener((parent, view, position, id) -> {
+            CovidData selectedData = list.get(position);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(getResources().getString(R.string.additionalDetail))
+
+                    .setMessage("The province is "+((CovidData)list.get(position)).getProvince()+"\n"+
+                            "The Confirmed Case Number : "+((CovidData)list.get(position)).getCaseNumber()+"\n"+
+                            "The date is : "+((CovidData)list.get(position)).getDate().substring(0,10)+"\n"+
+                            "The database ID is "+((CovidData)list.get(position)).getDatabaseId())
+                    .setNeutralButton("OK",(click, arg)->{})
+                    .create().show();
+
+            return true;
+        });
+
         Intent fromMain = getIntent();
-        String country = fromMain.getStringExtra("country");
+        country = fromMain.getStringExtra("country");
         String startDate =fromMain.getStringExtra("startDate");
         String endDate = fromMain.getStringExtra("endDate");
 
@@ -49,7 +84,7 @@ public class CovidCasesData extends AppCompatActivity {
         endDateView.setText(endDate);
 
         CovidDataQuery cdq = new CovidDataQuery();
-        cdq.execute("haaa");
+        cdq.execute("https://api.covid19api.com/country/"+country.trim().toUpperCase()+"/status/confirmed/live?from="+startDate.trim()+"T00:00:00Z&to="+endDate.trim()+"T00:00:00Z");
 
     }
 
@@ -62,7 +97,7 @@ public class CovidCasesData extends AppCompatActivity {
                 // String encodeURL = URLEncoder.encode(args[0], "UTF-8");
                 //create a URL object of what server to contact:
                 // process JSON for UV code
-                URL covidDataURL = new URL("https://api.covid19api.com/country/CANADA/status/confirmed/live?from=2020-10-14T00:00:00Z&to=2020-10-15T00:00:00Z");
+                URL covidDataURL = new URL(args[0]);
                 //open the connection
                 HttpURLConnection covidDataURLConnection = (HttpURLConnection) covidDataURL.openConnection();
                 //wait for data:
@@ -77,22 +112,37 @@ public class CovidCasesData extends AppCompatActivity {
                 }
                 String result = sb.toString();
                 JSONArray covidDataArray = new JSONArray(result);
+
+               writeToDb();
+
                 for(int j=0; j<covidDataArray.length(); j++){
                     JSONObject covidObject = covidDataArray.getJSONObject(j);
                     String province = covidObject.getString("Province");
                     int caseNumber = covidObject.getInt("Cases");
                     String date = covidObject.getString("Date");
-                    CovidData cd = new CovidData(province, caseNumber, date, j);
-                    list.add(cd);
+                    if(!province.trim().isEmpty()) {
+                        CovidData cd = new CovidData(province, caseNumber, date, country,j);
+                        list.add(cd);
+
+                        ContentValues newRowValue = new ContentValues();
+
+                        //Now provide a value for every database column defined in MyOpener.java:
+                        //put string name in the NAME column:
+                        newRowValue.put(CovidDataOpener.COL_COUNTRY, country);
+                        newRowValue.put(CovidDataOpener.COL_PROVINCE, province);
+                        newRowValue.put(CovidDataOpener.COL_CASES, caseNumber);
+                        newRowValue.put(CovidDataOpener.COL_DATE, date.substring(0,10)); // trim the date for yyyy-mm-dd format when I write it to the db
+
+                        //Now insert in the database:
+                        long newId = db.insert(CovidDataOpener.TABLE_NAME, null, newRowValue);
+                    }
+
                 }
-
-
             }
             catch (Exception e)
             {
-
+                Log.e("Error", e.getMessage());
             }
-
             return "Done";
         }
 
@@ -120,6 +170,14 @@ public class CovidCasesData extends AppCompatActivity {
 
         }
     }
+
+
+    protected void deleteMessage(CovidData c)
+    {
+        db.delete(CovidDataOpener.TABLE_NAME, CovidDataOpener.COL_ID + "= ?", new String[] {Long.toString(c.getDatabaseId())});
+        Log.e("Deleted Database Object", Long.toString(c.getDatabaseId()));
+    }
+
 
     private class CovidDataAdaptor extends BaseAdapter {
 

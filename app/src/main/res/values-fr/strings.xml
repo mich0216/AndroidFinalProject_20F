@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidFinalProject_20F</string>
+    <string name="wantdelete">Voulez-vous supprimer la ligne?</string>
+    <string name="selectedrow">La ligne sélectionnée est</string>
+    <string name="thedatabaseid">" L'ID de la base de données est"</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="additionalDetail">" Détails supplémentaires de la ligne sélectionnée:"</string>
+</resources>
