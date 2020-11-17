@@ -6,6 +6,6 @@
     <string name="recipe_search"> Recherche de recette </string>
     <string name="covid_19_case_data_search"> Recherche de données de cas Covid-19 </string>
     <string name="the_audio_database_search"> La recherche dans la base de données audio </string>
-    <string name="please_enter_recipe_name"> Veuillez saisir le nom de la recette </string>
-    <string name="welcome_recipe_search_by_ahmed"> Bonjour !! \ nBienvenue dans la recherche de recettes par Ahmed. </string>
+    <string name="rs_please_enter_recipe_name"> Veuillez saisir le nom de la recette </string>
+    <string name="rs_welcome_recipe_search_by_ahmed"> Bonjour !! \ nBienvenue dans la recherche de recettes par Ahmed. </string>
 </resources>

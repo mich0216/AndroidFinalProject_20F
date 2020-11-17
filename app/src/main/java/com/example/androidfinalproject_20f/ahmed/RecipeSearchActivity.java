@@ -42,7 +42,7 @@ public class RecipeSearchActivity extends AppCompatActivity {
             // Validation
             String recipeName = recipeNameEditText.getText().toString();
             if (recipeName.isEmpty()) {
-                Toast.makeText(this, R.string.please_enter_recipe_name, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.rs_please_enter_recipe_name, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -54,7 +54,7 @@ public class RecipeSearchActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        Snackbar.make(findViewById(R.id.mainLayout), R.string.welcome_recipe_search_by_ahmed, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(findViewById(R.id.mainLayout), R.string.rs_welcome_recipe_search_by_ahmed, Snackbar.LENGTH_LONG).show();
 
     }
 }
