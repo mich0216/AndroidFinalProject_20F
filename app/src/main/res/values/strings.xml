@@ -6,4 +6,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="additionalDetail">Additional Details of Selected Row:</string>
+    <string name="covidToastMessage">Fill the fields to Search</string>
+    <string name="covidSnackBarMsg">Select and Hold on Row for More Details</string>
 </resources>

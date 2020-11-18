@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -90,6 +92,7 @@ public class CovidCasesData extends AppCompatActivity {
         CovidDataQuery cdq = new CovidDataQuery();
         cdq.execute("https://api.covid19api.com/country/"+country.trim().toUpperCase()+"/status/confirmed/live?from="+startDate.trim()+"T00:00:00Z&to="+endDate.trim()+"T00:00:00Z");
         //covidDataAdaptor.notifyDataSetChanged();
+        Snackbar.make(myList,  getResources().getString(R.string.covidSnackBarMsg), Snackbar.LENGTH_LONG).show();
     }
 
     private class CovidDataQuery extends AsyncTask< String, Integer, String> {
@@ -100,7 +103,6 @@ public class CovidCasesData extends AppCompatActivity {
                 //encode the string url; may need to be commented later
                 // String encodeURL = URLEncoder.encode(args[0], "UTF-8");
                 //create a URL object of what server to contact:
-                // process JSON for UV code
                 URL covidDataURL = new URL(args[0]);
                 //open the connection
                 HttpURLConnection covidDataURLConnection = (HttpURLConnection) covidDataURL.openConnection();
@@ -125,7 +127,9 @@ public class CovidCasesData extends AppCompatActivity {
                     JSONObject covidObject = covidDataArray.getJSONObject(j);
                     String province = covidObject.getString("Province");
                     int caseNumber = covidObject.getInt("Cases");
+
                     String date = covidObject.getString("Date");
+
                     if(!province.trim().isEmpty()) {
                         CovidData cd = new CovidData(province, caseNumber, date, country,j);
                         list.add(cd);
@@ -144,8 +148,8 @@ public class CovidCasesData extends AppCompatActivity {
                     }
 
                 }
-            //    Thread.sleep(500);
-          //      publishProgress(100);
+
+               //publishProgress(100);
 
             }
             catch (Exception e)
@@ -174,7 +178,7 @@ public class CovidCasesData extends AppCompatActivity {
             // minTemp.setText(minTemp.getText()+minimumTemp+"℃");
             // maxTemp.setText(maxTemp.getText()+ maximumTemp+"℃");
             // uvRating.setText( uvRating.getText()+uvRate);
-         //   progressBar.setVisibility(View.INVISIBLE);
+            // progressBar.setVisibility(View.INVISIBLE);
 
 
         }

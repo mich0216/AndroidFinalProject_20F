@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class WelcomePageCovid extends AppCompatActivity {
 
@@ -36,8 +37,10 @@ public class WelcomePageCovid extends AppCompatActivity {
         Button searchButton = findViewById(R.id.searchButton);
 
         Intent goToCovidData = new Intent(this, CovidCasesData.class);// this is to say we are going from this page to the covidCaseData page
+        Toast.makeText(WelcomePageCovid.this,  getResources().getString(R.string.covidToastMessage),Toast.LENGTH_LONG).show();
         searchButton.setOnClickListener(click ->
                 {
+
                 goToCovidData.putExtra("country", country.getText().toString());// to pass the country name to the welcome page
                 goToCovidData.putExtra("startDate", startDate.getText().toString());// to pass the from date to the welcome page
                 goToCovidData.putExtra("endDate", endDate.getText().toString());// to pass the to date to the welcome page
