@@ -2,6 +2,7 @@ package com.example.androidfinalproject_20f;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,11 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import javax.xml.transform.Result;
 
 public class ViewHistory extends AppCompatActivity {
     SQLiteDatabase db;
@@ -27,6 +31,15 @@ public class ViewHistory extends AppCompatActivity {
         ListView myList = findViewById(R.id.searchListView);
         myList.setAdapter(covidDateListAdaptor = new CovidDateListAdaptor());
         this.loadDataFromDatabase();
+        Intent resultByDate = new Intent(this, ResultByDate.class);
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                resultByDate.putExtra("date",dateList.get(position));
+                startActivity(resultByDate);
+            }
+        });
     }
 
 
@@ -34,8 +47,8 @@ public class ViewHistory extends AppCompatActivity {
     {
         //get a database connection:
         CovidDataOpener dbOpener = new CovidDataOpener(this);
-        db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
-
+       // db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
+        db = dbOpener.getReadableDatabase();
 
         // We want to get all of the columns. Look at MyOpener.java for the definitions:
        // String [] columns = {CovidDataOpener.COL_ID, CovidDataOpener.COL_DATE, CovidDataOpener.COL_CASES, CovidDataOpener.COL_COUNTRY, CovidDataOpener.COL_PROVINCE};

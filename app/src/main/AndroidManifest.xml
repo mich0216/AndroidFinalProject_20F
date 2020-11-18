@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ResultByDate"></activity>
         <activity android:name=".ViewHistory" />
         <activity android:name=".CovidCasesData" />
         <activity android:name=".CovidDataOpener" />

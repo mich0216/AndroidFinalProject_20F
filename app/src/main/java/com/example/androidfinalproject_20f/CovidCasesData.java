@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -34,6 +35,7 @@ public class CovidCasesData extends AppCompatActivity {
     private CovidDataAdaptor covidDataAdaptor;
     private String country;
     SQLiteDatabase db;
+    ProgressBar progressBar;
 
     public void writeToDb(){
         CovidDataOpener dbOpener = new CovidDataOpener(this);
@@ -52,6 +54,8 @@ public class CovidCasesData extends AppCompatActivity {
             startActivity(goToViewHistoryPage);
         });
 
+      //  progressBar = findViewById(R.id.progressBar);
+        //progressBar.setVisibility(View.VISIBLE);
 
         ListView myList = findViewById(R.id.searchListView);
         myList.setAdapter(covidDataAdaptor = new CovidDataAdaptor());
@@ -85,7 +89,7 @@ public class CovidCasesData extends AppCompatActivity {
 
         CovidDataQuery cdq = new CovidDataQuery();
         cdq.execute("https://api.covid19api.com/country/"+country.trim().toUpperCase()+"/status/confirmed/live?from="+startDate.trim()+"T00:00:00Z&to="+endDate.trim()+"T00:00:00Z");
-
+        //covidDataAdaptor.notifyDataSetChanged();
     }
 
     private class CovidDataQuery extends AsyncTask< String, Integer, String> {
@@ -103,7 +107,8 @@ public class CovidCasesData extends AppCompatActivity {
                 //wait for data:
                 InputStream uvResponse = covidDataURLConnection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(uvResponse, "UTF-8"), 8);
-
+                //Thread.sleep(500);
+               // publishProgress(25);
                 StringBuilder sb = new StringBuilder();
                 String line = null;
                 while ((line = reader.readLine()) != null)
@@ -114,7 +119,8 @@ public class CovidCasesData extends AppCompatActivity {
                 JSONArray covidDataArray = new JSONArray(result);
 
                writeToDb();
-
+              //   Thread.sleep(500);
+                // publishProgress(50);
                 for(int j=0; j<covidDataArray.length(); j++){
                     JSONObject covidObject = covidDataArray.getJSONObject(j);
                     String province = covidObject.getString("Province");
@@ -138,6 +144,9 @@ public class CovidCasesData extends AppCompatActivity {
                     }
 
                 }
+            //    Thread.sleep(500);
+          //      publishProgress(100);
+
             }
             catch (Exception e)
             {
@@ -153,19 +162,19 @@ public class CovidCasesData extends AppCompatActivity {
 
         public void onProgressUpdate(Integer... args)
         {
-            //progressBar.setVisibility(View.VISIBLE);
-            //progressBar.setProgress(args[0]);
+         //   progressBar.setVisibility(View.VISIBLE);
+         //   progressBar.setProgress(args[0]);
         }
 
         public void onPostExecute(String fromDoInBackground)
         {
-            //Log.i("HTTP", fromDoInBackground);
+           //Log.i("CovidDataQuery ", "all good");
             // weatherIcon.setImageBitmap(weatherImage);
             // currentTemp.setText(currentTemp.getText()+ currTemp +"℃");
             // minTemp.setText(minTemp.getText()+minimumTemp+"℃");
             // maxTemp.setText(maxTemp.getText()+ maximumTemp+"℃");
             // uvRating.setText( uvRating.getText()+uvRate);
-            // progressBar.setVisibility(View.INVISIBLE);
+         //   progressBar.setVisibility(View.INVISIBLE);
 
 
         }
