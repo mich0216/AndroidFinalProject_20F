@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
+import com.example.androidfinalproject_20f.sabiha.EventSearchActivity;
+
 import com.example.androidfinalproject_20f.audiosearch.ArtistInputActivity;
 
 import com.example.androidfinalproject_20f.ahmed.RecipeSearchActivity;
@@ -17,6 +20,7 @@ import com.example.androidfinalproject_20f.ahmed.RecipeSearchActivity;
  */
 
 
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -25,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         /// setContentView loads objects onto the screen.
         setContentView(R.layout.activity_main);
+
+
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, EventSearchActivity.class);
+            startActivity(i);
+        });
+
 
 
         Button audioSearchButton = findViewById(R.id.button4);
@@ -49,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
             startActivity(i);
         });
+
     }
 
 
