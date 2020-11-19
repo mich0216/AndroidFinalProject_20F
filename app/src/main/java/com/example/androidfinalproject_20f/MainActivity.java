@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         Button audioSearchButton = findViewById(R.id.button4);
         audioSearchButton.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, ArtistInputActivity.class);
-
+            startActivity(i);
+        });
         // button to go to covid data page
         Button cButton = findViewById(R.id.covidButton);
 

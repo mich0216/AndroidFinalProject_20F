@@ -1,6 +1,5 @@
 <resources>
 
-    <string name="app_name">AndroidFinalProject_20F</string>
     <string name="event_search">Event Search</string>
     <string name="enter_city_name">Enter city name</string>
     <string name="search">Search</string>
