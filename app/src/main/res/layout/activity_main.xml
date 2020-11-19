@@ -12,32 +12,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25dp"
-        android:text="CST_2335 Android Final Project"
+        android:text="@string/cst_2335_android_final_project"
         />
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TicketMaster event search" />
+        android:text="@string/ticketmaster_event_search" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recipe search" />
+        android:text="@string/recipe_search" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/covidButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Covid-19 case data search" />
+        android:text="@string/covid_19_case_data_search" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="The Audio database search" />
+        android:text="@string/the_audio_database_search" />
 
 
 </LinearLayout>

@@ -1,6 +1,27 @@
 <resources>
+
     <string name="app_name" translatable="false">AndroidFinalProject_20F</string>
     <string name="album_search" translatable="false">Album Search</string>
     <string name="enter_artist_name_here" translatable="false">Enter Artist Name here</string>
     <string name="search_albums" translatable="false">Search Albums</string>
+
+    <string name="wantdelete">Do you want to delete the row?</string>
+    <string name="selectedrow">The selected row is</string>
+    <string name="thedatabaseid">The database id is</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="additionalDetail">Additional Details of Selected Row:</string>
+    <string name="covidToastMessage">Fill the fields to Search</string>
+    <string name="covidSnackBarMsg">Select and Hold on Row for More Details</string>
+
+    <string name="cst_2335_android_final_project">CST_2335 Android Final Project</string>
+    <string name="ticketmaster_event_search">TicketMaster event search</string>
+    <string name="recipe_search">Recipe search</string>
+    <string name="covid_19_case_data_search">Covid-19 case data search</string>
+    <string name="the_audio_database_search">The Audio database search</string>
+
+
+    <string name="rs_please_enter_recipe_name">Please enter recipe name</string>
+    <string name="rs_welcome_recipe_search_by_ahmed">Hello!!\nWelcome to the Recipe Search by Ahmed.</string>
+
 </resources>
