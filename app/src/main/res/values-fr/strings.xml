@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">AndroidFinalProject_20F</string>
     <string name="event_search"> Recherche d\'événements </string>
     <string name="enter_city_name"> Entrez le nom de la ville </string>
@@ -11,4 +12,28 @@
     <string name="open_url"> Ouvrir l\'URL </string>
     <string name="no_events_found"> Aucun événement trouvé! </string>
     <string name="events_loaded"> Événements chargés! </string>
+
+
+    <string name="app_name" translatable="false">AndroidFinalProject_20F</string>
+    <string name="album_search" translatable="false">Album Search</string>
+    <string name="enter_artist_name_here" translatable="false">" Entrez le nom de l'artiste ici"</string>
+    <string name="search_albums" translatable="false">" Rechercher des albums"</string>
+
+    <string name="app_name">AndroidFinalProject_20F</string>
+  
+    <string name="wantdelete">Voulez-vous supprimer la ligne?</string>
+    <string name="selectedrow">La ligne sélectionnée est</string>
+    <string name="thedatabaseid">" L'ID de la base de données est"</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="additionalDetail">" Détails supplémentaires de la ligne sélectionnée:"</string>
+
+    <string name="cst_2335_android_final_project"> Projet final Android CST_2335 </string>
+    <string name="ticketmaster_event_search"> Recherche d\'événements TicketMaster </string>
+    <string name="recipe_search"> Recherche de recette </string>
+    <string name="covid_19_case_data_search"> Recherche de données de cas Covid-19 </string>
+    <string name="the_audio_database_search"> La recherche dans la base de données audio </string>
+    <string name="rs_please_enter_recipe_name"> Veuillez saisir le nom de la recette </string>
+    <string name="rs_welcome_recipe_search_by_ahmed"> Bonjour !! \ nBienvenue dans la recherche de recettes par Ahmed. </string>
+
 </resources>
