@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +41,7 @@ public class RecipeListActivity extends AppCompatActivity {
     /**
      * TO display loading progress bar
      */
-    private LinearLayout progressContainer;
+    private Bar ProgressContainer;
     /**
      * List of the recipes object
      */
