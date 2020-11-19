@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="app_name" translatable="false">AndroidFinalProject_20F</string>
+    <string name="album_search" translatable="false">Album Search</string>
+    <string name="enter_artist_name_here" translatable="false">" Entrez le nom de l'artiste ici"</string>
+    <string name="search_albums" translatable="false">" Rechercher des albums"</string>
+
     <string name="app_name">AndroidFinalProject_20F</string>
   
     <string name="wantdelete">Voulez-vous supprimer la ligne?</string>
@@ -16,5 +22,6 @@
     <string name="the_audio_database_search"> La recherche dans la base de données audio </string>
     <string name="rs_please_enter_recipe_name"> Veuillez saisir le nom de la recette </string>
     <string name="rs_welcome_recipe_search_by_ahmed"> Bonjour !! \ nBienvenue dans la recherche de recettes par Ahmed. </string>
+
 
 </resources>

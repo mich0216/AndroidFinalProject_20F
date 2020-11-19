@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">AndroidFinalProject_20F</string>
+
+    <string name="app_name" translatable="false">AndroidFinalProject_20F</string>
+    <string name="album_search" translatable="false">Album Search</string>
+    <string name="enter_artist_name_here" translatable="false">Enter Artist Name here</string>
+    <string name="search_albums" translatable="false">Search Albums</string>
 
     <string name="wantdelete">Do you want to delete the row?</string>
     <string name="selectedrow">The selected row is</string>

@@ -1,9 +1,13 @@
 package com.example.androidfinalproject_20f;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.view.View;
+import android.widget.Button;
+
+import com.example.androidfinalproject_20f.audiosearch.ArtistInputActivity;
+
 import com.example.androidfinalproject_20f.ahmed.RecipeSearchActivity;
 
 /**
@@ -11,6 +15,7 @@ import com.example.androidfinalproject_20f.ahmed.RecipeSearchActivity;
  * CST 2335-020
  * MainActivty is the starting class
  */
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         /// setContentView loads objects onto the screen.
         setContentView(R.layout.activity_main);
+
+
+        Button audioSearchButton = findViewById(R.id.button4);
+        audioSearchButton.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, ArtistInputActivity.class);
 
         // button to go to covid data page
         Button cButton = findViewById(R.id.covidButton);
@@ -36,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         Button button2 = findViewById(R.id.button2);
         button2.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, RecipeSearchActivity.class);
+
             startActivity(i);
         });
     }
