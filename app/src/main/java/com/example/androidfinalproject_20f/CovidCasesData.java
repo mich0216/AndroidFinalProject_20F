@@ -31,23 +31,32 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+/***
+ * @author Chrishanthi Michael
+ * CST 2335 -20
+ *  This class CovidCasesData is responsible to get the user input such as Country,
+ *  Start Date, End Date from the user and put the data from the URL as JSON File
+ *  format the data and display it as a List View.
+ *  The user also can select the view to see more details about the data
+ *  When the user selct on View History button, it will take them to another view.
+ *
+ */
 public class CovidCasesData extends AppCompatActivity {
 
-    private ArrayList<CovidData> list  = new ArrayList<>();
-    private CovidDataAdaptor covidDataAdaptor;
+    private ArrayList<CovidData> list  = new ArrayList<>(); // an ArrayList contains CovidData objects
+    private CovidDataAdaptor covidDataAdaptor;  // CovidDataAdaptor object
     private String country;
-    SQLiteDatabase db;
-    ProgressBar progressBar;
+    SQLiteDatabase db;    // database object
+    ProgressBar progressBar;  // progres
 
-    public void writeToDb(){
-        CovidDataOpener dbOpener = new CovidDataOpener(this);
-        db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
 
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_covid_cases_data);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
         Button historyButton = findViewById(R.id.historyButton);
         Intent goToViewHistoryPage = new Intent(this, ViewHistory.class);
@@ -56,8 +65,6 @@ public class CovidCasesData extends AppCompatActivity {
             startActivity(goToViewHistoryPage);
         });
 
-      //  progressBar = findViewById(R.id.progressBar);
-        //progressBar.setVisibility(View.VISIBLE);
 
         ListView myList = findViewById(R.id.searchListView);
         myList.setAdapter(covidDataAdaptor = new CovidDataAdaptor());
@@ -91,12 +98,25 @@ public class CovidCasesData extends AppCompatActivity {
 
         CovidDataQuery cdq = new CovidDataQuery();
         cdq.execute("https://api.covid19api.com/country/"+country.trim().toUpperCase()+"/status/confirmed/live?from="+startDate.trim()+"T00:00:00Z&to="+endDate.trim()+"T00:00:00Z");
-        //covidDataAdaptor.notifyDataSetChanged();
+        covidDataAdaptor.notifyDataSetChanged();
         Snackbar.make(myList,  getResources().getString(R.string.covidSnackBarMsg), Snackbar.LENGTH_LONG).show();
     }
 
-    private class CovidDataQuery extends AsyncTask< String, Integer, String> {
+    /**
+     * this method is responsible to setup the database opener and initalize the database
+     * */
+    public void setUpDatabaseOpener(){
+        CovidDataOpener dbOpener = new CovidDataOpener(this);
+        db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
 
+    }
+
+    /**
+     * CovidDataQuery class is extended from AsyncTask
+     *
+     * */
+    private class CovidDataQuery extends AsyncTask< String, Integer, String> {
+        // do the task in background
         public String doInBackground(String... args)
         {
             try {
@@ -109,8 +129,8 @@ public class CovidCasesData extends AppCompatActivity {
                 //wait for data:
                 InputStream uvResponse = covidDataURLConnection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(uvResponse, "UTF-8"), 8);
-                //Thread.sleep(500);
-               // publishProgress(25);
+                Thread.sleep(500);
+                publishProgress(25);
                 StringBuilder sb = new StringBuilder();
                 String line = null;
                 while ((line = reader.readLine()) != null)
@@ -120,9 +140,9 @@ public class CovidCasesData extends AppCompatActivity {
                 String result = sb.toString();
                 JSONArray covidDataArray = new JSONArray(result);
 
-               writeToDb();
-              //   Thread.sleep(500);
-                // publishProgress(50);
+               setUpDatabaseOpener();
+                Thread.sleep(500);
+                publishProgress(50);
                 for(int j=0; j<covidDataArray.length(); j++){
                     JSONObject covidObject = covidDataArray.getJSONObject(j);
                     String province = covidObject.getString("Province");
@@ -146,64 +166,62 @@ public class CovidCasesData extends AppCompatActivity {
                         //Now insert in the database:
                         long newId = db.insert(CovidDataOpener.TABLE_NAME, null, newRowValue);
                     }
-
                 }
-
-               //publishProgress(100);
-
+                Thread.sleep(500);
+                publishProgress(99);
             }
             catch (Exception e)
             {
-                Log.e("Error", e.getMessage());
             }
             return "Done";
         }
 
-        public boolean fileExistance(String fileName){
-            File file = getBaseContext().getFileStreamPath(fileName);
-            return file.exists();
-        }
-
+        // onProgressUpdate method, it sets the progress bar visibility to true and set the value
         public void onProgressUpdate(Integer... args)
         {
-         //   progressBar.setVisibility(View.VISIBLE);
-         //   progressBar.setProgress(args[0]);
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(args[0]);
         }
 
+        // this method will be executed at the end of the task
+        // this will set the progress bar to invisible
+        // and notify the data change
         public void onPostExecute(String fromDoInBackground)
         {
-           //Log.i("CovidDataQuery ", "all good");
-            // weatherIcon.setImageBitmap(weatherImage);
-            // currentTemp.setText(currentTemp.getText()+ currTemp +"℃");
-            // minTemp.setText(minTemp.getText()+minimumTemp+"℃");
-            // maxTemp.setText(maxTemp.getText()+ maximumTemp+"℃");
-            // uvRating.setText( uvRating.getText()+uvRate);
-            // progressBar.setVisibility(View.INVISIBLE);
+            Log.i("CovidDataQuery ", fromDoInBackground);
+             progressBar.setVisibility(View.INVISIBLE);
+             covidDataAdaptor.notifyDataSetChanged();
 
 
         }
     }
 
-
+    // get the CovidData object from the user
+    // delete the object from the database
     protected void deleteMessage(CovidData c)
     {
         db.delete(CovidDataOpener.TABLE_NAME, CovidDataOpener.COL_ID + "= ?", new String[] {Long.toString(c.getDatabaseId())});
         Log.e("Deleted Database Object", Long.toString(c.getDatabaseId()));
     }
 
-
+    /**
+     * The CovidDataAdaptor class extended from BaseAdapter
+     * */
     private class CovidDataAdaptor extends BaseAdapter {
 
+        // return the size of the list
         @Override
         public int getCount() {
             return list.size();
         }
 
+        // return the object from the list based on the position
         @Override
         public CovidData getItem(int position) {
             return list.get(position);
         }
 
+        // create the view for CovidData
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater =getLayoutInflater();
@@ -217,6 +235,7 @@ public class CovidCasesData extends AppCompatActivity {
             return newView;
         }
 
+        // get the database id of the system
         @Override
         public long getItemId(int position) {
             return getItem(position).getDatabaseId();

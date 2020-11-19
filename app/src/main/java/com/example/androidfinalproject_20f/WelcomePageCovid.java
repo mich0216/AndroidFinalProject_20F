@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ *
+ */
+
 public class WelcomePageCovid extends AppCompatActivity {
 
 
@@ -18,8 +22,10 @@ public class WelcomePageCovid extends AppCompatActivity {
     private String countryToSave, startDateToSave, endDateToSave;
 
     @Override
+    //Your program starts here
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // setContentView loads objects onto the screen before the screen is empty.
         setContentView(R.layout.activity_welcome_page_covid);
 
         country =findViewById(R.id.countryName);
@@ -27,15 +33,16 @@ public class WelcomePageCovid extends AppCompatActivity {
         endDate =findViewById(R.id.enterEndDate);
 
         pref = getSharedPreferences("CovidFile", Context.MODE_PRIVATE);
-        String countryName = pref.getString("Country", " ");//???
+        String countryName = pref.getString("Country", " ");//
         country.setText(countryName);
-        String startDateValue = pref.getString("StartDate", " ");//???
+        String startDateValue = pref.getString("StartDate", " ");//
         startDate.setText(startDateValue);
-        String endDateValue = pref.getString("EndDate", " ");//???
+        String endDateValue = pref.getString("EndDate", " ");//
         endDate.setText(endDateValue);
 
         Button searchButton = findViewById(R.id.searchButton);
 
+        // creating a transition to load covid case data page from welcome page
         Intent goToCovidData = new Intent(this, CovidCasesData.class);// this is to say we are going from this page to the covidCaseData page
         Toast.makeText(WelcomePageCovid.this,  getResources().getString(R.string.covidToastMessage),Toast.LENGTH_LONG).show();
         searchButton.setOnClickListener(click ->
@@ -48,6 +55,12 @@ public class WelcomePageCovid extends AppCompatActivity {
                 });
     }
 
+    /**
+     *
+     * @param countryToSave this is the country name user enters
+     * @param startDateToSave this is the start date user the provides/enter
+     * @param endDateToSave  this is the end date the user provides/enter
+     */
     private void saveSharedPrefs(String countryToSave, String startDateToSave, String endDateToSave) {
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("Country", countryToSave);
@@ -55,6 +68,8 @@ public class WelcomePageCovid extends AppCompatActivity {
         editor.putString("EndDate", endDateToSave);
         editor.commit();
     }
+
+
     @Override
     protected void onPause() {
         super.onPause();

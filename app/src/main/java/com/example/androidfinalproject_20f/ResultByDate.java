@@ -13,7 +13,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
+/**
+ * @author  Chrishanthi Michael
+ * CST 2335 -20
+ *  This class ResultByDate is responsible to get the date input and query the database for that date and
+ *  return the provices with the case number in a list view.
+ * */
 public class ResultByDate extends AppCompatActivity {
     SQLiteDatabase db;
     ArrayList<CovidData> dateList = new ArrayList<>();
@@ -31,8 +36,10 @@ public class ResultByDate extends AppCompatActivity {
         ListView myList = findViewById(R.id.searchListView);
         myList.setAdapter(covidDataAdaptor = new CovidDataAdaptor());
         //this.loadDataFromDatabase();
+        covidDataAdaptor.notifyDataSetChanged();
     }
 
+    // query the database for a given date
     private void queryDataFromDatabase(String resultByDate)
     {
         //get a database connection:
@@ -74,6 +81,8 @@ public class ResultByDate extends AppCompatActivity {
        // covidDataAdaptor.notifyDataSetChanged();
 //        printCursor(results, db.getVersion());
     }
+
+    // The CovidDataAdaptor is extended from the BaseAdapter
     private class CovidDataAdaptor extends BaseAdapter {
 
         @Override

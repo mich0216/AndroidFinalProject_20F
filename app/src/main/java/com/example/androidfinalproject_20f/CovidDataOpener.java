@@ -3,7 +3,11 @@ package com.example.androidfinalproject_20f;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+/**
+ * @author Chrishanthi Michael
+ * CST 2335-20
+ * The class CovidDataOpener extened from SQLiteOpenHelper
+ * */
 public class CovidDataOpener extends SQLiteOpenHelper {
 
     protected final static String DATABASE_NAME = "CovidDB";

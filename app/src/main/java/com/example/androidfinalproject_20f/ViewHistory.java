@@ -19,6 +19,11 @@ import java.util.ArrayList;
 
 import javax.xml.transform.Result;
 
+/**
+ * @author  Chrishanthi Michael
+ * CST 2335 -20
+ *  This class ViewHistory is responsible to get the date input from the user selection and pass it to the another activity.
+ * */
 public class ViewHistory extends AppCompatActivity {
     SQLiteDatabase db;
     ArrayList<String> dateList = new ArrayList<>();
