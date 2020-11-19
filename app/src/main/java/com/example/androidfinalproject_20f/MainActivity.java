@@ -3,13 +3,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.view.View;
+import com.example.androidfinalproject_20f.ahmed.RecipeSearchActivity;
 
 /**
  * @author Ahmed Elakad, Chrishanthi Michael, Sabiha Rahman, Vettival Ponnampalam
  * CST 2335-020
  * MainActivty is the starting class
  */
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(goToWelcomePage);
         });
 
+        Button button2 = findViewById(R.id.button2);
+        button2.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, RecipeSearchActivity.class);
+            startActivity(i);
+        });
     }
 
 
