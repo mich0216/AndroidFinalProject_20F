@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">AndroidFinalProject_20F</string>
+    <string name="album_search" translatable="false">Album Search</string>
+    <string name="enter_artist_name_here" translatable="false">" Entrez le nom de l'artiste ici"</string>
+    <string name="search_albums" translatable="false">" Rechercher des albums"</string>
+</resources>
