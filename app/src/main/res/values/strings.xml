@@ -36,4 +36,9 @@
     <string name="rs_please_enter_recipe_name">Please enter recipe name</string>
     <string name="rs_welcome_recipe_search_by_ahmed">Hello!!\nWelcome to the Recipe Search by Ahmed.</string>
 
+    <string name="event_name">Event Name: </string>
+    <string name="save_event_to_database">Save Event to Database</string>
+    <string name="hide_event_details">Hide Event Details</string>
+    <string name="show_saved_events">Show saved events</string>
+
 </resources>

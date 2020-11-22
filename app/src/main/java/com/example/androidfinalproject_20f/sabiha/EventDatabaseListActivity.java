@@ -29,7 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class EventListActivity extends AppCompatActivity {
+public class EventDatabaseListActivity extends AppCompatActivity {
 
     public static final String EVENT_NAME = "EVENT_NAME";
     public static final String EVENT_START_DATE = "EVENT_START_DATE";
@@ -69,10 +69,7 @@ public class EventListActivity extends AppCompatActivity {
         eventsAdaptor = new EventsAdaptor();
         eventListView.setAdapter(eventsAdaptor);
 
-        String url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=dCz4IrRpL3b9AqwGrbdLbl1ZZupGAJP6&city=" + cityName + "&radius=100";
-
-        MyHTTPRequest myHTTPRequest = new MyHTTPRequest();
-        myHTTPRequest.execute(url);
+        // Fetch from database
 
         eventListView.setOnItemLongClickListener((parent, view, position, id) -> {
             Event e = list.get(position);
@@ -117,92 +114,13 @@ public class EventListActivity extends AppCompatActivity {
                         .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
                         .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
             } else {
-                Intent nextActivity = new Intent(EventListActivity.this, EventEmptyActivity.class);
+                Intent nextActivity = new Intent(EventDatabaseListActivity.this, EventEmptyActivity.class);
                 nextActivity.putExtras(dataToPass); //send data to next activity
                 startActivity(nextActivity); //make the transition
             }
 
         });
 
-    }
-
-    /**
-     * Asynctask using url for searching the events and adding into the list
-     */
-    private class MyHTTPRequest extends AsyncTask<String, Integer, String> {
-        //Type3                Type1
-        public String doInBackground(String... args) {
-            try {
-
-                //create a URL object of what server to contact:
-                URL url = new URL(args[0]);
-
-                //open the connection
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-
-                //wait for data:
-                InputStream response = urlConnection.getInputStream();
-
-                //JSON reading:   Look at slide 26
-                //Build the entire string response:
-                BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
-                StringBuilder sb = new StringBuilder();
-
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                String result = sb.toString(); //result is the whole string
-
-
-                // convert string to JSON: Look at slide 27:
-                JSONObject jsonObjectResult = new JSONObject(result);
-
-                JSONObject embeddedJsonObject = jsonObjectResult.getJSONObject("_embedded");
-
-                JSONArray eventsJsonArray = embeddedJsonObject.getJSONArray("events");
-
-                for (int i = 0; i < eventsJsonArray.length(); i++) {
-
-                    JSONObject eventJsonObject = eventsJsonArray.getJSONObject(i);
-                    Log.i("EventListActivity", eventJsonObject.getString("name"));
-
-
-                    String eventName = eventJsonObject.getString("name");
-                    String startDate = eventJsonObject.getJSONObject("dates").getJSONObject("start").getString("localDate");
-                    double minPrice = eventJsonObject.getJSONArray("priceRanges").getJSONObject(0).getDouble("min");
-                    double maxPrice = eventJsonObject.getJSONArray("priceRanges").getJSONObject(0).getDouble("max");
-                    String ticketMasterUrl = eventJsonObject.getString("url");
-                    String imageUrl = eventJsonObject.getJSONArray("images").getJSONObject(0).getString("url");
-
-                    Event e = new Event(eventName, startDate, minPrice, maxPrice, ticketMasterUrl, imageUrl);
-
-                    list.add(e);
-
-                }
-
-
-            } catch (Exception e) {
-
-            }
-
-            return "Done";
-        }
-
-        //Type3
-        public void onPostExecute(String fromDoInBackground) {
-
-            progressBar.setVisibility(View.GONE);
-            eventsAdaptor.notifyDataSetChanged();
-
-            if (list.isEmpty()) {
-                Snackbar.make(eventListView, R.string.no_events_found, Snackbar.LENGTH_SHORT).show();
-            } else {
-                Snackbar.make(eventListView, R.string.events_loaded, Snackbar.LENGTH_SHORT).show();
-            }
-
-
-        }
     }
 
     /**

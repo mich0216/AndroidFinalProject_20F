@@ -31,6 +31,9 @@ public class EventSearchActivity extends AppCompatActivity {
      */
     private SharedPreferences prefs = null;
 
+
+    private Button savedEventButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,7 @@ public class EventSearchActivity extends AppCompatActivity {
 
         cityNameEditText = findViewById(R.id.cityNameEditText);
         searchEventButton = findViewById(R.id.searchEventButton);
+        savedEventButton = findViewById(R.id.savedEventButton);
 
         // initializing prefs in TicketmasterSP file
         prefs = getSharedPreferences("TicketmasterSP", Context.MODE_PRIVATE);
@@ -62,11 +66,18 @@ public class EventSearchActivity extends AppCompatActivity {
             startActivity(i);
 
         });
+        savedEventButton.setOnClickListener(v -> {
+
+            Intent i = new Intent(EventSearchActivity.this, EventDatabaseListActivity.class);
+            startActivity(i);
+
+        });
 
     }
 
     /**
      * saveSharePrefs method saving the city name.
+     *
      * @param stringToSave store the city name
      */
     private void saveSharedPrefs(String stringToSave) {

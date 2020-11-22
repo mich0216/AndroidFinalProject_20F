@@ -32,4 +32,12 @@
         android:layout_marginTop="16dp"
         android:text="@string/search" />
 
+    <Button
+        android:id="@+id/savedEventButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="@string/show_saved_events" />
+
 </LinearLayout>
