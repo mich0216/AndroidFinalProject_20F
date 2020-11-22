@@ -41,7 +41,7 @@ public class RecipeListActivity extends AppCompatActivity {
     /**
      * TO display loading progress bar
      */
-    private Bar ProgressContainer;
+    private LinearLayout progressContainer;
     /**
      * List of the recipes object
      */
@@ -188,7 +188,7 @@ public class RecipeListActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            progressContainer.setVisibility(View.INVISIBLE);
+          //  progressContainer.setVisibility(View.INVISIBLE);
             myListAdapter.notifyDataSetChanged();
 
             if (elements.isEmpty()) {
