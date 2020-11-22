@@ -93,6 +93,9 @@ public class EventListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Asynctask using url for searching the events and adding into the list
+     */
     private class MyHTTPRequest extends AsyncTask<String, Integer, String> {
         //Type3                Type1
         public String doInBackground(String... args) {
@@ -169,6 +172,9 @@ public class EventListActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Adaptor to handle events in the listview
+     */
     private class EventsAdaptor extends BaseAdapter {
 
         @Override
