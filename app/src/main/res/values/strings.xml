@@ -36,4 +36,13 @@
     <string name="rs_please_enter_recipe_name">Please enter recipe name</string>
     <string name="rs_welcome_recipe_search_by_ahmed">Hello!!\nWelcome to the Recipe Search by Ahmed.</string>
 
+    <string name="rs_ingredients">Ingredients: </string>
+    <string name="rs_details">Details</string>
+    <string name="rs_no_recipy">No recipies found!</string>
+    <string name="rs_loading">Loading…</string>
+    <string name="rs_recipe_search">Recipe Search</string>
+    <string name="rs_enter_recipe_name">Enter recipe name</string>
+    <string name="rs_enter_ingredients_separated_by_comma">Enter ingredients separated by comma</string>
+    <string name="rs_search">Search</string>
+
 </resources>

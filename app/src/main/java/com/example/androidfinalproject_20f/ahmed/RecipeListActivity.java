@@ -51,6 +51,11 @@ public class RecipeListActivity extends AppCompatActivity {
      */
     private MyListAdapter myListAdapter;
 
+    /**
+     *
+     */
+    private ProgressBar progressbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,7 @@ public class RecipeListActivity extends AppCompatActivity {
 
         recipeListView = findViewById(R.id.recipeListView);
         progressContainer = findViewById(R.id.progressContainer);
+        progressbar = findViewById(R.id.progressbar);
 
         myListAdapter = new MyListAdapter();
         recipeListView.setAdapter(myListAdapter);
@@ -74,8 +80,8 @@ public class RecipeListActivity extends AppCompatActivity {
             Recipe r = elements.get(position);
             new AlertDialog.Builder(RecipeListActivity.this)
                     .setTitle(r.getTitle())
-                    .setMessage("Ingredients: " + r.getIngredients())
-                    .setPositiveButton("Details", (dialog, which) -> {
+                    .setMessage(getString(R.string.rs_ingredients) + r.getIngredients())
+                    .setPositiveButton(R.string.rs_details, (dialog, which) -> {
                         // Reference: StackOverflow - https://stackoverflow.com/questions/3004515/sending-an-intent-to-browser-to-open-specific-url
                         String url = r.getRecipeUrl();
                         Intent i = new Intent(Intent.ACTION_VIEW);
@@ -126,6 +132,9 @@ public class RecipeListActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * retriving receipe from url
+     */
     class RecipeQuery extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -174,6 +183,9 @@ public class RecipeListActivity extends AppCompatActivity {
                     Recipe r = new Recipe(title, recipeUrl, ingredients, imageUrl);
                     elements.add(r);
 
+                    int p = ((i + 1) * 100) / recipeJsonArray.length();
+                    publishProgress(p);
+
                 }
 
 
@@ -185,14 +197,20 @@ public class RecipeListActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            progressbar.setProgress(values[0]);
+        }
+
+        @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-          //  progressContainer.setVisibility(View.INVISIBLE);
+            progressContainer.setVisibility(View.INVISIBLE);
             myListAdapter.notifyDataSetChanged();
 
             if (elements.isEmpty()) {
-                Toast.makeText(RecipeListActivity.this, "No recipies found!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecipeListActivity.this, R.string.rs_no_recipy, Toast.LENGTH_SHORT).show();
             }
         }
     }

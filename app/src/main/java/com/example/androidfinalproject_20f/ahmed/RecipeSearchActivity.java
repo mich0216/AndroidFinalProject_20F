@@ -1,6 +1,8 @@
 package com.example.androidfinalproject_20f.ahmed;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +30,11 @@ public class RecipeSearchActivity extends AppCompatActivity {
      */
     private Button searchButton;
 
+    /**
+     * creating SharedPreennes var
+     */
+    private SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +59,21 @@ public class RecipeSearchActivity extends AppCompatActivity {
             i.putExtra("R_NAME", recipeName);
             i.putExtra("INGREDIENTS", ingredients);
             startActivity(i);
+
+            // Saving the SP
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("R_NAME", recipeName);
+            editor.putString("INGREDIENTS",  ingredients);
+            editor.commit();
         });
 
         Snackbar.make(findViewById(R.id.mainLayout), R.string.rs_welcome_recipe_search_by_ahmed, Snackbar.LENGTH_LONG).show();
+
+        prefs = getSharedPreferences("RecipeSearchSharedPreference", Context.MODE_PRIVATE);
+
+        // Calling SP
+        recipeNameEditText.setText(prefs.getString("R_NAME", ""));
+        ingredientsEditText.setText(prefs.getString("INGREDIENTS", ""));
 
     }
 }

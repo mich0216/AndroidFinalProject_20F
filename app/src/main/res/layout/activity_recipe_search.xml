@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="16dp"
-        android:text="Recipe Search"
+        android:text="@string/rs_recipe_search"
         android:textSize="34sp"
         android:textStyle="bold" />
 
@@ -22,14 +22,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Enter recipe name"
+        android:hint="@string/rs_enter_recipe_name"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/ingredientsEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter ingredients separated by comma"
+        android:hint="@string/rs_enter_ingredients_separated_by_comma"
         android:inputType="text" />
 
     <Button
@@ -38,6 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:text="Search" />
+        android:text="@string/rs_search" />
 
 </LinearLayout>

@@ -18,7 +18,7 @@
     <string name="enter_artist_name_here" translatable="false">" Entrez le nom de l'artiste ici"</string>
     <string name="search_albums" translatable="false">" Rechercher des albums"</string>
 
-  
+
     <string name="wantdelete">Voulez-vous supprimer la ligne?</string>
     <string name="selectedrow">La ligne sélectionnée est</string>
     <string name="thedatabaseid">" L'ID de la base de données est"</string>
@@ -35,5 +35,14 @@
     <string name="rs_welcome_recipe_search_by_ahmed"> Bonjour !! \ nBienvenue dans la recherche de recettes par Ahmed. </string>
     <string name="covidToastMessage">Fill the fields to Search</string>
     <string name="covidSnackBarMsg">Select and Hold on Row for More Details</string>
+
+    <string name="rs_ingredients"> Ingrédients: </string>
+    <string name="rs_details"> Détails </string>
+    <string name="rs_no_recipy"> Aucune recette trouvée! </string>
+    <string name="rs_loading"> Chargement en cours… </string>
+    <string name="rs_recipe_search"> Recherche de recettes </string>
+    <string name="rs_enter_recipe_name"> Entrez le nom de la recette </string>
+    <string name="rs_enter_ingredients_separated_by_comma"> Entrez les ingrédients séparés par une virgule </string>
+    <string name="rs_search"> Recherche </string>
 
 </resources>
