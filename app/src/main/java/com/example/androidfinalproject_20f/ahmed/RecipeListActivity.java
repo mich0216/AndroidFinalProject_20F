@@ -51,7 +51,9 @@ public class RecipeListActivity extends AppCompatActivity {
      */
     private MyListAdapter myListAdapter;
 
-
+    /**
+     *
+     */
     private ProgressBar progressbar;
 
     @Override
@@ -78,8 +80,8 @@ public class RecipeListActivity extends AppCompatActivity {
             Recipe r = elements.get(position);
             new AlertDialog.Builder(RecipeListActivity.this)
                     .setTitle(r.getTitle())
-                    .setMessage("Ingredients: " + r.getIngredients())
-                    .setPositiveButton("Details", (dialog, which) -> {
+                    .setMessage(getString(R.string.rs_ingredients) + r.getIngredients())
+                    .setPositiveButton(R.string.rs_details, (dialog, which) -> {
                         // Reference: StackOverflow - https://stackoverflow.com/questions/3004515/sending-an-intent-to-browser-to-open-specific-url
                         String url = r.getRecipeUrl();
                         Intent i = new Intent(Intent.ACTION_VIEW);
@@ -130,6 +132,9 @@ public class RecipeListActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * retriving receipe from url
+     */
     class RecipeQuery extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -205,7 +210,7 @@ public class RecipeListActivity extends AppCompatActivity {
             myListAdapter.notifyDataSetChanged();
 
             if (elements.isEmpty()) {
-                Toast.makeText(RecipeListActivity.this, "No recipies found!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecipeListActivity.this, R.string.rs_no_recipy, Toast.LENGTH_SHORT).show();
             }
         }
     }
