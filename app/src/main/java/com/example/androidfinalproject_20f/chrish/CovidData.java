@@ -1,4 +1,4 @@
-package com.example.androidfinalproject_20f;
+package com.example.androidfinalproject_20f.chrish;
 
 import androidx.appcompat.app.AppCompatActivity;
 

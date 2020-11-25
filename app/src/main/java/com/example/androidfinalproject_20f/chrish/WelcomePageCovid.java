@@ -1,14 +1,21 @@
-package com.example.androidfinalproject_20f;
+package com.example.androidfinalproject_20f.chrish;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.androidfinalproject_20f.R;
 
 /**
  *
@@ -27,6 +34,19 @@ public class WelcomePageCovid extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // setContentView loads objects onto the screen before the screen is empty.
         setContentView(R.layout.activity_welcome_page_covid);
+
+        // this gets the toolbar from the layout
+        Toolbar tBar = (Toolbar) findViewById(R.id.covidToolbar);
+
+        //This loads the toolbar, which calls onCreateOptionMev
+        setSupportActionBar(tBar);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawer, tBar, R.string.covidOpen, R.string.covidClose);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
 
         country =findViewById(R.id.countryName);
         startDate =findViewById(R.id.enterStartDate);
@@ -55,12 +75,25 @@ public class WelcomePageCovid extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.covidmenu, menu);
+        //    MenuInflater inflater2 = getMenuInflater();
+        // inflater.inflate(R.menu.nagvigationmenu, menu);
+        return true;
+    }
+
+
     /**
      *
      * @param countryToSave this is the country name user enters
      * @param startDateToSave this is the start date user the provides/enter
      * @param endDateToSave  this is the end date the user provides/enter
      */
+
+
     private void saveSharedPrefs(String countryToSave, String startDateToSave, String endDateToSave) {
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("Country", countryToSave);

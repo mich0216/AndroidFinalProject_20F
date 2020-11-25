@@ -1,6 +1,9 @@
-package com.example.androidfinalproject_20f;
+package com.example.androidfinalproject_20f.chrish;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,6 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,9 +20,9 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.example.androidfinalproject_20f.R;
 
-import javax.xml.transform.Result;
+import java.util.ArrayList;
 
 /**
  * @author  Chrishanthi Michael
@@ -33,6 +38,18 @@ public class ViewHistory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_history);
 
+        // this gets the toolbar from the layout
+        Toolbar tBar = (Toolbar) findViewById(R.id.covidToolbar);
+
+        //This loads the toolbar, which calls onCreateOptionMev
+        setSupportActionBar(tBar);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawer, tBar, R.string.covidOpen, R.string.covidClose);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
         ListView myList = findViewById(R.id.searchListView);
         myList.setAdapter(covidDateListAdaptor = new CovidDateListAdaptor());
         this.loadDataFromDatabase();
@@ -47,7 +64,15 @@ public class ViewHistory extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.covidmenu, menu);
+        //    MenuInflater inflater2 = getMenuInflater();
+        // inflater.inflate(R.menu.nagvigationmenu, menu);
+        return true;
+    }
     private void loadDataFromDatabase()
     {
         //get a database connection:
