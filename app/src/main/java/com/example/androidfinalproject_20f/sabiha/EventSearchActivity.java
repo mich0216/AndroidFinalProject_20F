@@ -2,7 +2,9 @@ package com.example.androidfinalproject_20f.sabiha;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +16,20 @@ import com.example.androidfinalproject_20f.R;
 
 public class EventSearchActivity extends AppCompatActivity {
 
+    /**
+     * city name declaration
+     */
     private EditText cityNameEditText;
+
+    /**
+     * searchEventButton declaration
+     */
     private Button searchEventButton;
+
+    /**
+     * saving city name
+     */
+    private SharedPreferences prefs = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +38,11 @@ public class EventSearchActivity extends AppCompatActivity {
 
         cityNameEditText = findViewById(R.id.cityNameEditText);
         searchEventButton = findViewById(R.id.searchEventButton);
+
+        // initializing prefs in TicketmasterSP file
+        prefs = getSharedPreferences("TicketmasterSP", Context.MODE_PRIVATE);
+        String savedString = prefs.getString("CityName", "");
+        cityNameEditText.setText(savedString);
 
 
         searchEventButton.setOnClickListener(v -> {
@@ -36,6 +55,8 @@ public class EventSearchActivity extends AppCompatActivity {
                 return;
             }
 
+            saveSharedPrefs(cityName);
+
             Intent i = new Intent(EventSearchActivity.this, EventListActivity.class);
             i.putExtra("CITY_NAME", cityName);
             startActivity(i);
@@ -43,4 +64,15 @@ public class EventSearchActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * saveSharePrefs method saving the city name.
+     * @param stringToSave store the city name
+     */
+    private void saveSharedPrefs(String stringToSave) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("CityName", stringToSave);
+        editor.commit();
+    }
+
 }
