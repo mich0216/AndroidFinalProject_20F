@@ -35,5 +35,10 @@
     <string name="rs_welcome_recipe_search_by_ahmed"> Bonjour !! \ nBienvenue dans la recherche de recettes par Ahmed. </string>
     <string name="covidToastMessage">Fill the fields to Search</string>
     <string name="covidSnackBarMsg">Select and Hold on Row for More Details</string>
+    <string name="covidOpen">Ouverte</string>
+    <string name="covidClose">" Proche"</string>
+    <string name="covidTitle">" Données du cas Covid-19"</string>
+    <string name="covidAuthor">Chrishanthi Michael</string>
+    <string name="covidVersionNum">" Version 1"</string>
 
 </resources>
