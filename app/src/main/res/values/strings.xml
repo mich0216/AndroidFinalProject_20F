@@ -35,6 +35,19 @@
 
     <string name="rs_please_enter_recipe_name">Please enter recipe name</string>
     <string name="rs_welcome_recipe_search_by_ahmed">Hello!!\nWelcome to the Recipe Search by Ahmed.</string>
+    <string name="covidOpen">Open</string>
+    <string name="covidClose">Close</string>
+    <string name="covidTitle">Covid-19 case Data</string>
+    <string name="covidAuthor">Chrishanthi Michael</string>
+    <string name="covidVersionNum">Version 1</string>
+    <string name="covidWelcome">Welcome to Covid-19 case Data</string>
+    <string name="covidCountry">Country:</string>
+    <string name="enterCovidCountry">Enter the Country Name</string>
+    <string name="Cfrom">From:</string>
+    <string name="cto">To:</string>
+    <string name="Csearch">SEARCH</string>
+    <string name="covidHistoryView">View Search History</string>
+    <string name="covidResults">List of search results:</string>
 
     <string name="rs_ingredients">Ingredients: </string>
     <string name="rs_details">Details</string>

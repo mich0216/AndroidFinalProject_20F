@@ -35,6 +35,19 @@
     <string name="rs_welcome_recipe_search_by_ahmed"> Bonjour !! \ nBienvenue dans la recherche de recettes par Ahmed. </string>
     <string name="covidToastMessage">Fill the fields to Search</string>
     <string name="covidSnackBarMsg">Select and Hold on Row for More Details</string>
+    <string name="covidOpen">Ouverte</string>
+    <string name="covidClose">" Proche"</string>
+    <string name="covidTitle">" Données du cas Covid-19"</string>
+    <string name="covidAuthor">Chrishanthi Michael</string>
+    <string name="covidVersionNum">" Version 1"</string>
+    <string name="covidWelcome">Bienvenue dans les données de cas Covid-19</string>
+    <string name="covidCountry">Pays:</string>
+    <string name="enterCovidCountry">Enter the Country Name</string>
+    <string name="Cfrom">De:</string>
+    <string name="cto">À:</string>
+    <string name="Csearch">CHERCHER</string>
+    <string name="covidHistoryView">Afficher l\'historique de recherche</string>
+    <string name="covidResults">Liste des résultats de la recherche:</string>
 
     <string name="rs_ingredients"> Ingrédients: </string>
     <string name="rs_details"> Détails </string>
