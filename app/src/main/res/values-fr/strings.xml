@@ -58,4 +58,15 @@
     <string name="rs_enter_ingredients_separated_by_comma"> Entrez les ingrédients séparés par une virgule </string>
     <string name="rs_search"> Recherche </string>
 
+    <string name="as_album_details"> Détails de l\'album </string>
+    <string name="as_id"> ID: </string>
+    <string name="as_position"> Position: "</string>
+    <string name="as_title"> Titre de l\'album: </string>
+    <string name="as_year"> Année de l\'album: </string>
+    <string name="as_description"> Description de l\'album: </string>
+    <string name="as_genre"> Genre de l\'album: </string>
+    <string name="as_sale"> Vente d\'albums: </string>
+    <string name="as_snackbar_message"> Affichage des albums de l\'artiste: </string>
+    <string name="as_please_enter_album_name"> Veuillez saisir le nom de l\'artiste </string>
+
 </resources>
