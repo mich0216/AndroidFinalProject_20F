@@ -40,6 +40,14 @@
     <string name="covidTitle">" Données du cas Covid-19"</string>
     <string name="covidAuthor">Chrishanthi Michael</string>
     <string name="covidVersionNum">" Version 1"</string>
+    <string name="covidWelcome">Bienvenue dans les données de cas Covid-19</string>
+    <string name="covidCountry">Pays:</string>
+    <string name="enterCovidCountry">Enter the Country Name</string>
+    <string name="Cfrom">De:</string>
+    <string name="cto">À:</string>
+    <string name="Csearch">CHERCHER</string>
+    <string name="covidHistoryView">Afficher l\'historique de recherche</string>
+    <string name="covidResults">Liste des résultats de la recherche:</string>
 
     <string name="rs_ingredients"> Ingrédients: </string>
     <string name="rs_details"> Détails </string>

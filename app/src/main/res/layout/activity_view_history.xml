@@ -31,7 +31,7 @@
         android:textSize="20dp"
         android:paddingTop="10dp"
         android:paddingLeft="15dp"
-        android:text=" List of search results:" />
+        android:text="@string/covidResults" />
 
 
     <ListView
