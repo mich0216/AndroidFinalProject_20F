@@ -56,6 +56,8 @@ public class RecipeListActivity extends AppCompatActivity {
      */
     private ProgressBar progressbar;
 
+    private boolean isTablet = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +93,40 @@ public class RecipeListActivity extends AppCompatActivity {
                     .show();
 
             return false;
+        });
+
+        View fragmentLoadingSpace = findViewById(R.id.fragmentLoadingSpace);
+        if (fragmentLoadingSpace == null) {
+            isTablet = false;
+        } else {
+            isTablet = true;
+        }
+
+        recipeListView.setOnItemClickListener((parent, view, position, id) -> {
+
+            Recipe m = elements.get(position);
+
+            //Create a bundle to pass data to the new fragment
+            Bundle dataToPass = new Bundle();
+            dataToPass.putLong("Recipe_ID", m.getId());
+            dataToPass.putString("TITLE", m.getTitle());
+            dataToPass.putString("RECIPEURL", m.getRecipeUrl());
+            dataToPass.putString("INGREDIENTS", m.getIngredients());
+            dataToPass.putString("IMAGEURL", m.getImageUrl());
+
+            if (isTablet) {
+                RecipeDetailsFragment dFragment = new RecipeDetailsFragment(); //add a DetailFragment
+                dFragment.setArguments(dataToPass); //pass it a bundle for information
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentLoadingSpace, dFragment) //Add the fragment in FrameLayout
+                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
+            } else {
+                Intent i = new Intent(RecipeListActivity.this, RecipeEmptyActivity.class);
+                i.putExtras(dataToPass);
+                startActivity(i);
+            }
+
         });
 
     }
