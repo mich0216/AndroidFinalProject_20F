@@ -4,9 +4,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -15,12 +12,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.androidfinalproject_20f.R;
 
 import java.util.ArrayList;
 
-public class CovidResultByDate extends Fragment {
+public class CovidResultByDateFragment extends Fragment {
     SQLiteDatabase db;
     ArrayList<CovidData> dateList = new ArrayList<>();
     CovidDataAdaptor covidDataAdaptor;
@@ -34,16 +32,16 @@ public class CovidResultByDate extends Fragment {
         View result =  inflater.inflate(R.layout.fragment_covid_result_by_date, container, false);
 
         // this gets the toolbar from the layout
-        Toolbar tBar = (Toolbar) result.findViewById(R.id.covidToolbar);
-
+        //Toolbar tBar = (Toolbar) result.findViewById(R.id.covidToolbar);
+       // getActivity().setActionBar(tBar);
         //This loads the toolbar, which calls onCreateOptionMev
         //setSupportActionBar(tBar);
 
-//        DrawerLayout drawer = result.findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
-//                drawer, tBar, R.string.covidOpen, R.string.covidClose);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
+      // DrawerLayout drawer = result.findViewById(R.id.drawer_layout);
+       //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+       //drawer, tBar, R.string.covidOpen, R.string.covidClose);
+       //drawer.addDrawerListener(toggle);
+       //toggle.syncState();
 
 
         resultByDate = getArguments().getString("DATE");

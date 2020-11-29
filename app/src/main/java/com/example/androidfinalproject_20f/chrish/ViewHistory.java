@@ -33,7 +33,7 @@ public class ViewHistory extends AppCompatActivity {
     SQLiteDatabase db;
     ArrayList<String> dateList = new ArrayList<>();
     CovidDateListAdaptor covidDateListAdaptor;
-    CovidResultByDate dFragment;
+    CovidResultByDateFragment dFragment;
     public static final String DATE = "DATE";
 
     @Override
@@ -71,7 +71,7 @@ public class ViewHistory extends AppCompatActivity {
 
                 if(isTablet){
                     //dFragment = new CovidDetailsFragment();
-                    dFragment = new CovidResultByDate();
+                    dFragment = new CovidResultByDateFragment();
                     dFragment.setArguments(dataToPass);
                     getSupportFragmentManager()
                             .beginTransaction()

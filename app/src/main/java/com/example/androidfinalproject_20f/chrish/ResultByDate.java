@@ -14,7 +14,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.androidfinalproject_20f.R;
@@ -32,14 +31,28 @@ public class ResultByDate extends AppCompatActivity {
     CovidDataAdaptor covidDataAdaptor;
     String resultByDate;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_covid_details);
 
-      Bundle data = getIntent().getExtras();
-      CovidResultByDate covidResultByDate = new CovidResultByDate();
+        Toolbar tBar = (Toolbar) findViewById(R.id.covidToolbar);
+
+        //This loads the toolbar, which calls onCreateOptionMev
+        setSupportActionBar(tBar);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawer, tBar, R.string.covidOpen, R.string.covidClose);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+
+        Bundle data = getIntent().getExtras();
+      CovidResultByDateFragment covidResultByDate = new CovidResultByDateFragment();
       covidResultByDate.setArguments(data);
       getSupportFragmentManager().beginTransaction().replace(R.id.fragmentLocation, covidResultByDate).commit();
+
     }
 
     @Override
@@ -47,8 +60,6 @@ public class ResultByDate extends AppCompatActivity {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.covidmenu, menu);
-        //    MenuInflater inflater2 = getMenuInflater();
-        // inflater.inflate(R.menu.nagvigationmenu, menu);
         return true;
     }
 
