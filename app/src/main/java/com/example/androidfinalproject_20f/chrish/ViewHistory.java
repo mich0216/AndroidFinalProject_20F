@@ -33,8 +33,9 @@ public class ViewHistory extends AppCompatActivity {
     SQLiteDatabase db;
     ArrayList<String> dateList = new ArrayList<>();
     CovidDateListAdaptor covidDateListAdaptor;
-    CovidDetailsFragment dFragment;
+    CovidResultByDate dFragment;
     public static final String DATE = "DATE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class ViewHistory extends AppCompatActivity {
         this.loadDataFromDatabase();
 
 
-        Intent resultByDate = new Intent(this, ResultByDate.class);
+    Intent resultByDate = new Intent(this, ResultByDate.class);
          myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -67,8 +68,10 @@ public class ViewHistory extends AppCompatActivity {
                                     long id) {
                 Bundle dataToPass = new Bundle();
                 dataToPass.putString(DATE, dateList.get(position));
+
                 if(isTablet){
-                    dFragment = new CovidDetailsFragment();
+                    //dFragment = new CovidDetailsFragment();
+                    dFragment = new CovidResultByDate();
                     dFragment.setArguments(dataToPass);
                     getSupportFragmentManager()
                             .beginTransaction()
@@ -77,11 +80,12 @@ public class ViewHistory extends AppCompatActivity {
 
                 }
                 else {
-                    resultByDate.putExtra("date", dateList.get(position));
+                    resultByDate.putExtra("DATE", dateList.get(position));
                     startActivity(resultByDate);
                 }
             }
         });
+
     }
 
     @Override

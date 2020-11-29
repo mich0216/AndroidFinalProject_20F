@@ -32,12 +32,21 @@ public class CovidDetailsFragment extends Fragment {
 
         dataFromActivity = getArguments();
         resultByDate = dataFromActivity.getString(ViewHistory.DATE);
+
         View result =  inflater.inflate(R.layout.datalayout, container, false);
+        
         TextView province = result.findViewById(R.id.provinceName);
         TextView caseNumber = result.findViewById(R.id.caseNumber);
         province.setText(resultByDate);
         caseNumber.setText("1000");
         return result;
+       /* View result =  inflater.inflate(R.layout.fragment_covid_details, container, false);
+
+        TextView title = (TextView)result.findViewById(R.id.title);
+        ListView caseNumber = result.findViewById(R.id.searchListView);
+        caseNumber.(dataFromActivity.getString(ViewHistory.DATE));
+
+        return result;*/
     }
 
     @Override
