@@ -1,7 +1,8 @@
 package com.example.androidfinalproject_20f.audiosearch;
 
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,16 +22,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.androidfinalproject_20f.R;
 import com.google.android.material.snackbar.Snackbar;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -38,7 +29,7 @@ import java.util.ArrayList;
  * CST 2335 -020
  * The main class for the AlbumListActivity
  */
-public class AlbumListActivity extends AppCompatActivity {
+public class SavedAlbumListActivity extends AppCompatActivity {
 
     /**
      * the albumListView
@@ -58,7 +49,6 @@ public class AlbumListActivity extends AppCompatActivity {
      * the progressbar object
      */
     private ProgressBar progress;
-    private String artistName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +61,9 @@ public class AlbumListActivity extends AppCompatActivity {
         //This loads the toolbar, which calls onCreateOptionsMenu below:
         setSupportActionBar(tBar);
 
-        artistName = getIntent().getStringExtra("ARTIST_NAME");
-
         albumListView = findViewById(R.id.albumListView);
         progress = findViewById(R.id.progress);
+        progress.setVisibility(View.INVISIBLE);
 
         myAdapter = new AlbumAdaptor();
         albumListView.setAdapter(myAdapter);
@@ -83,7 +72,7 @@ public class AlbumListActivity extends AppCompatActivity {
 
             Album alb = list.get(position);
 
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AlbumListActivity.this);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SavedAlbumListActivity.this);
             alertDialogBuilder.setTitle(R.string.as_album_details)
 
                     .setMessage(
@@ -104,13 +93,8 @@ public class AlbumListActivity extends AppCompatActivity {
 
         });
 
-        ArtistAlbumQuery request = new ArtistAlbumQuery(); //creates a background thread
+        // load albums from database
 
-        try {
-            request.execute("https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s=" + URLEncoder.encode(artistName, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
 
         boolean isTablet = findViewById(R.id.fragmentLocation) != null;
 
@@ -137,7 +121,7 @@ public class AlbumListActivity extends AppCompatActivity {
                         .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
                         .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
             } else {
-                Intent nextActivity = new Intent(AlbumListActivity.this, EmptyActivity.class);
+                Intent nextActivity = new Intent(SavedAlbumListActivity.this, EmptyActivity.class);
                 nextActivity.putExtras(dataToPass); //send data to next activity
                 startActivity(nextActivity); //make the transition
             }
@@ -146,66 +130,53 @@ public class AlbumListActivity extends AppCompatActivity {
 
     }
 
-    private class ArtistAlbumQuery extends AsyncTask<String, Integer, String> {
-
-        protected String doInBackground(String... args) {
-            try {
-
-                // process JSON for UV code
-                URL UVURL = new URL(args[0]);
-                //open the connection
-                HttpURLConnection uvUrlConnection = (HttpURLConnection) UVURL.openConnection();
-                //wait for data:
-                InputStream uvResponse = uvUrlConnection.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(uvResponse, "UTF-8"), 8);
-
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                String result = sb.toString();
-
-                JSONObject jsonObject = new JSONObject(result);
-
-                JSONArray albumJsonArray = jsonObject.getJSONArray("album");
-
-                for (int i = 0; i < albumJsonArray.length(); i++) {
-
-                    JSONObject albumJsonObject = albumJsonArray.getJSONObject(i);
-
-                    Album a = new Album(
-                            albumJsonObject.has("idAlbum") ? albumJsonObject.getLong("idAlbum") : 0,
-                            albumJsonObject.has("strAlbum") ? albumJsonObject.getString("strAlbum") : "",
-                            albumJsonObject.has("intYearReleased") ? albumJsonObject.getString("intYearReleased") : "",
-                            albumJsonObject.has("strDescriptionEN") ? albumJsonObject.getString("strDescriptionEN") : "",
-                            albumJsonObject.has("strGenre") ? albumJsonObject.getString("strGenre") : "",
-                            albumJsonObject.has("intSales") ? albumJsonObject.getString("intSales") : ""
-                    );
-                    list.add(a);
-
-                }
+    private void loadDataFromDatabase() {
+        //get a database connection:
+        MyOpener dbOpener = new MyOpener(this);
+        SQLiteDatabase db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
 
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        // We want to get all of the columns. Look at MyOpener.java for the definitions:
+        String[] columns = {MyOpener.COL_ID, MyOpener.COL_TITLE, MyOpener.COL_ALBUMIDFROMINTERNET, MyOpener.COL_YEAR, MyOpener.COL_DESCRIPTION, MyOpener.COL_GENRE, MyOpener.COL_SALE};
+        //query all the results from the database:
+        Cursor results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
 
-            return "Done";
+        //Now the results object has rows of results that match the query.
+        //find the column indices:
+
+        int idColIndex = results.getColumnIndex(MyOpener.COL_ID);
+        int albumIDFromInternetIndex = results.getColumnIndex(MyOpener.COL_ALBUMIDFROMINTERNET);
+        int titleIndex = results.getColumnIndex(MyOpener.COL_TITLE);
+        int yearIndex = results.getColumnIndex(MyOpener.COL_YEAR);
+        int descriptionIndex = results.getColumnIndex(MyOpener.COL_DESCRIPTION);
+        int genreIndex = results.getColumnIndex(MyOpener.COL_GENRE);
+        int saleIndex = results.getColumnIndex(MyOpener.COL_SALE);
+        //iterate over the results, return true if there is a next item:
+        list.clear();
+        while (results.moveToNext()) {
+            long id = results.getLong(idColIndex);
+            long albumIDFromInternet = results.getLong(albumIDFromInternetIndex);
+            String title = results.getString(titleIndex);
+            String year = results.getString(yearIndex);
+            String description = results.getString(descriptionIndex);
+            String genre = results.getString(genreIndex);
+            String sale = results.getString(saleIndex);
+
+            Album alb = new Album(id, albumIDFromInternet, title, year, description, genre, sale);
+
+            list.add(alb);
         }
 
-        public void onProgressUpdate(Integer... args) {
-            progress.setProgress(args[0]);
+        if (list.isEmpty()) {
+            Snackbar.make(albumListView, getString(R.string.no_albums_in_db), Snackbar.LENGTH_LONG).show();
         }
+    }
 
-        public void onPostExecute(String fromDoInBackground) {
-            myAdapter.notifyDataSetChanged();
-            progress.setVisibility(View.INVISIBLE);
-
-            Snackbar.make(albumListView, getString(R.string.as_snackbar_message) + artistName, Snackbar.LENGTH_LONG).show();
-
-
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadDataFromDatabase();
+        myAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -255,7 +226,7 @@ public class AlbumListActivity extends AppCompatActivity {
             //what to do when the menu item is selected:
             case R.id.instructionsMenuItem:
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AlbumListActivity.this);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SavedAlbumListActivity.this);
                 alertDialogBuilder.setTitle(R.string.instructions)
                         .setMessage(R.string.instruction_description)
                         .setPositiveButton(R.string.ok, null)

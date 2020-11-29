@@ -16,6 +16,7 @@ public class Album {
     /**
      * title of the album
      */
+    private long albumIDFromInternet;
     private String title;
     private String year;
     private String description;
@@ -27,7 +28,18 @@ public class Album {
      *
      * @parm title the album title
      */
-    public Album(String title, String year, String description, String genre, String sale) {
+    public Album(long albumIDFromInternet, String title, String year, String description, String genre, String sale) {
+        this.albumIDFromInternet = albumIDFromInternet;
+        this.title = title;
+        this.year = year;
+        this.description = description;
+        this.genre = genre;
+        this.sale = sale;
+    }
+
+    public Album(long id, long albumIDFromInternet, String title, String year, String description, String genre, String sale) {
+        this.id = id;
+        this.albumIDFromInternet = albumIDFromInternet;
         this.title = title;
         this.year = year;
         this.description = description;
@@ -51,6 +63,14 @@ public class Album {
      */
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getAlbumIDFromInternet() {
+        return albumIDFromInternet;
+    }
+
+    public void setAlbumIDFromInternet(long albumIDFromInternet) {
+        this.albumIDFromInternet = albumIDFromInternet;
     }
 
     /**
