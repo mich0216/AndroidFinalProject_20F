@@ -68,5 +68,7 @@
     <string name="as_sale">Album Sale: </string>
     <string name="as_snackbar_message">"Showing the albums for artist: "</string>
     <string name="as_please_enter_album_name">Please enter the artist name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

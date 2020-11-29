@@ -33,6 +33,8 @@ public class ViewHistory extends AppCompatActivity {
     SQLiteDatabase db;
     ArrayList<String> dateList = new ArrayList<>();
     CovidDateListAdaptor covidDateListAdaptor;
+    CovidDetailsFragment dFragment;
+    public static final String DATE = "DATE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,15 +53,33 @@ public class ViewHistory extends AppCompatActivity {
         toggle.syncState();
 
         ListView myList = findViewById(R.id.searchListView);
+        boolean isTablet = findViewById(R.id.fragmentLocation) != null; //check if the FrameLayout is loaded
+
         myList.setAdapter(covidDateListAdaptor = new CovidDateListAdaptor());
         this.loadDataFromDatabase();
+
+
         Intent resultByDate = new Intent(this, ResultByDate.class);
-        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                resultByDate.putExtra("date",dateList.get(position));
-                startActivity(resultByDate);
+                Bundle dataToPass = new Bundle();
+                dataToPass.putString(DATE, dateList.get(position));
+                if(isTablet){
+                    dFragment = new CovidDetailsFragment();
+                    dFragment.setArguments(dataToPass);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragmentLocation, dFragment)
+                            .commit();
+
+                }
+                else {
+                    resultByDate.putExtra("date", dateList.get(position));
+                    startActivity(resultByDate);
+                }
             }
         });
     }
