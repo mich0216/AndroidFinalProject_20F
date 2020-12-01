@@ -18,7 +18,7 @@
 
     <item android:id="@+id/covidSearch"
         android:title="Search "
-        android:icon="@drawable/coronasearch_icon"
+        android:icon="@drawable/covidsearch_icon"
         android:orderInCategory="300"
         app:showAsAction="never"/>
 

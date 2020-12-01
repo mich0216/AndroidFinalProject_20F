@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -120,6 +121,10 @@ public class CovidCasesData extends AppCompatActivity {
         Snackbar.make(myList,  getResources().getString(R.string.covidSnackBarMsg), Snackbar.LENGTH_LONG).show();
     }
 
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
@@ -129,12 +134,48 @@ public class CovidCasesData extends AppCompatActivity {
         // inflater.inflate(R.menu.nagvigationmenu, menu);
         return true;
     }
+
+
+
     /**
      * this method is responsible to setup the database opener and initalize the database
      * */
     public void setUpDatabaseOpener(){
         CovidDataOpener dbOpener = new CovidDataOpener(this);
         db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // String message = null;
+        //Look at your menu XML file. Put a case for every id in that file:
+        switch (item.getItemId()) {
+            //what to do when the menu item is selected:
+            case R.id.covidHistory:
+                Intent viewHistory = new Intent(this, ViewHistory.class);
+                startActivity(viewHistory);
+
+                break;
+            case R.id.mainhome:
+                Intent mainPage = new Intent(this, MainActivity.class);
+                startActivity(mainPage);
+                break;
+            case R.id.covidSearch:
+                Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                startActivity(covidSearch);
+                break;
+
+            case R.id.covidHelpIcone:
+                AlertDialog.Builder helpmenu =new AlertDialog.Builder(this);
+                helpmenu.setTitle(getResources().getString(R.string.covidInstruction))
+                        .setMessage(getResources().getString(R.string.cwInstuction))
+                        .setMessage(getResources().getString(R.string.C_caseData_instruction))
+                        .setNeutralButton("OK",(click, arg)->{})
+                        .create().show();
+                break;
+        }
+        return true;
 
     }
 
@@ -231,6 +272,7 @@ public class CovidCasesData extends AppCompatActivity {
         Log.e("Deleted Database Object", Long.toString(c.getDatabaseId()));
     }
 
+
     /**
      * The CovidDataAdaptor class extended from BaseAdapter
      * */
@@ -267,5 +309,7 @@ public class CovidCasesData extends AppCompatActivity {
         public long getItemId(int position) {
             return getItem(position).getDatabaseId();
         }
+
+
     }
 }

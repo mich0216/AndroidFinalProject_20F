@@ -1,16 +1,19 @@
 package com.example.androidfinalproject_20f.chrish;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -63,6 +66,8 @@ public class ResultByDate extends AppCompatActivity {
         return true;
     }
 
+
+
     // query the database for a given date
     private void queryDataFromDatabase(String resultByDate)
     {
@@ -106,6 +111,30 @@ public class ResultByDate extends AppCompatActivity {
 //        printCursor(results, db.getVersion());
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // String message = null;
+        //Look at your menu XML file. Put a case for every id in that file:
+        switch (item.getItemId()) {
+            //what to do when the menu item is selected:
+            case R.id.covidHistory:
+                Intent viewHistory = new Intent(this, ViewHistory.class);
+                startActivity(viewHistory);
+
+                break;
+            case R.id.mainhome:
+                Intent mainPage = new Intent(this, MainActivity.class);
+                startActivity(mainPage);
+                break;
+            case R.id.covidSearch:
+                Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                startActivity(covidSearch);
+                break;
+        }
+        return true;
+
+    }
+
     // The CovidDataAdaptor is extended from the BaseAdapter
     private class CovidDataAdaptor extends BaseAdapter {
 
@@ -136,5 +165,8 @@ public class ResultByDate extends AppCompatActivity {
         public long getItemId(int position) {
             return getItem(position).getDatabaseId();
         }
+
+
+
     }
 }

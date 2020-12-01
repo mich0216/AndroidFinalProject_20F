@@ -1,6 +1,7 @@
 package com.example.androidfinalproject_20f.chrish;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -97,6 +99,10 @@ public class ViewHistory extends AppCompatActivity {
         // inflater.inflate(R.menu.nagvigationmenu, menu);
         return true;
     }
+
+
+
+
     private void loadDataFromDatabase()
     {
         //get a database connection:
@@ -179,4 +185,36 @@ public class ViewHistory extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // String message = null;
+        //Look at your menu XML file. Put a case for every id in that file:
+        switch (item.getItemId()) {
+            //what to do when the menu item is selected:
+            case R.id.covidHistory:
+                Intent viewHistory = new Intent(this, ViewHistory.class);
+                startActivity(viewHistory);
+
+                break;
+            case R.id.mainhome:
+                Intent mainPage = new Intent(this, MainActivity.class);
+                startActivity(mainPage);
+                break;
+            case R.id.covidSearch:
+                Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                startActivity(covidSearch);
+                break;
+
+            case R.id.covidHelpIcone:
+                AlertDialog.Builder helpmenu =new AlertDialog.Builder(this);
+                helpmenu.setTitle(getResources().getString(R.string.covidInstruction))
+                        .setMessage(getResources().getString(R.string.cwInstuction))
+                        .setMessage(getResources().getString(R.string.CviewHis_instruction))
+                        .setNeutralButton("OK",(click, arg)->{})
+                        .create().show();
+                break;
+        }
+        return true;
+
+    }
 }
