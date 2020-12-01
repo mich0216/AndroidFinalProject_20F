@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.androidfinalproject_20f.R;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 /**
@@ -49,6 +51,33 @@ public class ResultByDate extends AppCompatActivity {
                 drawer, tBar, R.string.covidOpen, R.string.covidClose);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener (item -> {
+
+            switch (item.getItemId()) {
+                //what to do when the menu item is selected:
+                case R.id.covidHistory:
+                    Intent viewHistory = new Intent(this, ViewHistory.class);
+                    startActivity(viewHistory);
+                    break;
+
+                case R.id.mainhome:
+                    Intent mainPage = new Intent(this, MainActivity.class);
+                    startActivity(mainPage);
+                    break;
+
+                case R.id.covidSearch:
+                    Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                    startActivity(covidSearch);
+                    break;
+
+            }
+
+            DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        });
 
 
         Bundle data = getIntent().getExtras();

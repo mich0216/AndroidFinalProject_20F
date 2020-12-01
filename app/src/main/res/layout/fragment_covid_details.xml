@@ -36,7 +36,7 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/covidhdrawerheader"
-            app:menu="@menu/covidmenu"
+            app:menu="@menu/covidnavdrawermenu"
             android:id="@+id/nav_view"/>
         <!-- app:headerLayout="@layout/header_layout" -->
 
