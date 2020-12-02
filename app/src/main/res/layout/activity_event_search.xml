@@ -41,3 +41,4 @@
         android:text="@string/show_saved_events" />
 
 </LinearLayout>
+

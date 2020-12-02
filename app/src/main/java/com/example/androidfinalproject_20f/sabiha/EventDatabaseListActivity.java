@@ -9,12 +9,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.androidfinalproject_20f.R;
 import com.google.android.material.snackbar.Snackbar;
@@ -66,8 +70,9 @@ public class EventDatabaseListActivity extends AppCompatActivity {
         eventListView = findViewById(R.id.eventListView);
         progressBar = findViewById(R.id.progressBar);
 
-        eventsAdaptor = new EventsAdaptor();
-        eventListView.setAdapter(eventsAdaptor);
+
+                eventsAdaptor = new EventsAdaptor();
+                eventListView.setAdapter(eventsAdaptor);
 
         // Fetch from database
 
@@ -159,4 +164,6 @@ public class EventDatabaseListActivity extends AppCompatActivity {
         }
 
     }
+
+
 }

@@ -40,5 +40,7 @@
     <string name="save_event_to_database">Save Event to Database</string>
     <string name="hide_event_details">Hide Event Details</string>
     <string name="show_saved_events">Show saved events</string>
+    <string name="eventOpen">open</string>
+    <string name="eventClose">close</string>
 
 </resources>

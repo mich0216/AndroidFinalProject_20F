@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/eventsearch"
+        android:title="View history"
+        android:icon="@drawable/go_back_to_icon"
+        android:orderInCategory="400"
+        app:showAsAction="never"/>
+
+
+    <item android:id="@+id/mainhome"
+        android:title="home"
+        android:icon="@drawable/chat_icon"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/eventHelpIcone"
+        android:title="Help "
+        android:icon="@drawable/download_icon"
+        android:orderInCategory="350"
+        app:showAsAction="always"/>
+</menu>
