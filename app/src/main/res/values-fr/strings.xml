@@ -68,5 +68,9 @@
     <string name="as_sale"> Vente d\'albums: </string>
     <string name="as_snackbar_message"> Affichage des albums de l\'artiste: </string>
     <string name="as_please_enter_album_name"> Veuillez saisir le nom de l\'artiste </string>
+    <string name="rs_favorites">Favoris</string>
+    <string name="drawer_open">Ouvrir le tiroir de navigation</string>
+    <string name="drawer_close">Fermer le panneau de navigation</string>
+
 
 </resources>
