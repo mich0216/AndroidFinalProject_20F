@@ -1,6 +1,8 @@
 package com.example.androidfinalproject_20f.ahmed;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,6 +44,7 @@ public class RecipeListActivity extends AppCompatActivity {
      * TO display loading progress bar
      */
     private LinearLayout progressContainer;
+
     /**
      * List of the recipes object
      */
@@ -57,28 +60,119 @@ public class RecipeListActivity extends AppCompatActivity {
     private ProgressBar progressbar;
 
     private boolean isTablet = false;
+    private TextView txt_login;
+    private Boolean isFromFav;
+    private String recipeName,ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
+        setupView();
+        setupAdapter();
+        manageComingBundleData();
+        handleRecipeOnLongClickListener();
+        handleRecipeOnClickListener();
+        checkDeviceType();
+        if (isFromFav){
+            elements.clear();
+            getData();
+        }else {
+            RecipeQuery rq = new RecipeQuery();
+            rq.execute("http://www.recipepuppy.com/api/?i=" + ingredients + "&q=" + recipeName + "&p=3");
+        }
+    }
 
+    /**
+     * Checking if the device is phone or tablet.
+     */
+    private void checkDeviceType() {
+        View fragmentLoadingSpace = findViewById(R.id.fragmentLoadingSpace);
+        if (fragmentLoadingSpace == null) {
+            isTablet = false;
+        } else {
+            isTablet = true;
+        }
+    }
+
+    /**
+     * Managing incoming bundle data
+     */
+    private void manageComingBundleData() {
+        recipeName = getIntent().getStringExtra("R_NAME");
+        ingredients = getIntent().getStringExtra("INGREDIENTS");
+        isFromFav = getIntent().getBooleanExtra("fav",false);
+    }
+
+    /**
+     * Setting Up adapter to show recipe list
+     */
+    private void setupAdapter() {
+        myListAdapter = new MyListAdapter();
+        recipeListView.setAdapter(myListAdapter);
+    }
+
+    /**
+     * Initializing views
+     */
+    private void setupView() {
         recipeListView = findViewById(R.id.recipeListView);
         progressContainer = findViewById(R.id.progressContainer);
         progressbar = findViewById(R.id.progressbar);
+        txt_login = findViewById(R.id.txt_login);
+    }
 
-        myListAdapter = new MyListAdapter();
-        recipeListView.setAdapter(myListAdapter);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /**
+         * Managing recipe list when user comes back from Details Screen
+         */
+        if (isFromFav){
+            elements.clear();
+            getData();
+            if (myListAdapter!=null){
+                myListAdapter.notifyDataSetChanged();
+            }
+        }
+    }
 
+    /**
+     * Passing recipe data when user click on recipe
+     */
+    private void handleRecipeOnClickListener() {
+        recipeListView.setOnItemClickListener((parent, view, position, id) -> {
+            Recipe m = elements.get(position);
+            //Create a bundle to pass data to the new fragment
+            Bundle dataToPass = new Bundle();
+            dataToPass.putLong("Recipe_ID", m.getId());
+            dataToPass.putString("TITLE", m.getTitle());
+            dataToPass.putString("RECIPEURL", m.getRecipeUrl());
+            dataToPass.putString("INGREDIENTS", m.getIngredients());
+            dataToPass.putString("IMAGEURL", m.getImageUrl());
+            dataToPass.putBoolean("fav", isFromFav);
 
-        String recipeName = getIntent().getStringExtra("R_NAME");
-        String ingredients = getIntent().getStringExtra("INGREDIENTS");
+            if (isTablet) {
+                RecipeDetailsFragment dFragment = new RecipeDetailsFragment(); //add a DetailFragment
+                dFragment.setArguments(dataToPass); //pass it a bundle for information
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.fragmentLoadingSpace, dFragment) //Add the fragment in FrameLayout
+                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
+            } else {
+                Intent i = new Intent(RecipeListActivity.this, RecipeEmptyActivity.class);
+                i.putExtras(dataToPass);
+                startActivity(i);
+            }
 
-        RecipeQuery rq = new RecipeQuery();
-        rq.execute("http://www.recipepuppy.com/api/?i=" + ingredients + "&q=" + recipeName + "&p=3");
+        });
+    }
 
+    /**
+     * Handling long click press from user on the recipe list
+     */
+    private void handleRecipeOnLongClickListener() {
         recipeListView.setOnItemLongClickListener((parent, view, position, id) -> {
-
             Recipe r = elements.get(position);
             new AlertDialog.Builder(RecipeListActivity.this)
                     .setTitle(r.getTitle())
@@ -94,42 +188,31 @@ public class RecipeListActivity extends AppCompatActivity {
 
             return false;
         });
-
-        View fragmentLoadingSpace = findViewById(R.id.fragmentLoadingSpace);
-        if (fragmentLoadingSpace == null) {
-            isTablet = false;
-        } else {
-            isTablet = true;
-        }
-
-        recipeListView.setOnItemClickListener((parent, view, position, id) -> {
-
-            Recipe m = elements.get(position);
-
-            //Create a bundle to pass data to the new fragment
-            Bundle dataToPass = new Bundle();
-            dataToPass.putLong("Recipe_ID", m.getId());
-            dataToPass.putString("TITLE", m.getTitle());
-            dataToPass.putString("RECIPEURL", m.getRecipeUrl());
-            dataToPass.putString("INGREDIENTS", m.getIngredients());
-            dataToPass.putString("IMAGEURL", m.getImageUrl());
-
-            if (isTablet) {
-                RecipeDetailsFragment dFragment = new RecipeDetailsFragment(); //add a DetailFragment
-                dFragment.setArguments(dataToPass); //pass it a bundle for information
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragmentLoadingSpace, dFragment) //Add the fragment in FrameLayout
-                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
-            } else {
-                Intent i = new Intent(RecipeListActivity.this, RecipeEmptyActivity.class);
-                i.putExtras(dataToPass);
-                startActivity(i);
-            }
-
-        });
-
     }
+
+    /**
+     * Retrieving favorite recipes from database and adding it to the Arraylist
+     */
+    public void getData() {
+        progressbar.setVisibility(View.INVISIBLE);
+        txt_login.setVisibility(View.INVISIBLE);
+
+        RecipeDataOpener dbOpener = new RecipeDataOpener(this);
+        SQLiteDatabase db = dbOpener.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from recipeData", null );
+        while (res.moveToNext()){
+            String title = res.getString(res.getColumnIndex(RecipeDataOpener.COL_TITLE));
+            String recipeUrl = res.getString(res.getColumnIndex(RecipeDataOpener.COL_RECIPE_URL));
+            String ingredients = res.getString(res.getColumnIndex(RecipeDataOpener.COL_INGREDIENTS));
+            String imageUrl = res.getString(res.getColumnIndex(RecipeDataOpener.COL_IMAGE_URL));
+            Recipe r = new Recipe(title, recipeUrl, ingredients,imageUrl);
+            elements.add(r);
+        }
+        if (elements.isEmpty()) {
+            Toast.makeText(RecipeListActivity.this, R.string.rs_no_recipy, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     /**
      * Adapter class for recipe list view
@@ -151,18 +234,13 @@ public class RecipeListActivity extends AppCompatActivity {
 
         public View getView(int position, View old, ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
-
             Recipe recipe = getItem(position);
-
             //make a new row:
             View newView;
-
             newView = inflater.inflate(R.layout.row_recipe, parent, false);
-
             //set what the text should be for this row:
             TextView recipeTitleTextView = newView.findViewById(R.id.recipeTitleTextView);
             recipeTitleTextView.setText(recipe.getTitle());
-
             //return it to be put in the table
             return newView;
         }
@@ -216,7 +294,7 @@ public class RecipeListActivity extends AppCompatActivity {
                     String ingredients = singleRecipeJsonObject.getString("ingredients");
                     String imageUrl = singleRecipeJsonObject.getString("thumbnail");
 
-                    Recipe r = new Recipe(title, recipeUrl, ingredients, imageUrl);
+                    Recipe r = new Recipe(title.trim(), recipeUrl, ingredients, imageUrl);
                     elements.add(r);
 
                     int p = ((i + 1) * 100) / recipeJsonArray.length();
@@ -224,9 +302,8 @@ public class RecipeListActivity extends AppCompatActivity {
 
                 }
 
-
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
 
             return null;
@@ -241,7 +318,6 @@ public class RecipeListActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
             progressContainer.setVisibility(View.INVISIBLE);
             myListAdapter.notifyDataSetChanged();
 

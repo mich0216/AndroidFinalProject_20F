@@ -30,8 +30,17 @@
             android:id="@+id/recipeUrlButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_below="@id/recipeIngredients"
             android:text="Recipe Details Webpage" />
+        <Button
+            android:id="@+id/add_to_fav_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Add to Favorite"
+            android:layout_below="@id/recipeUrlButton"
+            />
 
         <Button
             android:id="@+id/hideButton"

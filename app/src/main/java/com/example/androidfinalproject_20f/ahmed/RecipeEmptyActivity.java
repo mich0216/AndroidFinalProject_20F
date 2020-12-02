@@ -19,7 +19,7 @@ public class RecipeEmptyActivity extends AppCompatActivity {
                 dFragment.setArguments( dataToPass ); //pass it a bundle for information
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragmentLoadingSpace, dFragment) //Add the fragment in FrameLayout
+                .add(R.id.fragmentLoadingSpace, dFragment) //Add the fragment in FrameLayout
                 .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
 
     }

@@ -69,4 +69,11 @@
     <string name="as_snackbar_message">"Showing the albums for artist: "</string>
     <string name="as_please_enter_album_name">Please enter the artist name</string>
 
+    <string name="rs_favorites">Favorites</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+
+
+
 </resources>
