@@ -157,7 +157,7 @@ public class RecipeListActivity extends AppCompatActivity {
                 dFragment.setArguments(dataToPass); //pass it a bundle for information
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.fragmentLoadingSpace, dFragment) //Add the fragment in FrameLayout
+                        .replace(R.id.fragmentLoadingSpace, dFragment) //Add the fragment in FrameLayout
                         .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
             } else {
                 Intent i = new Intent(RecipeListActivity.this, RecipeEmptyActivity.class);
