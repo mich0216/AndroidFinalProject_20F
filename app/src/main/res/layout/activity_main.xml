@@ -7,37 +7,67 @@
     android:layout_height="match_parent"
     tools:context=".chrish.MainActivity">
 
-
-    <TextView
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:text="@string/cst_2335_android_final_project"
-        />
+        android:id="@+id/mainToolbar"/>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+    <!-- THIS IS WHAT IS VISIBLE ON SCREEN:-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
 
     <Button
         android:id="@+id/button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="@string/ticketmaster_event_search" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="@string/recipe_search" />
 
     <Button
         android:id="@+id/covidButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="@string/covid_19_case_data_search" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="@string/the_audio_database_search" />
 
 
 </LinearLayout>
+        <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:menu="@menu/maintoolandnag"
+            android:id="@+id/nav_view"/>
+        <!-- app:headerLayout="@layout/header_layout" -->
+
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>
+    <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->

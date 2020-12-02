@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/eventSearch"
+        android:title="Event Search"
+        android:icon="@drawable/event_search"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+
+
+    <item android:id="@+id/receipeSearch"
+        android:title="Recipe Search"
+        android:icon="@drawable/receipe_search"
+        android:orderInCategory="200"
+        app:showAsAction="always" />
+
+
+    <item android:id="@+id/covidSearch"
+        android:title="Covid case Search "
+        android:icon="@drawable/covidsearch_icon"
+        android:orderInCategory="300"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/alblumSearch"
+        android:title="Album Search "
+        android:icon="@drawable/music_icon"
+        android:orderInCategory="400"
+        app:showAsAction="always"/>
+</menu>

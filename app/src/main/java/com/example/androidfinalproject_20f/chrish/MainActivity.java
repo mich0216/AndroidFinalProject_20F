@@ -1,17 +1,29 @@
 package com.example.androidfinalproject_20f.chrish;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 
 
 import com.example.androidfinalproject_20f.R;
+import com.example.androidfinalproject_20f.ahmed.Recipe;
+import com.example.androidfinalproject_20f.audiosearch.Album;
+import com.example.androidfinalproject_20f.sabiha.Event;
 import com.example.androidfinalproject_20f.sabiha.EventSearchActivity;
 
 import com.example.androidfinalproject_20f.audiosearch.ArtistInputActivity;
 
 import com.example.androidfinalproject_20f.ahmed.RecipeSearchActivity;
+import com.google.android.material.navigation.NavigationView;
 
 /**
  * @author Ahmed Elakad, Chrishanthi Michael, Sabiha Rahman, Vettival Ponnampalam
@@ -30,6 +42,48 @@ public class MainActivity extends AppCompatActivity {
         /// setContentView loads objects onto the screen.
         setContentView(R.layout.activity_main);
 
+
+        Toolbar tBar = (Toolbar) findViewById(R.id.mainToolbar);
+        //This loads the toolbar, which calls onCreateOptionMev
+        setSupportActionBar(tBar);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawer, tBar, R.string.covidOpen, R.string.covidClose);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener (item -> {
+
+            switch (item.getItemId()) {
+                //what to do when the menu item is selected:
+                case R.id.eventSearch:
+                    Intent event = new Intent(this, EventSearchActivity.class);
+                    startActivity(event);
+                    break;
+
+                case R.id.receipeSearch:
+                    Intent recipe = new Intent(this, RecipeSearchActivity.class);
+                    startActivity(recipe);
+                    break;
+
+                case R.id.covidSearch:
+                    Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                    startActivity(covidSearch);
+                    break;
+
+                case R.id.alblumSearch:
+                    Intent album = new Intent(this,ArtistInputActivity.class);
+                    startActivity(album);
+                    break;
+
+            }
+
+            DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        });
 
         Button button = findViewById(R.id.button);
         button.setOnClickListener(v -> {
@@ -63,6 +117,45 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.maintoolandnag, menu);
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // String message = null;
+        //Look at your menu XML file. Put a case for every id in that file:
+        switch (item.getItemId()) {
+            //what to do when the menu item is selected:
+            case R.id.eventSearch:
+                Intent event = new Intent(this, EventSearchActivity.class);
+                startActivity(event);
+                break;
+
+            case R.id.receipeSearch:
+                Intent recipe = new Intent(this, RecipeSearchActivity.class);
+                startActivity(recipe);
+                break;
+
+            case R.id.covidSearch:
+                Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                startActivity(covidSearch);
+                break;
+
+            case R.id.alblumSearch:
+                Intent album = new Intent(this,ArtistInputActivity.class);
+                startActivity(album);
+                break;
+        }
+        return true;
     }
 
 
