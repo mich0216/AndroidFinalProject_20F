@@ -1,9 +1,11 @@
 package com.example.androidfinalproject_20f.chrish;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -25,7 +27,7 @@ public class CovidResultByDateFragment extends Fragment {
     ArrayList<CovidData> dateList = new ArrayList<>();
     CovidDataAdaptor covidDataAdaptor;
     String resultByDate;
-
+    private AppCompatActivity parentActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +46,11 @@ public class CovidResultByDateFragment extends Fragment {
        //toggle.syncState();
         resultByDate = getArguments().getString("DATE");
         CovidDataOpener dbOpener = new CovidDataOpener(getContext());
+        Button button = (Button) result.findViewById(R.id.deletebutton);
+        button.setOnClickListener(click -> {
+            this.deleteResultDateFromDB(resultByDate);
+            parentActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
+        });
         //db = dbOpener.getWritableDatabase();
         this.queryDataFromDatabase(resultByDate);
         ListView myList = result.findViewById(R.id.searchListView);
@@ -54,10 +61,6 @@ public class CovidResultByDateFragment extends Fragment {
      //           Log.e("Test", "Test clicked");
      //       }
      //   });
-        Button button = (Button) result.findViewById(R.id.deletebutton);
-        button.setOnClickListener(click -> {
-                this.deleteResultDateFromDB(resultByDate);
-        });
         //this.loadDataFromDatabase();
         covidDataAdaptor.notifyDataSetChanged();
         return result;
@@ -110,6 +113,14 @@ public class CovidResultByDateFragment extends Fragment {
         CovidDataOpener dbOpener = new CovidDataOpener(getContext());
         db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
         db.delete(CovidDataOpener.TABLE_NAME,CovidDataOpener.COL_DATE+ "= ?", new String[]{resultByDate});
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        //context will either be FragmentExample for a tablet, or EmptyActivity for phone
+        parentActivity = (AppCompatActivity)context;
     }
     // The CovidDataAdaptor is extended from the BaseAdapter
     private class CovidDataAdaptor extends BaseAdapter {
