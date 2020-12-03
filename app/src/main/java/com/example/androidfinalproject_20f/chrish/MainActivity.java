@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.alblumSearch:
-                    Intent album = new Intent(this,ArtistInputActivity.class);
+                    Intent album = new Intent(this, Album.class);
                     startActivity(album);
                     break;
 
@@ -136,12 +136,12 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             //what to do when the menu item is selected:
             case R.id.eventSearch:
-                Intent event = new Intent(this, EventSearchActivity.class);
+                Intent event = new Intent(this, Event.class);
                 startActivity(event);
                 break;
 
             case R.id.receipeSearch:
-                Intent recipe = new Intent(this, RecipeSearchActivity.class);
+                Intent recipe = new Intent(this, Recipe.class);
                 startActivity(recipe);
                 break;
 
@@ -151,9 +151,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.alblumSearch:
-                Intent album = new Intent(this,ArtistInputActivity.class);
+                Intent album = new Intent(this, Album.class);
                 startActivity(album);
                 break;
+
         }
         return true;
     }

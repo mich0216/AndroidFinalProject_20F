@@ -5,13 +5,26 @@
     android:layout_height="match_parent"
     tools:context=".chrish.CovidResultByDateFragment">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <ListView
         android:id="@+id/searchListView"
         android:dividerHeight="0dp"
-        android:layout_below="@id/title"
         android:paddingTop="10dp"
         android:paddingLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/deletebutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DELETE"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
 
 </FrameLayout>

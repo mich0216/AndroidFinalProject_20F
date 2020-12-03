@@ -6,10 +6,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -30,30 +32,34 @@ public class CovidResultByDateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View result =  inflater.inflate(R.layout.fragment_covid_result_by_date, container, false);
-
         // this gets the toolbar from the layout
         //Toolbar tBar = (Toolbar) result.findViewById(R.id.covidToolbar);
        // getActivity().setActionBar(tBar);
         //This loads the toolbar, which calls onCreateOptionMev
         //setSupportActionBar(tBar);
-
       // DrawerLayout drawer = result.findViewById(R.id.drawer_layout);
        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
        //drawer, tBar, R.string.covidOpen, R.string.covidClose);
        //drawer.addDrawerListener(toggle);
        //toggle.syncState();
-
-
         resultByDate = getArguments().getString("DATE");
         CovidDataOpener dbOpener = new CovidDataOpener(getContext());
         //db = dbOpener.getWritableDatabase();
         this.queryDataFromDatabase(resultByDate);
-
         ListView myList = result.findViewById(R.id.searchListView);
         myList.setAdapter(covidDataAdaptor = new CovidDataAdaptor());
+     //   Button button = (Button) result.findViewById(R.id.deletebutton);
+     //   button.setOnClickListener(new View.OnClickListener() {
+     //       public void onClick(View v) {
+     //           Log.e("Test", "Test clicked");
+     //       }
+     //   });
+        Button button = (Button) result.findViewById(R.id.deletebutton);
+        button.setOnClickListener(click -> {
+                this.deleteResultDateFromDB(resultByDate);
+        });
         //this.loadDataFromDatabase();
         covidDataAdaptor.notifyDataSetChanged();
-
         return result;
 
     }
@@ -100,6 +106,11 @@ public class CovidResultByDateFragment extends Fragment {
 //        printCursor(results, db.getVersion());
     }
 
+    private void deleteResultDateFromDB(String resultByDate){
+        CovidDataOpener dbOpener = new CovidDataOpener(getContext());
+        db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
+        db.delete(CovidDataOpener.TABLE_NAME,CovidDataOpener.COL_DATE+ "= ?", new String[]{resultByDate});
+    }
     // The CovidDataAdaptor is extended from the BaseAdapter
     private class CovidDataAdaptor extends BaseAdapter {
 

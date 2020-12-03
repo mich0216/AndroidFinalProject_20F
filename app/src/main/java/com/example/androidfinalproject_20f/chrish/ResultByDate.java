@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.androidfinalproject_20f.R;
@@ -78,9 +80,7 @@ public class ResultByDate extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
-
-
-        Bundle data = getIntent().getExtras();
+      Bundle data = getIntent().getExtras();
       CovidResultByDateFragment covidResultByDate = new CovidResultByDateFragment();
       covidResultByDate.setArguments(data);
       getSupportFragmentManager().beginTransaction().replace(R.id.fragmentLocation, covidResultByDate).commit();
@@ -96,7 +96,7 @@ public class ResultByDate extends AppCompatActivity {
     }
 
 
-
+/*
     // query the database for a given date
     private void queryDataFromDatabase(String resultByDate)
     {
@@ -139,7 +139,7 @@ public class ResultByDate extends AppCompatActivity {
        // covidDataAdaptor.notifyDataSetChanged();
 //        printCursor(results, db.getVersion());
     }
-
+*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // String message = null;

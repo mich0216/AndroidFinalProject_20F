@@ -13,11 +13,7 @@
         android:paddingBottom="30dp"
         android:textSize="15dp"
         android:text=" "/>
-    
 
 </RelativeLayout>
-
-
-
 
 
