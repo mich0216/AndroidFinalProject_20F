@@ -89,7 +89,7 @@ public class ArtistInputActivity extends AppCompatActivity implements Navigation
         //For NavigationDrawer:
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
-                drawer, tBar, R.string.open, R.string.close);
+                drawer, tBar, R.string.as_open, R.string.as_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -113,9 +113,9 @@ public class ArtistInputActivity extends AppCompatActivity implements Navigation
             case R.id.instructionsMenuItem:
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ArtistInputActivity.this);
-                alertDialogBuilder.setTitle(R.string.instructions)
-                        .setMessage(R.string.instruction_description)
-                        .setPositiveButton(R.string.ok, null)
+                alertDialogBuilder.setTitle(R.string.as_instructions)
+                        .setMessage(R.string.as_instruction_description)
+                        .setPositiveButton(R.string.as_ok, null)
                         .create().show();
 
                 break;
@@ -130,9 +130,9 @@ public class ArtistInputActivity extends AppCompatActivity implements Navigation
             case R.id.instructionsMenuItem:
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ArtistInputActivity.this);
-                alertDialogBuilder.setTitle(R.string.instructions)
-                        .setMessage(R.string.instruction_description)
-                        .setPositiveButton(R.string.ok, null)
+                alertDialogBuilder.setTitle(R.string.as_instructions)
+                        .setMessage(R.string.as_instruction_description)
+                        .setPositiveButton(R.string.as_ok, null)
                         .create().show();
 
                 break;

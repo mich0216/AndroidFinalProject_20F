@@ -68,18 +68,18 @@
     <string name="as_sale">Album Sale: </string>
     <string name="as_snackbar_message">"Showing the albums for artist: "</string>
     <string name="as_please_enter_album_name">Please enter the artist name</string>
-    <string name="hide">Hide</string>
-    <string name="add_or_remove_from_database">Add or Remove from database</string>
-    <string name="show_database_stored_albums">Show database stored albums</string>
-    <string name="no_albums_in_db">There are no albums in the database</string>
-    <string name="version_1">Version: 1</string>
-    <string name="name_vetti">Name: Vetti</string>
-    <string name="instructions">Instructions</string>
-    <string name="instruction_description">WRITE_INSTRUCTION_HERE</string>
-    <string name="ok">Ok</string>
-    <string name="close">Close</string>
-    <string name="open">Open</string>
-    <string name="get_songs">Get songs</string>
-    <string name="showing_songs_for_selected">Showing songs for selected album</string>
+    <string name="as_hide">Hide</string>
+    <string name="as_add_or_remove_from_database">Add or Remove from database</string>
+    <string name="as_show_database_stored_albums">Show database stored albums</string>
+    <string name="as_no_albums_in_db">There are no albums in the database</string>
+    <string name="as_version_1">Version: 1</string>
+    <string name="as_name_vetti">Name: Vetti</string>
+    <string name="as_instructions">Instructions</string>
+    <string name="as_ok">Ok</string>
+    <string name="as_close">Close</string>
+    <string name="as_open">Open</string>
+    <string name="as_get_songs">Get songs</string>
+    <string name="as_showing_songs_for_selected">Showing songs for selected album</string>
+    <string name="as_instruction_description">WRITE_INSTRUCTION_HERE</string>
 
 </resources>

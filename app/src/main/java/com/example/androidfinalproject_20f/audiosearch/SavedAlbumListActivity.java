@@ -168,7 +168,7 @@ public class SavedAlbumListActivity extends AppCompatActivity {
         }
 
         if (list.isEmpty()) {
-            Snackbar.make(albumListView, getString(R.string.no_albums_in_db), Snackbar.LENGTH_LONG).show();
+            Snackbar.make(albumListView, getString(R.string.as_no_albums_in_db), Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -227,9 +227,9 @@ public class SavedAlbumListActivity extends AppCompatActivity {
             case R.id.instructionsMenuItem:
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SavedAlbumListActivity.this);
-                alertDialogBuilder.setTitle(R.string.instructions)
-                        .setMessage(R.string.instruction_description)
-                        .setPositiveButton(R.string.ok, null)
+                alertDialogBuilder.setTitle(R.string.as_instructions)
+                        .setMessage(R.string.as_instruction_description)
+                        .setPositiveButton(R.string.as_ok, null)
                         .create().show();
 
                 break;

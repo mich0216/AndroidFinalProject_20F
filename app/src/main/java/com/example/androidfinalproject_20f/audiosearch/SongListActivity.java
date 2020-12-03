@@ -152,7 +152,7 @@ public class SongListActivity extends AppCompatActivity {
             myAdapter.notifyDataSetChanged();
             progress.setVisibility(View.INVISIBLE);
 
-            Snackbar.make(albumListView, getString(R.string.showing_songs_for_selected), Snackbar.LENGTH_LONG).show();
+            Snackbar.make(albumListView, getString(R.string.as_showing_songs_for_selected), Snackbar.LENGTH_LONG).show();
 
 
         }
@@ -206,9 +206,9 @@ public class SongListActivity extends AppCompatActivity {
             case R.id.instructionsMenuItem:
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SongListActivity.this);
-                alertDialogBuilder.setTitle(R.string.instructions)
-                        .setMessage(R.string.instruction_description)
-                        .setPositiveButton(R.string.ok, null)
+                alertDialogBuilder.setTitle(R.string.as_instructions)
+                        .setMessage(R.string.as_instruction_description)
+                        .setPositiveButton(R.string.as_ok, null)
                         .create().show();
 
                 break;

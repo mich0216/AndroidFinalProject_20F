@@ -256,9 +256,9 @@ public class AlbumListActivity extends AppCompatActivity {
             case R.id.instructionsMenuItem:
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AlbumListActivity.this);
-                alertDialogBuilder.setTitle(R.string.instructions)
-                        .setMessage(R.string.instruction_description)
-                        .setPositiveButton(R.string.ok, null)
+                alertDialogBuilder.setTitle(R.string.as_instructions)
+                        .setMessage(R.string.as_instruction_description)
+                        .setPositiveButton(R.string.as_ok, null)
                         .create().show();
 
                 break;

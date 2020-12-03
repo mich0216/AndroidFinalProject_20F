@@ -46,7 +46,7 @@
                 android:id="@+id/buttonGetSongsName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/get_songs" />
+                android:text="@string/as_get_songs" />
 
         </LinearLayout>
 
@@ -57,13 +57,13 @@
         android:layout_width="match_parent"
         android:layout_above="@id/hideButton"
         android:layout_height="wrap_content"
-        android:text="@string/add_or_remove_from_database" />
+        android:text="@string/as_add_or_remove_from_database" />
 
     <Button
         android:id="@+id/hideButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/hide" />
+        android:text="@string/as_hide" />
 
 </RelativeLayout>

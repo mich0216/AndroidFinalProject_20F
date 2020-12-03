@@ -68,5 +68,17 @@
     <string name="as_sale"> Vente d\'albums: </string>
     <string name="as_snackbar_message"> Affichage des albums de l\'artiste: </string>
     <string name="as_please_enter_album_name"> Veuillez saisir le nom de l\'artiste </string>
+    <string name="as_hide"> Masquer </string>
+    <string name="as_add_or_remove_from_database"> Ajouter ou supprimer de la base de données </string>
+    <string name="as_show_database_stored_albums"> Afficher les albums stockés dans la base de données </string>
+    <string name="as_no_albums_in_db"> Il n\'y a aucun album dans la base de données </string>
+    <string name="as_version_1"> Version: 1 </string>
+    <string name="as_name_vetti"> Nom: Vetti </string>
+    <string name="as_instructions"> Instructions </string>
+    <string name="as_ok"> Ok </string>
+    <string name="as_close"> Fermer </string>
+    <string name="as_open"> Ouvrir </string>
+    <string name="as_get_songs"> Obtenir des chansons </string>
+    <string name="as_showing_songs_for_selected"> Affichage des chansons de l\'album sélectionné </string>
 
 </resources>

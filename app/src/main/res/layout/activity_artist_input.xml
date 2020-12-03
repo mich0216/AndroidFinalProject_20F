@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:text="@string/show_database_stored_albums" />
+                android:text="@string/as_show_database_stored_albums" />
 
         </RelativeLayout>
 
