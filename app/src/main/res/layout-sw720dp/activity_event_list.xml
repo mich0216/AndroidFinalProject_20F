@@ -9,10 +9,14 @@
 
     <ListView
         android:id="@+id/eventListView"
+        android:layout_width="300dp"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/fragmentLocation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text= "Do you want to delete?"
-        />
+        android:layout_toRightOf="@id/eventListView"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

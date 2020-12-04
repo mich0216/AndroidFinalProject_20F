@@ -11,13 +11,10 @@
     <string name="open_url"> Ouvrir l\'URL </string>
     <string name="no_events_found"> Aucun événement trouvé! </string>
     <string name="events_loaded"> Événements chargés! </string>
-
-
     <string name="app_name" translatable="false">AndroidFinalProject_20F</string>
     <string name="album_search" translatable="false">Recherche d\'album</string>
     <string name="enter_artist_name_here" translatable="false">Entrez le nom de l\'artiste ici</string>
     <string name="search_albums" translatable="false">Rechercher des albums</string>
-
 
     <string name="wantdelete">Voulez-vous supprimer la ligne?</string>
     <string name="selectedrow">La ligne sélectionnée est</string>
@@ -25,7 +22,6 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="additionalDetail">" Détails supplémentaires de la ligne sélectionnée:"</string>
-
     <string name="cst_2335_android_final_project"> Projet final Android CST_2335 </string>
     <string name="ticketmaster_event_search"> Recherche d\'événements TicketMaster </string>
     <string name="recipe_search"> Recherche de recette </string>
@@ -35,6 +31,19 @@
     <string name="rs_welcome_recipe_search_by_ahmed"> Bonjour !! \ nBienvenue dans la recherche de recettes par Ahmed. </string>
     <string name="covidToastMessage">Fill the fields to Search</string>
     <string name="covidSnackBarMsg">Select and Hold on Row for More Details</string>
+    <string name="event_name">" Nom de l'événement"</string>
+    <string name="save_event_to_database">Enregistrer l\'événement dans la base de données</string>
+    <string name="hide_event_details">" Masquer les détails de l'événement"</string>
+    <string name="show_saved_events">Afficher les événements enregistrés</string>
+    <string name="eventOpen">ouverte</string>
+    <string name="eventClose">" proche"</string>
+    <string name="eventInstruction">" Instruction"</string>
+    <string name="eventInstmsg">Écrivez le nom de la ville et cliquez sur Rechercher</string>
+    <string name="EventTitle">" Activité de recherche d'événements"</string>
+    <string name="EventVersion">" Version 1"</string>
+    <string name="EventURLButton">Aller à la page de l\'événement</string>
+    <string name="EventSaveButton">Enregistrer l\'événement</string>
+    <string name="eventListView">Voulez-vous supprimer la ville?</string>
     <string name="covidOpen">Ouverte</string>
     <string name="covidClose">" Proche"</string>
     <string name="covidTitle">" Données du cas Covid-19"</string>
@@ -89,6 +98,5 @@
     <string name="albumhelpmessage">Entrez le nom de l\'artiste et cliquez sur le bouton \"Rechercher l\'album\" pour commencer la recherche.</string>
 
     
-
 
 </resources>
