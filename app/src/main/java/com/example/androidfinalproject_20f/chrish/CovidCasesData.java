@@ -1,7 +1,11 @@
-package com.example.androidfinalproject_20f;
+package com.example.androidfinalproject_20f.chrish;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -10,6 +14,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,13 +25,14 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.androidfinalproject_20f.R;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -54,6 +62,46 @@ public class CovidCasesData extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_covid_cases_data);
+
+        // this gets the toolbar from the layout
+        Toolbar tBar = (Toolbar) findViewById(R.id.covidToolbar);
+
+        //This loads the toolbar, which calls onCreateOptionMev
+        setSupportActionBar(tBar);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawer, tBar, R.string.covidOpen, R.string.covidClose);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener (item -> {
+
+            switch (item.getItemId()) {
+                //what to do when the menu item is selected:
+                case R.id.covidHistory:
+                    Intent viewHistory = new Intent(this, ViewHistory.class);
+                    startActivity(viewHistory);
+                    break;
+
+                case R.id.mainhome:
+                    Intent mainPage = new Intent(this, MainActivity.class);
+                    startActivity(mainPage);
+                    break;
+
+                case R.id.covidSearch:
+                    Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                    startActivity(covidSearch);
+                    break;
+
+            }
+
+            DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        });
+
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -102,12 +150,61 @@ public class CovidCasesData extends AppCompatActivity {
         Snackbar.make(myList,  getResources().getString(R.string.covidSnackBarMsg), Snackbar.LENGTH_LONG).show();
     }
 
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.covidmenu, menu);
+        //    MenuInflater inflater2 = getMenuInflater();
+        // inflater.inflate(R.menu.nagvigationmenu, menu);
+        return true;
+    }
+
+
+
     /**
      * this method is responsible to setup the database opener and initalize the database
      * */
     public void setUpDatabaseOpener(){
         CovidDataOpener dbOpener = new CovidDataOpener(this);
         db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // String message = null;
+        //Look at your menu XML file. Put a case for every id in that file:
+        switch (item.getItemId()) {
+            //what to do when the menu item is selected:
+            case R.id.covidHistory:
+                Intent viewHistory = new Intent(this, ViewHistory.class);
+                startActivity(viewHistory);
+
+                break;
+            case R.id.mainhome:
+                Intent mainPage = new Intent(this, MainActivity.class);
+                startActivity(mainPage);
+                break;
+            case R.id.covidSearch:
+                Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                startActivity(covidSearch);
+                break;
+
+            case R.id.covidHelpIcone:
+                AlertDialog.Builder helpmenu =new AlertDialog.Builder(this);
+                helpmenu.setTitle(getResources().getString(R.string.covidInstruction))
+                        .setMessage(getResources().getString(R.string.cwInstuction))
+                        .setMessage(getResources().getString(R.string.C_caseData_instruction))
+                        .setNeutralButton("OK",(click, arg)->{})
+                        .create().show();
+                break;
+        }
+        return true;
 
     }
 
@@ -204,6 +301,7 @@ public class CovidCasesData extends AppCompatActivity {
         Log.e("Deleted Database Object", Long.toString(c.getDatabaseId()));
     }
 
+
     /**
      * The CovidDataAdaptor class extended from BaseAdapter
      * */
@@ -240,5 +338,7 @@ public class CovidCasesData extends AppCompatActivity {
         public long getItemId(int position) {
             return getItem(position).getDatabaseId();
         }
+
+
     }
 }

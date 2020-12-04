@@ -9,17 +9,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
+import android.os.Bundle
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.androidfinalproject_20f.MainActivity;
 import com.example.androidfinalproject_20f.R;
 import com.google.android.material.navigation.NavigationView;
 

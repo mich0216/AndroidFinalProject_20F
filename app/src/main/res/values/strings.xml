@@ -29,10 +29,71 @@
     <string name="cst_2335_android_final_project">CST_2335 Android Final Project</string>
     <string name="ticketmaster_event_search">TicketMaster event search</string>
     <string name="recipe_search">Recipe search</string>
-    <string name="covid_19_case_data_search">Covid-19 case data search</string>
+    <string name="covid_19_case_data_search">Covid-19 Case Search</string>
     <string name="the_audio_database_search">The Audio database search</string>
     <string name="rs_please_enter_recipe_name">Please enter recipe name</string>
     <string name="rs_welcome_recipe_search_by_ahmed">Hello!!\nWelcome to the Recipe Search by Ahmed.</string>
+    <string name="covidOpen">Open</string>
+    <string name="covidClose">Close</string>
+    <string name="covidTitle">Covid-19 case Data</string>
+    <string name="covidAuthor">Chrishanthi Michael</string>
+    <string name="covidVersionNum">Version 1</string>
+    <string name="covidWelcome">Welcome to Covid-19 case Data</string>
+    <string name="covidCountry">Country:</string>
+    <string name="enterCovidCountry">Enter the Country Name</string>
+    <string name="Cfrom">From:</string>
+    <string name="cto">To:</string>
+    <string name="Csearch">SEARCH</string>
+    <string name="covidHistoryView">View Search History</string>
+    <string name="covidResults">List of search results:</string>
+
+    <string name="rs_ingredients">Ingredients: </string>
+    <string name="rs_details">Details</string>
+    <string name="rs_no_recipy">No recipies found!</string>
+    <string name="rs_loading">Loading…</string>
+    <string name="rs_recipe_search">Recipe Search</string>
+    <string name="rs_enter_recipe_name">Enter recipe name</string>
+    <string name="rs_enter_ingredients_separated_by_comma">Enter ingredients separated by comma</string>
+    <string name="rs_search">Search</string>
+
+    <string name="as_album_details">Album Details</string>
+    <string name="as_id">ID: "</string>
+    <string name="as_position">Position: "</string>
+    <string name="as_title">Album Title: </string>
+    <string name="as_year">Album Year: </string>
+    <string name="as_description">Album Description: </string>
+    <string name="as_genre">Album Genre: </string>
+    <string name="as_sale">Album Sale: </string>
+    <string name="as_snackbar_message">"Showing the albums for artist: "</string>
+    <string name="as_please_enter_album_name">Please enter the artist name</string>
+
+    <string name="as_hide">Hide</string>
+    <string name="as_add_or_remove_from_database">Add or Remove from database</string>
+    <string name="as_show_database_stored_albums">Show database stored albums</string>
+    <string name="as_no_albums_in_db">There are no albums in the database</string>
+    <string name="as_version_1">Version: 1</string>
+    <string name="as_name_vetti">Name: Vetti</string>
+    <string name="as_instructions">Instructions</string>
+    <string name="as_ok">Ok</string>
+    <string name="as_close">Close</string>
+    <string name="as_open">Open</string>
+    <string name="as_get_songs">Get songs</string>
+    <string name="as_showing_songs_for_selected">Showing songs for selected album</string>
+    <string name="as_instruction_description">This screen hows list of the albums. You can click on a particular album to open details.</string>
+    <string name="as_instruction_description_songs">This screen hows list of the songs. You can click on a particular song to search it on google.</string>
+    <string name="albumInstruction">Instruction</string>
+    <string name="albumhelpmessage">Enter the Artist name and click \"Search Album\" button to begin search.</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="covidInstruction">Instruction:</string>
+    <string name="cwInstuction">Enter the Country name and dates in (YYYY-MM-DD) format. Then hit Search</string>
+    <string name="CviewHis_instruction">Select a date from the list and click to view saved results.</string>
+    <string name="C_caseData_instruction">click and hold on any below list for more info. Click on \"View Search History\" to view results by date.</string>
+
+    <string name="rs_favorites">Favorites</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
 
     <string name="event_name">Event Name</string>
     <string name="save_event_to_database">Save Event to Database</string>

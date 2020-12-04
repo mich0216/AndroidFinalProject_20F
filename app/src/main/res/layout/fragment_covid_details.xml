@@ -19,32 +19,16 @@
         tools:openDrawer="start">
         <!-- THIS IS WHAT IS VISIBLE ON SCREEN:-->
 
-    <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="15dp"
-        android:layout_alignRight="@id/searchListView"
-        android:layout_alignParentLeft="true"
-        android:text="@string/covidResults" />
-
-    <ListView
-        android:id="@+id/searchListView"
-        android:dividerHeight="0dp"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_below="@id/title"
-        android:paddingTop="10dp"
-        android:paddingLeft="15dp" />
+<FrameLayout
+    android:id="@+id/fragmentLocation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_toRightOf="@id/searchListView"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-</RelativeLayout>
+</FrameLayout>
+
         <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->
         <com.google.android.material.navigation.NavigationView
             android:layout_width="wrap_content"
