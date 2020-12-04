@@ -4,12 +4,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.example.androidfinalproject_20f.R;
@@ -25,7 +28,7 @@ public class EventDetailsFragment extends Fragment {
     private Bundle dataFromActivity;
     private long id, eventIDFromInternet;
     private AppCompatActivity parentActivity;
-    private SQLiteDatabase db;
+    private EventMyOpener db;
 
     // Database object
     private String event_name, start_date, min_price,max_price;
@@ -63,37 +66,29 @@ public class EventDetailsFragment extends Fragment {
         TextView eMaxPrice = (TextView) result.findViewById(R.id.eMaxPrice);
         eMaxPrice.setText(getString(R.string.max_price) + dataFromActivity.getDouble(EventListActivity.EVENT_MAX_PRICE));
 
+        db = new EventMyOpener(parentActivity);
+
         Button eSaveEventButton = (Button) result.findViewById(R.id.eSaveEventButton);
         eSaveEventButton.setOnClickListener(Clk -> {
 
-            Intent i = new Intent(parentActivity, EventListActivity.class);
-            i.putExtra("EVENTFROMINTERNET", eventIDFromInternet);
-            parentActivity.startActivity(i);
+            Event e = new Event(dataFromActivity.getString(EventListActivity.EVENT_NAME), dataFromActivity.getString(EventListActivity.EVENT_START_DATE), dataFromActivity.getDouble(EventListActivity.EVENT_MIN_PRICE), dataFromActivity.getDouble(EventListActivity.EVENT_MAX_PRICE), dataFromActivity.getString(EventListActivity.EVENT_TICKETMASTER_URL), dataFromActivity.getString(EventListActivity.EVENT_IMAGE_URL));
+            db.insertEvent(e);
+            Toast.makeText(parentActivity, R.string.EventSaveButton, Toast.LENGTH_SHORT).show();
+
 
         });
 
-            EventMyOpener dbOpener = new EventMyOpener(parentActivity);
-            db = dbOpener.getWritableDatabase();
+        Button btnEventURL = (Button) result.findViewById(R.id.btnEventURL);
+        btnEventURL.setOnClickListener(Clk -> {
 
-           // Button databaseButton = (Button) result.findViewById(R.id.databaseButton);
-            //databaseButton.setOnClickListener(Clk -> {
-            /*if (id != 0) {
-                // remove event from database
-                db.delete(EventMyOpener.TABLE_NAME, EventMyOpener.COL_ID + "= ?", new String[]{Long.toString(id)});
-                id = 0;
-                Snackbar.make(databaseButton, "Removed the city name from database", Snackbar.LENGTH_SHORT).show();
-            } else {*/
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(dataFromActivity.getString(EventListActivity.EVENT_TICKETMASTER_URL)));
+            startActivity(i);
 
 
-            ContentValues newRowValue = new ContentValues();
-            //Now provide a value for every database column defined in MyOpener.java:
-            //put string name in the NAME column:
-            newRowValue.put(EventMyOpener.COL_NAME, dataFromActivity.getString(EventListActivity.EVENT_NAME));
-            newRowValue.put(EventMyOpener.COL_STARTDATE, dataFromActivity.getString(EventListActivity.EVENT_START_DATE));
-            newRowValue.put(EventMyOpener.COL_MINPRICE, dataFromActivity.getDouble(EventListActivity.EVENT_MIN_PRICE));
-            newRowValue.put(EventMyOpener.COL_MAXPRICE, dataFromActivity.getDouble(EventListActivity.EVENT_MAX_PRICE));
-            newRowValue.put(EventMyOpener.COL_TICKETMASTERURL, dataFromActivity.getDouble(EventListActivity.EVENT_TICKETMASTER_URL));
-            newRowValue.put(EventMyOpener.COL_IMAGEURL, dataFromActivity.getDouble(EventListActivity.EVENT_IMAGE_URL));
+        });
+
+
 
        // });
 

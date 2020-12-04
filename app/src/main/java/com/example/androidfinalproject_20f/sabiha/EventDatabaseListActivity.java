@@ -87,7 +87,7 @@ public class EventDatabaseListActivity extends AppCompatActivity {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(e.getName())
                     .setMessage(
-                            "Do you want to delete the city?"
+                            R.string.eventListView
                     )
                     .setPositiveButton(R.string.yes, (dialog, which) -> {
                         db.deleteEvent(e.getTicketMasterUrl());

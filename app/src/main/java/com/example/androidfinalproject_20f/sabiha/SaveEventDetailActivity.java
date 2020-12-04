@@ -71,7 +71,7 @@ public class SaveEventDetailActivity extends AppCompatActivity {
             );
 
             db.insertEvent(e);
-            Toast.makeText(this, "Saving event", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.EventSaveButton, Toast.LENGTH_SHORT).show();
         });
     }
 }

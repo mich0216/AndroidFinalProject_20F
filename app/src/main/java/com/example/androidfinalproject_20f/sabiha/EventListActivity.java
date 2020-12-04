@@ -75,35 +75,35 @@ public class EventListActivity extends AppCompatActivity {
         myHTTPRequest.execute(url);
 
         eventListView.setOnItemLongClickListener((parent, view, position, id) -> {
-            Event e = list.get(position);
-            Bundle event  = new Bundle();
-            event.putString(EVENT_NAME, e.getName());
-            event.putString(EVENT_START_DATE, e.getStartDate());
-            event.putDouble(EVENT_MIN_PRICE, e.getMinPrice());
-            event.putDouble(EVENT_MAX_PRICE, e.getMaxPrice());
-            event.putString(EVENT_TICKETMASTER_URL, e.getTicketMasterUrl());
-            event.putString(EVENT_IMAGE_URL, e.getImageUrl());
-
-            Intent newIntent = new Intent(this, SaveEventDetailActivity.class);
-            newIntent.putExtras(event);
-            startActivity(newIntent);
 //            Event e = list.get(position);
-//            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-//            alertDialogBuilder.setTitle(e.getName())
-//                    .setMessage(
-//                            getString(R.string.start_date) + e.getStartDate() +
-//                                    "\n" + getString(R.string.min_price) + e.getMinPrice() +
-//                                    "\n" + getString(R.string.max_price) + e.getMaxPrice()
-//                    )
-//                    .setPositiveButton(R.string.open_url, (dialog, which) -> {
+//            Bundle event  = new Bundle();
+//            event.putString(EVENT_NAME, e.getName());
+//            event.putString(EVENT_START_DATE, e.getStartDate());
+//            event.putDouble(EVENT_MIN_PRICE, e.getMinPrice());
+//            event.putDouble(EVENT_MAX_PRICE, e.getMaxPrice());
+//            event.putString(EVENT_TICKETMASTER_URL, e.getTicketMasterUrl());
+//            event.putString(EVENT_IMAGE_URL, e.getImageUrl());
 //
-//                        // Reference: https://stackoverflow.com/a/3004542
-//                        Intent i = new Intent(Intent.ACTION_VIEW);
-//                        i.setData(Uri.parse(e.getTicketMasterUrl()));
-//                        startActivity(i);
-//
-//                    })
-//                    .create().show();
+//            Intent newIntent = new Intent(this, SaveEventDetailActivity.class);
+//            newIntent.putExtras(event);
+//            startActivity(newIntent);
+            Event e = list.get(position);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(e.getName())
+                    .setMessage(
+                            getString(R.string.start_date) + e.getStartDate() +
+                                    "\n" + getString(R.string.min_price) + e.getMinPrice() +
+                                    "\n" + getString(R.string.max_price) + e.getMaxPrice()
+                    )
+                    .setPositiveButton(R.string.open_url, (dialog, which) -> {
+
+                        // Reference: https://stackoverflow.com/a/3004542
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(e.getTicketMasterUrl()));
+                        startActivity(i);
+
+                    })
+                    .create().show();
             return true;
         });
 
