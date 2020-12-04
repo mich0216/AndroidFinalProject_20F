@@ -9,9 +9,5 @@
         android:orderInCategory="50"
         app:showAsAction="always" />
 
-    <item android:id="@+id/help"
-        android:title="Help"
-        android:icon="@drawable/help_icon"
-        android:orderInCategory="150"
-        app:showAsAction="always"/>
+
 </menu>

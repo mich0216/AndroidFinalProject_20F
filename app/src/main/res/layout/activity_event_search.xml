@@ -7,6 +7,23 @@
     android:orientation="vertical"
     tools:context=".sabiha.EventSearchActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/eventToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       />
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+    <!-- THIS IS WHAT IS VISIBLE ON SCREEN:-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,6 +56,23 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:text="@string/show_saved_events" />
+
+
+    </LinearLayout>
+
+        <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/eventauthor"
+            app:menu="@menu/eventnavigation"
+            />
+        <!-- app:headerLayout="@layout/header_layout" -->
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </LinearLayout>
 

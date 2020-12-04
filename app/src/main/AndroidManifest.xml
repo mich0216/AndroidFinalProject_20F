@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".sabiha.EventDatabaseListActivity"></activity>
+        <activity android:name=".sabiha.SaveEventDetailActivity"></activity>
+        <activity android:name=".sabiha.EventDatabaseListActivity" />
         <activity android:name=".sabiha.EventListActivity" />
         <activity android:name=".sabiha.EventSearchActivity" />
         <activity android:name=".sabiha.EventEmptyActivity" />

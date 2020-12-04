@@ -4,6 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.androidfinalproject_20f.R;
@@ -60,10 +63,14 @@ public class EventDatabaseListActivity extends AppCompatActivity {
 
     private EventDetailsFragment dFragment;
 
+    private EventMyOpener db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
+
+        db = new EventMyOpener(this);
 
         String cityName = getIntent().getStringExtra("CITY_NAME");
 
@@ -71,35 +78,36 @@ public class EventDatabaseListActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
 
-                eventsAdaptor = new EventsAdaptor();
-                eventListView.setAdapter(eventsAdaptor);
-
-        // Fetch from database
+        eventsAdaptor = new EventsAdaptor();
+        eventListView.setAdapter(eventsAdaptor);
 
         eventListView.setOnItemLongClickListener((parent, view, position, id) -> {
             Event e = list.get(position);
+
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(e.getName())
                     .setMessage(
-                            getString(R.string.start_date) + e.getStartDate() +
-                                    "\n" + getString(R.string.min_price) + e.getMinPrice() +
-                                    "\n" + getString(R.string.max_price) + e.getMaxPrice()
+                            "Do you want to delete the city?"
                     )
-                    .setPositiveButton(R.string.open_url, (dialog, which) -> {
-
-                        // Reference: https://stackoverflow.com/a/3004542
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(e.getTicketMasterUrl()));
-                        startActivity(i);
-
+                    .setPositiveButton(R.string.yes, (dialog, which) -> {
+                        db.deleteEvent(e.getTicketMasterUrl());
+                        list.remove(e);
+                        eventsAdaptor.notifyDataSetChanged();
                     })
+                    .setNegativeButton(R.string.no, (dialog, which) -> {
+                    })
+
                     .create().show();
             return true;
         });
 
+        // load events detail from database
+
         boolean isTablet = findViewById(R.id.fragmentLocation) != null;
 
         eventListView.setOnItemClickListener((adapterView, view, position, l) -> {
+
+            Event e = list.get(position);
 
             Bundle dataToPass = new Bundle();
             dataToPass.putString(EVENT_NAME, (list.get(position).getName()));
@@ -119,13 +127,53 @@ public class EventDatabaseListActivity extends AppCompatActivity {
                         .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
                         .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
             } else {
-                Intent nextActivity = new Intent(EventDatabaseListActivity.this, EventEmptyActivity.class);
+                Intent nextActivity = new Intent(EventDatabaseListActivity.this, SaveEventDetailActivity.class);
                 nextActivity.putExtras(dataToPass); //send data to next activity
                 startActivity(nextActivity); //make the transition
             }
 
         });
 
+    }
+
+    public void loadDataFromDatabase() {
+        progressBar.setVisibility(View.INVISIBLE);
+
+        EventMyOpener dbOpener = new EventMyOpener(this);
+        SQLiteDatabase db = dbOpener.getReadableDatabase();
+
+        String[] columns = { EventMyOpener.COL_NAME,  EventMyOpener.COL_STARTDATE,  EventMyOpener.COL_MINPRICE,  EventMyOpener.COL_MAXPRICE,   EventMyOpener.COL_TICKETMASTERURL,  EventMyOpener.COL_IMAGEURL};
+        Cursor res =  db.rawQuery( "select * from EVENTS", null );
+        int eventNameIndex  = res.getColumnIndex( EventMyOpener.COL_NAME);
+        int startDateIndex = res.getColumnIndex( EventMyOpener.COL_STARTDATE);
+        double minPriceIndex = res.getColumnIndex( EventMyOpener.COL_MINPRICE);
+        double maxPriceIndex = res.getColumnIndex( EventMyOpener.COL_MAXPRICE);
+        int ticketMasterUrlIndex = res.getColumnIndex( EventMyOpener.COL_TICKETMASTERURL);
+        int imageUrlIndex = res.getColumnIndex( EventMyOpener.COL_IMAGEURL);
+
+        //iterate over the results, return true if there is a next item:
+        list.clear();
+        while (res.moveToNext()){
+            String eventName = res.getString(res.getColumnIndex(EventMyOpener.COL_NAME));
+            String startDate = res.getString(res.getColumnIndex(EventMyOpener.COL_STARTDATE));
+            double minPrice = res.getDouble(res.getColumnIndex(EventMyOpener.COL_MINPRICE));
+            double maxPrice = res.getDouble(res.getColumnIndex(EventMyOpener.COL_MAXPRICE));
+            String ticketMasterUrl = res.getString(res.getColumnIndex(EventMyOpener.COL_TICKETMASTERURL));
+            String imageUrl = res.getString(res.getColumnIndex(EventMyOpener.COL_IMAGEURL));
+            //vent(String name, String startDate, double minPrice, double maxPrice, String ticketMasterUrl, String imageUrl)
+            Event event = new Event(eventName, startDate, minPrice, maxPrice,ticketMasterUrl, imageUrl);
+            list.add(event);
+        }
+        if (list.isEmpty()) {
+            Toast.makeText(EventDatabaseListActivity.this, R.string.no_events_found, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadDataFromDatabase();
+        //EventsAdaptor.notifyDataSetChanged();
     }
 
     /**
@@ -164,6 +212,4 @@ public class EventDatabaseListActivity extends AppCompatActivity {
         }
 
     }
-
-
 }

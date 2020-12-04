@@ -1,5 +1,6 @@
 package com.example.androidfinalproject_20f.sabiha;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -52,5 +53,25 @@ public class EventMyOpener extends SQLiteOpenHelper {
 
         //Create the new table:
         onCreate(db);
+    }
+
+    public long insertEvent(Event e){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        long result;
+        contentValues.put(COL_NAME, e.getName());
+        contentValues.put(COL_STARTDATE, e.getStartDate());
+        contentValues.put(COL_MINPRICE, e.getMinPrice());
+        contentValues.put(COL_MAXPRICE, e.getMaxPrice());
+        contentValues.put(COL_TICKETMASTERURL, e.getTicketMasterUrl());
+        contentValues.put(COL_IMAGEURL, e.getImageUrl());
+        result = db.insert(TABLE_NAME, null, contentValues);
+
+        return result;
+    }
+
+    public void deleteEvent(String event){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, COL_TICKETMASTERURL+"=?", new String[]{event});
     }
 }
