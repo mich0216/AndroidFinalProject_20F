@@ -114,7 +114,8 @@ public class ArtistInputActivity extends AppCompatActivity implements Navigation
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ArtistInputActivity.this);
                 alertDialogBuilder.setTitle(R.string.as_instructions)
-                        .setMessage(R.string.as_instruction_description)
+                        .setMessage(getResources().getString(R.string.albumInstruction))
+                        .setMessage(getResources().getString(R.string.albumhelpmessage))
                         .setPositiveButton(R.string.as_ok, null)
                         .create().show();
 
@@ -131,7 +132,8 @@ public class ArtistInputActivity extends AppCompatActivity implements Navigation
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ArtistInputActivity.this);
                 alertDialogBuilder.setTitle(R.string.as_instructions)
-                        .setMessage(R.string.as_instruction_description)
+                        .setMessage(getResources().getString(R.string.albumInstruction))
+                        .setMessage(getResources().getString(R.string.albumhelpmessage))
                         .setPositiveButton(R.string.as_ok, null)
                         .create().show();
 

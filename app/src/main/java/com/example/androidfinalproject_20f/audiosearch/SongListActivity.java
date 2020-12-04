@@ -207,7 +207,7 @@ public class SongListActivity extends AppCompatActivity {
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SongListActivity.this);
                 alertDialogBuilder.setTitle(R.string.as_instructions)
-                        .setMessage(R.string.as_instruction_description)
+                        .setMessage(R.string.as_instruction_description_songs)
                         .setPositiveButton(R.string.as_ok, null)
                         .create().show();
 

@@ -12,10 +12,10 @@
     <string name="events_loaded">Events loaded!</string>
 
 
-    <string name="app_name" translatable="false">AndroidFinalProject_20F</string>
-    <string name="album_search" translatable="false">Album Search</string>
-    <string name="enter_artist_name_here" translatable="false">Enter Artist Name here</string>
-    <string name="search_albums" translatable="false">Search Albums</string>
+    <string name="app_name">AndroidFinalProject_20F</string>
+    <string name="album_search">Album Search</string>
+    <string name="enter_artist_name_here">Enter Artist Name here</string>
+    <string name="search_albums">Search Albums</string>
 
     <string name="wantdelete">Do you want to delete the row?</string>
     <string name="selectedrow">The selected row is</string>
@@ -80,6 +80,9 @@
     <string name="as_open">Open</string>
     <string name="as_get_songs">Get songs</string>
     <string name="as_showing_songs_for_selected">Showing songs for selected album</string>
-    <string name="as_instruction_description">WRITE_INSTRUCTION_HERE</string>
+    <string name="as_instruction_description">This screen hows list of the albums. You can click on a particular album to open details.</string>
+    <string name="as_instruction_description_songs">This screen hows list of the songs. You can click on a particular song to search it on google.</string>
+    <string name="albumInstruction">Instruction</string>
+    <string name="albumhelpmessage">Enter the Artist name and click \"Search Album\" button to begin search.</string>
 
 </resources>
