@@ -18,6 +18,9 @@
 
         <activity android:name=".audiosearch.AlbumListActivity"></activity>
         <activity android:name=".audiosearch.ArtistInputActivity" />
+        <activity android:name=".audiosearch.EmptyActivity" />
+        <activity android:name=".audiosearch.SavedAlbumListActivity" />
+        <activity android:name=".audiosearch.SongListActivity" />
 
         <activity android:name=".chrish.ResultByDate"></activity>
         <activity android:name=".chrish.ViewHistory" />
