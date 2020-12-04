@@ -29,7 +29,7 @@
     <string name="cst_2335_android_final_project">CST_2335 Android Final Project</string>
     <string name="ticketmaster_event_search">TicketMaster event search</string>
     <string name="recipe_search">Recipe search</string>
-    <string name="covid_19_case_data_search">Covid-19 case data search</string>
+    <string name="covid_19_case_data_search">Covid-19 Case Search</string>
     <string name="the_audio_database_search">The Audio database search</string>
 
 
@@ -68,6 +68,12 @@
     <string name="as_sale">Album Sale: </string>
     <string name="as_snackbar_message">"Showing the albums for artist: "</string>
     <string name="as_please_enter_album_name">Please enter the artist name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="covidInstruction">Instruction:</string>
+    <string name="cwInstuction">Enter the Country name and dates in (YYYY-MM-DD) format. Then hit Search</string>
+    <string name="CviewHis_instruction">Select a date from the list and click to view saved results.</string>
+    <string name="C_caseData_instruction">click and hold on any below list for more info. Click on \"View Search History\" to view results by date.</string>
 
     <string name="rs_favorites">Favorites</string>
     <string name="drawer_open">Open navigation drawer</string>
