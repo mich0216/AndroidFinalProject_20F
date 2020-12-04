@@ -31,6 +31,7 @@
 
         <activity android:name=".ahmed.RecipeListActivity"></activity>
         <activity android:name=".ahmed.RecipeSearchActivity" />
+        <activity android:name=".ahmed.RecipeEmptyActivity" />
 
         <activity android:name=".chrish.MainActivity">
             <intent-filter>
