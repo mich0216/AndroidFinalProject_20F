@@ -1,8 +1,10 @@
 package com.example.androidfinalproject_20f.chrish;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
@@ -13,14 +15,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.androidfinalproject_20f.R;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
@@ -33,6 +38,9 @@ public class ViewHistory extends AppCompatActivity {
     SQLiteDatabase db;
     ArrayList<String> dateList = new ArrayList<>();
     CovidDateListAdaptor covidDateListAdaptor;
+    CovidResultByDateFragment dFragment;
+    public static final String DATE = "DATE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,16 +58,63 @@ public class ViewHistory extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener (item -> {
+
+            switch (item.getItemId()) {
+                //what to do when the menu item is selected:
+                case R.id.covidHistory:
+                    Intent viewHistory = new Intent(this, ViewHistory.class);
+                    startActivity(viewHistory);
+                    break;
+
+                case R.id.mainhome:
+                    Intent mainPage = new Intent(this, MainActivity.class);
+                    startActivity(mainPage);
+                    break;
+
+                case R.id.covidSearch:
+                    Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                    startActivity(covidSearch);
+                    break;
+
+            }
+
+            DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        });
+
         ListView myList = findViewById(R.id.searchListView);
+        boolean isTablet = findViewById(R.id.fragmentLocation) != null; //check if the FrameLayout is loaded
+
         myList.setAdapter(covidDateListAdaptor = new CovidDateListAdaptor());
         this.loadDataFromDatabase();
-        Intent resultByDate = new Intent(this, ResultByDate.class);
-        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+    Intent resultByDate = new Intent(this, ResultByDate.class);
+         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                resultByDate.putExtra("date",dateList.get(position));
-                startActivity(resultByDate);
+                Bundle dataToPass = new Bundle();
+                dataToPass.putString(DATE, dateList.get(position));
+
+                if(isTablet){
+                    //dFragment = new CovidDetailsFragment();
+                    dFragment = new CovidResultByDateFragment();
+                    dFragment.setArguments(dataToPass);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragmentLocation, dFragment)
+                            .commit();
+
+                }
+                else {
+                    resultByDate.putExtra("DATE", dateList.get(position));
+                    startActivity(resultByDate);
+                }
             }
         });
     }
@@ -73,6 +128,10 @@ public class ViewHistory extends AppCompatActivity {
         // inflater.inflate(R.menu.nagvigationmenu, menu);
         return true;
     }
+
+
+
+
     private void loadDataFromDatabase()
     {
         //get a database connection:
@@ -155,4 +214,36 @@ public class ViewHistory extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // String message = null;
+        //Look at your menu XML file. Put a case for every id in that file:
+        switch (item.getItemId()) {
+            //what to do when the menu item is selected:
+            case R.id.covidHistory:
+                Intent viewHistory = new Intent(this, ViewHistory.class);
+                startActivity(viewHistory);
+
+                break;
+            case R.id.mainhome:
+                Intent mainPage = new Intent(this, MainActivity.class);
+                startActivity(mainPage);
+                break;
+            case R.id.covidSearch:
+                Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                startActivity(covidSearch);
+                break;
+
+            case R.id.covidHelpIcone:
+                AlertDialog.Builder helpmenu =new AlertDialog.Builder(this);
+                helpmenu.setTitle(getResources().getString(R.string.covidInstruction))
+                        .setMessage(getResources().getString(R.string.cwInstuction))
+                        .setMessage(getResources().getString(R.string.CviewHis_instruction))
+                        .setNeutralButton("OK",(click, arg)->{})
+                        .create().show();
+                break;
+        }
+        return true;
+
+    }
 }

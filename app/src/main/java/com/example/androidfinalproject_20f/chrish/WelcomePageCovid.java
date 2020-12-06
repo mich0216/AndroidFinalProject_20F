@@ -1,8 +1,10 @@
 package com.example.androidfinalproject_20f.chrish;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
@@ -11,11 +13,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.androidfinalproject_20f.R;
+import com.google.android.material.navigation.NavigationView;
 
 /**
  *
@@ -46,6 +50,33 @@ public class WelcomePageCovid extends AppCompatActivity {
                 drawer, tBar, R.string.covidOpen, R.string.covidClose);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener (item -> {
+
+            switch (item.getItemId()) {
+                //what to do when the menu item is selected:
+                case R.id.covidHistory:
+                    Intent viewHistory = new Intent(this, ViewHistory.class);
+                    startActivity(viewHistory);
+                    break;
+
+                case R.id.mainhome:
+                    Intent mainPage = new Intent(this, MainActivity.class);
+                    startActivity(mainPage);
+                    break;
+
+                case R.id.covidSearch:
+                    Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                    startActivity(covidSearch);
+                    break;
+
+            }
+
+            DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        });
 
 
         country =findViewById(R.id.countryName);
@@ -82,6 +113,40 @@ public class WelcomePageCovid extends AppCompatActivity {
         inflater.inflate(R.menu.covidmenu, menu);
         //    MenuInflater inflater2 = getMenuInflater();
         // inflater.inflate(R.menu.nagvigationmenu, menu);
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       // String message = null;
+        //Look at your menu XML file. Put a case for every id in that file:
+        switch (item.getItemId()) {
+            //what to do when the menu item is selected:
+            case R.id.covidHistory:
+                Intent viewHistory = new Intent(this, ViewHistory.class);
+                startActivity(viewHistory);
+                break;
+
+            case R.id.mainhome:
+                Intent mainPage = new Intent(this, MainActivity.class);
+                startActivity(mainPage);
+                break;
+
+            case R.id.covidSearch:
+                Intent covidSearch = new Intent(this, WelcomePageCovid.class);
+                startActivity(covidSearch);
+                break;
+
+            case R.id.covidHelpIcone:
+                AlertDialog.Builder helpmenu =new AlertDialog.Builder(this);
+                helpmenu.setTitle(getResources().getString(R.string.covidInstruction))
+                        .setMessage(getResources().getString(R.string.cwInstuction))
+                        .setNeutralButton("OK",(click, arg)->{})
+                        .create().show();
+                break;
+        }
         return true;
     }
 

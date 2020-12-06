@@ -3,7 +3,6 @@ package com.example.androidfinalproject_20f.sabiha;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,25 +31,30 @@ import java.util.ArrayList;
 
 public class EventListActivity extends AppCompatActivity {
 
+    public static final String EVENT_NAME = "EVENT_NAME";
+    public static final String EVENT_START_DATE = "EVENT_START_DATE";
+    public static final String EVENT_MIN_PRICE = "EVENT_MIN_PRICE";
+    public static final String EVENT_MAX_PRICE = "EVENT_MAX_PRICE";
+    public static final String EVENT_TICKETMASTER_URL = "EVENT_TICKETMASTER_URL";
+    public static final String EVENT_IMAGE_URL = "EVENT_IMAGE_URL";
     /**
      * ListView to show a list of events
      */
     private ListView eventListView;
-
     /**
      * To display loading
      */
     private ProgressBar progressBar;
-
     /**
      * List to store all the events
      */
     private ArrayList<Event> list = new ArrayList<>();
-
     /**
      * Adapter object to be attached with ListView
      */
     private EventsAdaptor eventsAdaptor;
+
+    private EventDetailsFragment dFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +75,25 @@ public class EventListActivity extends AppCompatActivity {
         myHTTPRequest.execute(url);
 
         eventListView.setOnItemLongClickListener((parent, view, position, id) -> {
+//            Event e = list.get(position);
+//            Bundle event  = new Bundle();
+//            event.putString(EVENT_NAME, e.getName());
+//            event.putString(EVENT_START_DATE, e.getStartDate());
+//            event.putDouble(EVENT_MIN_PRICE, e.getMinPrice());
+//            event.putDouble(EVENT_MAX_PRICE, e.getMaxPrice());
+//            event.putString(EVENT_TICKETMASTER_URL, e.getTicketMasterUrl());
+//            event.putString(EVENT_IMAGE_URL, e.getImageUrl());
+//
+//            Intent newIntent = new Intent(this, SaveEventDetailActivity.class);
+//            newIntent.putExtras(event);
+//            startActivity(newIntent);
             Event e = list.get(position);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(e.getName())
                     .setMessage(
                             getString(R.string.start_date) + e.getStartDate() +
-                                    "\n"+getString(R.string.min_price) + e.getMinPrice() +
-                                    "\n"+getString(R.string.max_price) + e.getMaxPrice()
+                                    "\n" + getString(R.string.min_price) + e.getMinPrice() +
+                                    "\n" + getString(R.string.max_price) + e.getMaxPrice()
                     )
                     .setPositiveButton(R.string.open_url, (dialog, which) -> {
 
@@ -89,6 +105,35 @@ public class EventListActivity extends AppCompatActivity {
                     })
                     .create().show();
             return true;
+        });
+
+        boolean isTablet = findViewById(R.id.fragmentLocation) != null;
+
+        eventListView.setOnItemClickListener((adapterView, view, position, l) -> {
+
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString(EVENT_NAME, (list.get(position).getName()));
+            dataToPass.putString(EVENT_START_DATE, (list.get(position).getStartDate()));
+            dataToPass.putDouble(EVENT_MIN_PRICE, (list.get(position).getMinPrice()));
+            dataToPass.putDouble(EVENT_MAX_PRICE, (list.get(position).getMaxPrice()));
+            dataToPass.putString(EVENT_TICKETMASTER_URL, (list.get(position).getTicketMasterUrl()));
+            dataToPass.putString(EVENT_IMAGE_URL, (list.get(position).getImageUrl()));
+//            dataToPass.putLong(MESSAGE_ID, id);
+
+
+            if (isTablet) {
+                dFragment = new EventDetailsFragment(); //add a DetailFragment
+                dFragment.setArguments(dataToPass); //pass it a bundle for information
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
+                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
+            } else {
+                Intent nextActivity = new Intent(EventListActivity.this, EventEmptyActivity.class);
+                nextActivity.putExtras(dataToPass); //send data to next activity
+                startActivity(nextActivity); //make the transition
+            }
+
         });
 
     }
@@ -167,7 +212,6 @@ public class EventListActivity extends AppCompatActivity {
             } else {
                 Snackbar.make(eventListView, R.string.events_loaded, Snackbar.LENGTH_SHORT).show();
             }
-
 
         }
     }

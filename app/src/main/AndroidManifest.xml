@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.androidfinalproject_20f">
 
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,12 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".sabiha.EventListActivity"></activity>
+        <activity android:name=".sabiha.SaveEventDetailActivity"></activity>
+        <activity android:name=".sabiha.EventDatabaseListActivity" />
+        <activity android:name=".sabiha.EventListActivity" />
         <activity android:name=".sabiha.EventSearchActivity" />
-
-        <activity android:name=".audiosearch.AlbumListActivity"></activity>
+        <activity android:name=".sabiha.EventEmptyActivity" />
+        <activity android:name=".audiosearch.AlbumListActivity" />
         <activity android:name=".audiosearch.ArtistInputActivity" />
+
+        <activity android:name=".audiosearch.EmptyActivity" />
+        <activity android:name=".audiosearch.SavedAlbumListActivity" />
+        <activity android:name=".audiosearch.SongListActivity" />
 
         <activity android:name=".chrish.ResultByDate"></activity>
         <activity android:name=".chrish.ViewHistory" />

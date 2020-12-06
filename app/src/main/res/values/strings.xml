@@ -12,10 +12,10 @@
     <string name="events_loaded">Events loaded!</string>
 
 
-    <string name="app_name" translatable="false">AndroidFinalProject_20F</string>
-    <string name="album_search" translatable="false">Album Search</string>
-    <string name="enter_artist_name_here" translatable="false">Enter Artist Name here</string>
-    <string name="search_albums" translatable="false">Search Albums</string>
+    <string name="app_name">AndroidFinalProject_20F</string>
+    <string name="album_search">Album Search</string>
+    <string name="enter_artist_name_here">Enter Artist Name here</string>
+    <string name="search_albums">Search Albums</string>
 
     <string name="wantdelete">Do you want to delete the row?</string>
     <string name="selectedrow">The selected row is</string>
@@ -29,10 +29,8 @@
     <string name="cst_2335_android_final_project">CST_2335 Android Final Project</string>
     <string name="ticketmaster_event_search">TicketMaster event search</string>
     <string name="recipe_search">Recipe search</string>
-    <string name="covid_19_case_data_search">Covid-19 case data search</string>
+    <string name="covid_19_case_data_search">Covid-19 Case Search</string>
     <string name="the_audio_database_search">The Audio database search</string>
-
-
     <string name="rs_please_enter_recipe_name">Please enter recipe name</string>
     <string name="rs_welcome_recipe_search_by_ahmed">Hello!!\nWelcome to the Recipe Search by Ahmed.</string>
     <string name="covidOpen">Open</string>
@@ -69,6 +67,29 @@
     <string name="as_snackbar_message">"Showing the albums for artist: "</string>
     <string name="as_please_enter_album_name">Please enter the artist name</string>
 
+    <string name="as_hide">Hide</string>
+    <string name="as_add_or_remove_from_database">Add or Remove from database</string>
+    <string name="as_show_database_stored_albums">Show database stored albums</string>
+    <string name="as_no_albums_in_db">There are no albums in the database</string>
+    <string name="as_version_1">Version: 1</string>
+    <string name="as_name_vetti">Name: Vetti</string>
+    <string name="as_instructions">Instructions</string>
+    <string name="as_ok">Ok</string>
+    <string name="as_close">Close</string>
+    <string name="as_open">Open</string>
+    <string name="as_get_songs">Get songs</string>
+    <string name="as_showing_songs_for_selected">Showing songs for selected album</string>
+    <string name="as_instruction_description">This screen hows list of the albums. You can click on a particular album to open details.</string>
+    <string name="as_instruction_description_songs">This screen hows list of the songs. You can click on a particular song to search it on google.</string>
+    <string name="albumInstruction">Instruction</string>
+    <string name="albumhelpmessage">Enter the Artist name and click \"Search Album\" button to begin search.</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="covidInstruction">Instruction:</string>
+    <string name="cwInstuction">Enter the Country name and dates in (YYYY-MM-DD) format. Then hit Search</string>
+    <string name="CviewHis_instruction">Select a date from the list and click to view saved results.</string>
+    <string name="C_caseData_instruction">click and hold on any below list for more info. Click on \"View Search History\" to view results by date.</string>
+
     <string name="rs_favorites">Favorites</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -84,6 +105,20 @@
     <string name="rs_recipy_already_added">Recipe Already Added to Favorites</string>
     <string name="rs_unable_to_add_fav">Unable to Add to Favorites</string>
     <string name="rs_added_to_fav">Recipe Added to the Favorites</string>
+
+    <string name="event_name">Event Name</string>
+    <string name="save_event_to_database">Save Event to Database</string>
+    <string name="hide_event_details">Hide Event Details</string>
+    <string name="show_saved_events">Show saved events</string>
+    <string name="eventOpen">open</string>
+    <string name="eventClose">close</string>
+    <string name="eventInstruction">Instruction</string>
+    <string name="eventInstmsg">Write the city name and click search</string>
+    <string name="EventTitle">Event Search Activity</string>
+    <string name="EventVersion">Version1</string>
+    <string name="EventURLButton">Go To Event Page</string>
+    <string name="EventSaveButton">Save Event</string>
+    <string name="eventListView">Do you want to delete the city?</string>
 
 
 </resources>

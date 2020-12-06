@@ -1,17 +1,22 @@
 package com.example.androidfinalproject_20f.audiosearch;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.androidfinalproject_20f.R;
 import com.google.android.material.snackbar.Snackbar;
@@ -22,8 +27,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -58,6 +65,12 @@ public class AlbumListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_list);
 
+        //This gets the toolbar from the layout:
+        Toolbar tBar = (Toolbar) findViewById(R.id.toolbar);
+
+        //This loads the toolbar, which calls onCreateOptionsMenu below:
+        setSupportActionBar(tBar);
+
         artistName = getIntent().getStringExtra("ARTIST_NAME");
 
         albumListView = findViewById(R.id.albumListView);
@@ -66,7 +79,7 @@ public class AlbumListActivity extends AppCompatActivity {
         myAdapter = new AlbumAdaptor();
         albumListView.setAdapter(myAdapter);
 
-        albumListView.setOnItemClickListener((parent, view, position, id) -> {
+        albumListView.setOnItemLongClickListener((parent, view, position, id) -> {
 
             Album alb = list.get(position);
 
@@ -87,10 +100,49 @@ public class AlbumListActivity extends AppCompatActivity {
 
                     .create().show();
 
+            return true;
+
         });
 
         ArtistAlbumQuery request = new ArtistAlbumQuery(); //creates a background thread
-        request.execute("https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s=" + artistName);
+
+        try {
+            request.execute("https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s=" + URLEncoder.encode(artistName, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        boolean isTablet = findViewById(R.id.fragmentLocation) != null;
+
+        albumListView.setOnItemClickListener((parent, view, position, id) -> {
+
+            Album alb = list.get(position);
+
+            //Create a bundle to pass data to the new fragment
+            Bundle dataToPass = new Bundle();
+            dataToPass.putLong("ID", alb.getId());
+            dataToPass.putLong("ALBUMIDFROMINTERNET", alb.getAlbumIDFromInternet());
+            dataToPass.putString("TITLE", alb.getTitle());
+            dataToPass.putString("YEAR", alb.getYear());
+            dataToPass.putString("DESCRIPTION", alb.getDescription());
+            dataToPass.putString("GENRE", alb.getGenre());
+            dataToPass.putString("SALE", alb.getSale());
+
+
+            if (isTablet) {
+                DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
+                dFragment.setArguments(dataToPass);//pass it a bundle for information
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
+                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
+            } else {
+                Intent nextActivity = new Intent(AlbumListActivity.this, EmptyActivity.class);
+                nextActivity.putExtras(dataToPass); //send data to next activity
+                startActivity(nextActivity); //make the transition
+            }
+
+        });
 
     }
 
@@ -123,6 +175,7 @@ public class AlbumListActivity extends AppCompatActivity {
                     JSONObject albumJsonObject = albumJsonArray.getJSONObject(i);
 
                     Album a = new Album(
+                            albumJsonObject.has("idAlbum") ? albumJsonObject.getLong("idAlbum") : 0,
                             albumJsonObject.has("strAlbum") ? albumJsonObject.getString("strAlbum") : "",
                             albumJsonObject.has("intYearReleased") ? albumJsonObject.getString("intYearReleased") : "",
                             albumJsonObject.has("strDescriptionEN") ? albumJsonObject.getString("strDescriptionEN") : "",
@@ -186,5 +239,30 @@ public class AlbumListActivity extends AppCompatActivity {
         public long getItemId(int position) {
             return getItem(position).getId();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.example_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            //what to do when the menu item is selected:
+            case R.id.instructionsMenuItem:
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AlbumListActivity.this);
+                alertDialogBuilder.setTitle(R.string.as_instructions)
+                        .setMessage(R.string.as_instruction_description)
+                        .setPositiveButton(R.string.as_ok, null)
+                        .create().show();
+
+                break;
+        }
+        return true;
     }
 }
