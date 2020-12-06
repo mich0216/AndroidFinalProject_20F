@@ -38,7 +38,7 @@ public class RecipeDetailsFragment extends Fragment {
     private SQLiteDatabase db;
     private String title, recipeUrl, ingredients, imageUrl = "";
     /**
-     * Boolean to check User is coming favorite screen or Search Screen
+     * Boolean to check User is comn favorite screen or Search Screen
      */
     private Boolean isFromFav;
     private AppCompatActivity parentActivity;
@@ -89,10 +89,10 @@ public class RecipeDetailsFragment extends Fragment {
          * Checking if the User Selected favorite or search
          */
         if (isFromFav){
-            add_to_fav_button.setText("Remove From Favorites");
+            add_to_fav_button.setText(R.string.rs_remove_from_fav);
         }
-        recipeTitle.setText("Title: " + title);
-        recipeIngredients.setText("Ingredients: " + ingredients);
+        recipeTitle.setText(getString(R.string.rs_title) + title);
+        recipeIngredients.setText(getString(R.string.rs_ingredients) + ingredients);
     }
 
     /**
@@ -139,21 +139,22 @@ public class RecipeDetailsFragment extends Fragment {
         add_to_fav_button.setOnClickListener(view -> {
             if (isFromFav){
                 deleteFavoriteRecipeFromDatabase(title);
-                Toast.makeText(getActivity(), "Recipe Removed From Favorites", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.rs_recipe_removed, Toast.LENGTH_SHORT).show();
             }else {
                 if (checkIfRecipeAlreadyInDatabase(title)){
-                    Toast.makeText(getActivity(), "Recipe Already Added to Favorites", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.rs_recipy_already_added, Toast.LENGTH_SHORT).show();
                 }else {
                     long returnedId = addFavoriteRecipeToDatabase();
                     if (returnedId <= 0) {
-                        Toast.makeText(getActivity(), "Unable to Add to Favorites", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.rs_unable_to_add_fav, Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getActivity(), "Recipe Added to the Favorites", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.rs_added_to_fav, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
     }
+            // checking if recipe in db using title
 
     private Boolean checkIfRecipeAlreadyInDatabase(String title) {
         RecipeDataOpener dbOpener = new RecipeDataOpener(getActivity());

@@ -23,7 +23,7 @@ public class RecipeDataOpener extends SQLiteOpenHelper {
 
 
     //This function gets called if no database file exists.
-    //Look on your device in the /data/data/package-name/database directory.
+    //Look on device in the /data/data/package-name/database directory.
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
