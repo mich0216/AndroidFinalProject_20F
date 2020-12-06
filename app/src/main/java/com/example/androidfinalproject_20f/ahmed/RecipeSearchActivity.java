@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.androidfinalproject_20f.R;
@@ -92,12 +90,10 @@ public class RecipeSearchActivity extends AppCompatActivity {
                 openFavoriteActivity();
                 return true;
             case R.id.menu_help:
-                alertDialog("Welcome to the Recipe Search\n" +
-                        "Enter Recipe name and ingredients to search recipes\n" +
-                        "Click on Favorite Button,to see favorite recipes");
+                alertDialog(getString(R.string.rs_search_screen_info));
                 return true;
             case R.id.menu_home:
-                Toast.makeText(this, "We are already at Recipe Search", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.rs_we_already_home, Toast.LENGTH_SHORT).show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -138,7 +134,7 @@ public class RecipeSearchActivity extends AppCompatActivity {
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -150,24 +146,22 @@ public class RecipeSearchActivity extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.menu_favorites:
                 openFavoriteActivity();
                 break;
             case R.id.menu_help:
-                alertDialog("Welcome to the Recipe Search\n" +
-                        "Enter Recipe name and ingredients to search recipes\n" +
-                        "Click on Favorite Button,to see favorite recipes");
+                alertDialog(getString(R.string.rs_search_screen_info));
                 break;
             case R.id.menu_home:
-                Toast.makeText(this, "We are already at Recipe Search", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.rs_we_already_home, Toast.LENGTH_SHORT).show();
                 break;
         }
         mDrawer.closeDrawers();
     }
 
     /**
-     * Managing when user click on search button
+     * Handle when user click on search button
      */
     private void handleSearchButtonClick() {
         searchButton.setOnClickListener(v -> {
@@ -185,10 +179,10 @@ public class RecipeSearchActivity extends AppCompatActivity {
             i.putExtra("fav", false);
             startActivity(i);
 
-            // Saving the SP
+            // Saving the SharedPrefrences
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("R_NAME", recipeName);
-            editor.putString("INGREDIENTS",  ingredients);
+            editor.putString("INGREDIENTS", ingredients);
             editor.commit();
         });
 
@@ -215,13 +209,13 @@ public class RecipeSearchActivity extends AppCompatActivity {
     /**
      * Settling Up Alert Dialog
      */
-    void alertDialog(String message){
+    void alertDialog(String message) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage(message);
         builder1.setCancelable(true);
 
         builder1.setPositiveButton(
-                "Continue",
+                R.string.rs_continue,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
@@ -229,6 +223,7 @@ public class RecipeSearchActivity extends AppCompatActivity {
                 });
 
         AlertDialog alert11 = builder1.create();
-        alert11.show();    }
+        alert11.show();
+    }
 
 }

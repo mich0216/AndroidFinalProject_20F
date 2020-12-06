@@ -94,6 +94,17 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <string name="rs_fav_list_info">This screen shows the list of the favorite recipes. You can click on the single recipe, it will show some more details about it.</string>
+    <string name="rs_seach_list_info">This screen shows the list of the various recipes for the searched one. You can click on the single recipe, it will show some more details about it.</string>
+    <string name="rs_search_screen_info">Welcome to the Recipe Search\nEnter Recipe name and ingredients to search recipes\nClick on Favorite Button,to see favorite recipes</string>
+    <string name="rs_we_already_home">We are already at Recipe Search</string>
+    <string name="rs_continue">Continue</string>
+    <string name="rs_remove_from_fav">Remove From Favorites</string>
+    <string name="rs_title">\"Title: \"</string>
+    <string name="rs_recipe_removed">Recipe Removed From Favorites</string>
+    <string name="rs_recipy_already_added">Recipe Already Added to Favorites</string>
+    <string name="rs_unable_to_add_fav">Unable to Add to Favorites</string>
+    <string name="rs_added_to_fav">Recipe Added to the Favorites</string>
 
     <string name="event_name">Event Name</string>
     <string name="save_event_to_database">Save Event to Database</string>
@@ -108,7 +119,6 @@
     <string name="EventURLButton">Go To Event Page</string>
     <string name="EventSaveButton">Save Event</string>
     <string name="eventListView">Do you want to delete the city?</string>
-
 
 
 </resources>

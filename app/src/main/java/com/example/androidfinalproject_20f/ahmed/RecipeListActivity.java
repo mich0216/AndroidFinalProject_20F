@@ -1,5 +1,6 @@
 package com.example.androidfinalproject_20f.ahmed;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,8 +21,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.androidfinalproject_20f.R;
 
@@ -62,22 +68,27 @@ public class RecipeListActivity extends AppCompatActivity {
     private boolean isTablet = false;
     private TextView txt_login;
     private Boolean isFromFav;
-    private String recipeName,ingredients;
+    private String recipeName, ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        // Set a Toolbar to replace the ActionBar.
+        setSupportActionBar(toolbar);
+
         setupView();
         setupAdapter();
         manageComingBundleData();
         handleRecipeOnLongClickListener();
         handleRecipeOnClickListener();
         checkDeviceType();
-        if (isFromFav){
+        if (isFromFav) {
             elements.clear();
             getData();
-        }else {
+        } else {
             RecipeQuery rq = new RecipeQuery();
             rq.execute("http://www.recipepuppy.com/api/?i=" + ingredients + "&q=" + recipeName + "&p=3");
         }
@@ -101,7 +112,7 @@ public class RecipeListActivity extends AppCompatActivity {
     private void manageComingBundleData() {
         recipeName = getIntent().getStringExtra("R_NAME");
         ingredients = getIntent().getStringExtra("INGREDIENTS");
-        isFromFav = getIntent().getBooleanExtra("fav",false);
+        isFromFav = getIntent().getBooleanExtra("fav", false);
     }
 
     /**
@@ -128,10 +139,10 @@ public class RecipeListActivity extends AppCompatActivity {
         /**
          * Managing recipe list when user comes back from Details Screen
          */
-        if (isFromFav){
+        if (isFromFav) {
             elements.clear();
             getData();
-            if (myListAdapter!=null){
+            if (myListAdapter != null) {
                 myListAdapter.notifyDataSetChanged();
             }
         }
@@ -157,7 +168,7 @@ public class RecipeListActivity extends AppCompatActivity {
                 dFragment.setArguments(dataToPass); //pass it a bundle for information
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragmentLoadingSpace, dFragment) //Add the fragment in FrameLayout
+                        .add(R.id.fragmentLoadingSpace, dFragment) //Add the fragment in FrameLayout
                         .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
             } else {
                 Intent i = new Intent(RecipeListActivity.this, RecipeEmptyActivity.class);
@@ -199,13 +210,13 @@ public class RecipeListActivity extends AppCompatActivity {
 
         RecipeDataOpener dbOpener = new RecipeDataOpener(this);
         SQLiteDatabase db = dbOpener.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from recipeData", null );
-        while (res.moveToNext()){
+        Cursor res = db.rawQuery("select * from recipeData", null);
+        while (res.moveToNext()) {
             String title = res.getString(res.getColumnIndex(RecipeDataOpener.COL_TITLE));
             String recipeUrl = res.getString(res.getColumnIndex(RecipeDataOpener.COL_RECIPE_URL));
             String ingredients = res.getString(res.getColumnIndex(RecipeDataOpener.COL_INGREDIENTS));
             String imageUrl = res.getString(res.getColumnIndex(RecipeDataOpener.COL_IMAGE_URL));
-            Recipe r = new Recipe(title, recipeUrl, ingredients,imageUrl);
+            Recipe r = new Recipe(title, recipeUrl, ingredients, imageUrl);
             elements.add(r);
         }
         if (elements.isEmpty()) {
@@ -213,6 +224,67 @@ public class RecipeListActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.recipemenu, menu);
+        return true;
+    }
+
+    /**
+     * Handling When user click on option menu item
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // The action bar home/up action should open or close the drawer.
+        switch (item.getItemId()) {
+            case R.id.menu_favorites:
+                openFavoriteActivity();
+                return true;
+            case R.id.menu_help:
+                if (isFromFav) {
+                    alertDialog(getString(R.string.rs_fav_list_info));
+                } else {
+                    alertDialog(getString(R.string.rs_seach_list_info));
+                }
+
+                return true;
+            case R.id.menu_home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Open Favorite recipe screen when user click on favorite button
+     */
+    private void openFavoriteActivity() {
+        Intent i = new Intent(RecipeListActivity.this, RecipeListActivity.class);
+        i.putExtra("fav", true);
+        startActivity(i);
+    }
+
+    /**
+     * Settling Up Alert Dialog
+     */
+    void alertDialog(String message) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage(message);
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                R.string.rs_continue,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
 
     /**
      * Adapter class for recipe list view
