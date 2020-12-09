@@ -50,17 +50,33 @@ import java.util.ArrayList;
  *
  */
 public class CovidCasesData extends AppCompatActivity {
-
-    private ArrayList<CovidData> list  = new ArrayList<>(); // an ArrayList contains CovidData objects
-    private CovidDataAdaptor covidDataAdaptor;  // CovidDataAdaptor object
+    /**
+     * the variable list as an ArrayList contains CovidData objects
+     */
+    private ArrayList<CovidData> list  = new ArrayList<>();
+    /**
+     * the variable covidDataAdaptor is a CovidDataAdaptor object
+     */
+    private CovidDataAdaptor covidDataAdaptor;
+    /**
+     * the variable country as String
+     */
     private String country;
-    SQLiteDatabase db;    // database object
-    ProgressBar progressBar;  // progres
+    /**
+     * the variable db as SQLiteDatabase object
+     */
+    SQLiteDatabase db;
+    /**
+     * the variable progressBar as ProgressBar object
+     */
+    ProgressBar progressBar;
 
 
     @Override
+    //program starts here
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // setContentView loads objects onto the screen.
         setContentView(R.layout.activity_covid_cases_data);
 
         // this gets the toolbar from the layout
@@ -69,6 +85,7 @@ public class CovidCasesData extends AppCompatActivity {
         //This loads the toolbar, which calls onCreateOptionMev
         setSupportActionBar(tBar);
 
+        // for Navigation Drawer
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawer, tBar, R.string.covidOpen, R.string.covidClose);
@@ -116,7 +133,7 @@ public class CovidCasesData extends AppCompatActivity {
 
         ListView myList = findViewById(R.id.searchListView);
         myList.setAdapter(covidDataAdaptor = new CovidDataAdaptor());
-
+        // set on item long click listener to display the province, case number, date with database id with a title
         myList.setOnItemLongClickListener((parent, view, position, id) -> {
             CovidData selectedData = list.get(position);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -159,8 +176,6 @@ public class CovidCasesData extends AppCompatActivity {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.covidmenu, menu);
-        //    MenuInflater inflater2 = getMenuInflater();
-        // inflater.inflate(R.menu.nagvigationmenu, menu);
         return true;
     }
 
@@ -226,8 +241,8 @@ public class CovidCasesData extends AppCompatActivity {
                 //wait for data:
                 InputStream uvResponse = covidDataURLConnection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(uvResponse, "UTF-8"), 8);
-                Thread.sleep(500);
-                publishProgress(25);
+                Thread.sleep(500); // sleep for 500 milli seconds
+                publishProgress(25); // set the progressbar value
                 StringBuilder sb = new StringBuilder();
                 String line = null;
                 while ((line = reader.readLine()) != null)
@@ -238,8 +253,8 @@ public class CovidCasesData extends AppCompatActivity {
                 JSONArray covidDataArray = new JSONArray(result);
 
                setUpDatabaseOpener();
-                Thread.sleep(500);
-                publishProgress(50);
+                Thread.sleep(500); // sleep for 500 milli seconds
+                publishProgress(50);  // set the progressbar value
                 for(int j=0; j<covidDataArray.length(); j++){
                     JSONObject covidObject = covidDataArray.getJSONObject(j);
                     String province = covidObject.getString("Province");
@@ -264,8 +279,8 @@ public class CovidCasesData extends AppCompatActivity {
                         long newId = db.insert(CovidDataOpener.TABLE_NAME, null, newRowValue);
                     }
                 }
-                Thread.sleep(500);
-                publishProgress(99);
+                Thread.sleep(500); // sleep for 500 milli seconds
+                publishProgress(100);  // set the progressbar value
             }
             catch (Exception e)
             {
@@ -293,8 +308,8 @@ public class CovidCasesData extends AppCompatActivity {
         }
     }
 
-    // get the CovidData object from the user
-    // delete the object from the database
+
+    // delete the Covid Data object from the database
     protected void deleteMessage(CovidData c)
     {
         db.delete(CovidDataOpener.TABLE_NAME, CovidDataOpener.COL_ID + "= ?", new String[] {Long.toString(c.getDatabaseId())});

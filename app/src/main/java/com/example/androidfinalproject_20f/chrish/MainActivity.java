@@ -37,16 +37,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
+    //program starts here
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /// setContentView loads objects onto the screen.
+        // setContentView loads objects onto the screen.
         setContentView(R.layout.activity_main);
 
-
+        // this gets the toolbar from the layout
         Toolbar tBar = (Toolbar) findViewById(R.id.mainToolbar);
         //This loads the toolbar, which calls onCreateOptionMev
         setSupportActionBar(tBar);
 
+        // for Navigation Drawer
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawer, tBar, R.string.covidOpen, R.string.covidClose);
@@ -119,10 +121,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+    // Inflate the menu items for use in the action bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.maintoolandnag, menu);
         return true;
@@ -132,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // String message = null;
         //Look at your menu XML file. Put a case for every id in that file:
         switch (item.getItemId()) {
             // when the menu item is selected go to event search page

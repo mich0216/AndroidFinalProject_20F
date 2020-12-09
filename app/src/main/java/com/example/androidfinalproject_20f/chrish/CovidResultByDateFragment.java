@@ -21,12 +21,32 @@ import android.widget.Toolbar;
 import com.example.androidfinalproject_20f.R;
 
 import java.util.ArrayList;
+/**
+ * @author Chrishanthi Michael
+ * CST 2335-020
+ * CovidResultByDateFragment is the activity page for loading fragment
+ * CovidResultByDateFragment extends the Fragment class
+ */
+
 
 public class CovidResultByDateFragment extends Fragment {
+    /**
+     * the variable db as SQLiteDatabase object
+     */
     SQLiteDatabase db;
+    /**
+     * the variable datelist as an ArrayList contains CovidData objects
+     */
     ArrayList<CovidData> dateList = new ArrayList<>();
+    /**
+     * the variable covidDataAdaptor is a CovidDataAdaptor object
+     */
     CovidDataAdaptor covidDataAdaptor;
+    /**
+     * Variable resultbyDate as String
+     */
     String resultByDate;
+
     private AppCompatActivity parentActivity;
 
     @Override
@@ -34,16 +54,7 @@ public class CovidResultByDateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View result =  inflater.inflate(R.layout.fragment_covid_result_by_date, container, false);
-        // this gets the toolbar from the layout
-        //Toolbar tBar = (Toolbar) result.findViewById(R.id.covidToolbar);
-       // getActivity().setActionBar(tBar);
-        //This loads the toolbar, which calls onCreateOptionMev
-        //setSupportActionBar(tBar);
-      // DrawerLayout drawer = result.findViewById(R.id.drawer_layout);
-       //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
-       //drawer, tBar, R.string.covidOpen, R.string.covidClose);
-       //drawer.addDrawerListener(toggle);
-       //toggle.syncState();
+
         resultByDate = getArguments().getString("DATE");
         CovidDataOpener dbOpener = new CovidDataOpener(getContext());
         Button button = (Button) result.findViewById(R.id.deletebutton);
@@ -51,17 +62,11 @@ public class CovidResultByDateFragment extends Fragment {
             this.deleteResultDateFromDB(resultByDate);
             parentActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
         });
-        //db = dbOpener.getWritableDatabase();
+
         this.queryDataFromDatabase(resultByDate);
         ListView myList = result.findViewById(R.id.searchListView);
         myList.setAdapter(covidDataAdaptor = new CovidDataAdaptor());
-     //   Button button = (Button) result.findViewById(R.id.deletebutton);
-     //   button.setOnClickListener(new View.OnClickListener() {
-     //       public void onClick(View v) {
-     //           Log.e("Test", "Test clicked");
-     //       }
-     //   });
-        //this.loadDataFromDatabase();
+
         covidDataAdaptor.notifyDataSetChanged();
         return result;
 
@@ -76,11 +81,8 @@ public class CovidResultByDateFragment extends Fragment {
 
         // We want to get all of the columns. Look at MyOpener.java for the definitions:
         String [] columns = {CovidDataOpener.COL_ID, CovidDataOpener.COL_DATE, CovidDataOpener.COL_CASES, CovidDataOpener.COL_COUNTRY, CovidDataOpener.COL_PROVINCE};
-        //String [] columns = {CovidDataOpener.COL_DATE};
+
         //query all the results from the database:
-        //Cursor results = db.query(false, CovidDataOpener.TABLE_NAME, columns, CovidDataOpener.COL_DATE+"="+resultByDate, null, null, null, null, null);
-        // Cursor results = db.query(false, CovidDataOpener.TABLE_NAME, columns, "DATE="+resultByDate, null, null, null, null, null);
-        //Cursor results = db.rawQuery("SELECT DISTINCT * FROM COVIDDATA WHERE DATE is  ? ",new String[] {resultByDate});
         Cursor results = db.rawQuery("SELECT PROVINCE, DATE, _ID, COUNTRY, CASES FROM COVIDDATA WHERE DATE is ? GROUP by PROVINCE" ,new String[] {resultByDate});
         //Now the results object has rows of results that match the query.
         //find the column indices:
@@ -104,11 +106,8 @@ public class CovidResultByDateFragment extends Fragment {
             //dateList.add(date);
 
         }
-        //notify dataset changed
-        // covidDataAdaptor.notifyDataSetChanged();
-//        printCursor(results, db.getVersion());
     }
-
+    // delete the Covid Data object from the database
     private void deleteResultDateFromDB(String resultByDate){
         CovidDataOpener dbOpener = new CovidDataOpener(getContext());
         db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer

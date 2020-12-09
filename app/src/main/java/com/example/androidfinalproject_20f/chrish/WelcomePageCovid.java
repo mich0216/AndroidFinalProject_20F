@@ -29,16 +29,24 @@ import com.google.android.material.navigation.NavigationView;
 
 public class WelcomePageCovid extends AppCompatActivity {
 
-
+    /**
+    * the variable pref the SharedPreference
+    */
     SharedPreferences pref = null;
+    /**
+     * the variables country ,startDate, endDate as EditText
+     * */
     EditText country ,startDate, endDate;
+    /**
+     *  the variables countryToSave, startDateToSave, endDateToSave as String
+     */
     private String countryToSave, startDateToSave, endDateToSave;
 
     @Override
-    //Your program starts here
+    //program starts here
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView loads objects onto the screen before the screen is empty.
+        // setContentView loads objects onto the screen. Before this function screen is empty.
         setContentView(R.layout.activity_welcome_page_covid);
 
         // this gets the toolbar from the layout
@@ -47,6 +55,7 @@ public class WelcomePageCovid extends AppCompatActivity {
         //This loads the toolbar, which calls onCreateOptionMenu
         setSupportActionBar(tBar);
 
+        // for Navigation Drawer
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawer, tBar, R.string.covidOpen, R.string.covidClose);
@@ -113,7 +122,6 @@ public class WelcomePageCovid extends AppCompatActivity {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.covidmenu, menu);
-
         return true;
     }
 
@@ -153,12 +161,11 @@ public class WelcomePageCovid extends AppCompatActivity {
 
 
     /**
-     *
+     * This method saves the information in Shared Preference
      * @param countryToSave this is the country name user enters
      * @param startDateToSave this is the start date user the provides/enter
      * @param endDateToSave  this is the end date the user provides/enter
      */
-
 
     private void saveSharedPrefs(String countryToSave, String startDateToSave, String endDateToSave) {
         SharedPreferences.Editor editor = pref.edit();
