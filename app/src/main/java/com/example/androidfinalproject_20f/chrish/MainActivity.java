@@ -37,16 +37,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
+    //program starts here
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /// setContentView loads objects onto the screen.
+        // setContentView loads objects onto the screen.
         setContentView(R.layout.activity_main);
 
-
+        // this gets the toolbar from the layout
         Toolbar tBar = (Toolbar) findViewById(R.id.mainToolbar);
         //This loads the toolbar, which calls onCreateOptionMev
         setSupportActionBar(tBar);
 
+        // for Navigation Drawer
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawer, tBar, R.string.covidOpen, R.string.covidClose);
@@ -59,22 +61,23 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 //what to do when the menu item is selected:
                 case R.id.eventSearch:
+                    // when the menu item is selected go to event search page
                     Intent event = new Intent(this, EventSearchActivity.class);
                     startActivity(event);
                     break;
-
+                // when the menu item is selected go to recipe search page
                 case R.id.receipeSearch:
                     Intent recipe = new Intent(this, RecipeSearchActivity.class);
                     startActivity(recipe);
                     break;
-
+                // when the menu item is selected go to covid case search page
                 case R.id.covidSearch:
                     Intent covidSearch = new Intent(this, WelcomePageCovid.class);
                     startActivity(covidSearch);
                     break;
-
+                // when the menu item is selected go to album search page
                 case R.id.alblumSearch:
-                    Intent album = new Intent(this, Album.class);
+                    Intent album = new Intent(this, ArtistInputActivity.class);
                     startActivity(album);
                     break;
 
@@ -118,10 +121,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+    // Inflate the menu items for use in the action bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.maintoolandnag, menu);
         return true;
@@ -131,27 +133,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // String message = null;
         //Look at your menu XML file. Put a case for every id in that file:
         switch (item.getItemId()) {
-            //what to do when the menu item is selected:
+            // when the menu item is selected go to event search page
             case R.id.eventSearch:
-                Intent event = new Intent(this, Event.class);
+                Intent event = new Intent(this, EventSearchActivity.class);
                 startActivity(event);
                 break;
-
+            // when the menu item is selected go to recipe search page
             case R.id.receipeSearch:
-                Intent recipe = new Intent(this, Recipe.class);
+                Intent recipe = new Intent(this, RecipeSearchActivity.class);
                 startActivity(recipe);
                 break;
-
+            // when the menu item is selected go to covid case search page
             case R.id.covidSearch:
                 Intent covidSearch = new Intent(this, WelcomePageCovid.class);
                 startActivity(covidSearch);
                 break;
-
+            // when the menu item is selected go to album search page
             case R.id.alblumSearch:
-                Intent album = new Intent(this, Album.class);
+                Intent album = new Intent(this, ArtistInputActivity.class);
                 startActivity(album);
                 break;
 

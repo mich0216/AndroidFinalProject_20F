@@ -35,15 +35,26 @@ import java.util.ArrayList;
  *  This class ViewHistory is responsible to get the date input from the user selection and pass it to the another activity.
  * */
 public class ViewHistory extends AppCompatActivity {
+    /**
+     * the variable db as SQLiteDatabase object
+     */
     SQLiteDatabase db;
+    /**
+     * the variable datelist as an ArrayList contains String objects
+     */
     ArrayList<String> dateList = new ArrayList<>();
+    /**
+     * the variable covidDataAdaptor is a CovidDataAdaptor object
+     */
     CovidDateListAdaptor covidDateListAdaptor;
     CovidResultByDateFragment dFragment;
     public static final String DATE = "DATE";
 
     @Override
+    //program starts here
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // setContentView loads objects onto the screen.
         setContentView(R.layout.activity_view_history);
 
         // this gets the toolbar from the layout
@@ -52,6 +63,7 @@ public class ViewHistory extends AppCompatActivity {
         //This loads the toolbar, which calls onCreateOptionMev
         setSupportActionBar(tBar);
 
+        // for Navigation Drawer
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawer, tBar, R.string.covidOpen, R.string.covidClose);
@@ -62,17 +74,17 @@ public class ViewHistory extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener (item -> {
 
             switch (item.getItemId()) {
-                //what to do when the menu item is selected:
+                // when the menu item is selected go to view history page.
                 case R.id.covidHistory:
                     Intent viewHistory = new Intent(this, ViewHistory.class);
                     startActivity(viewHistory);
                     break;
-
+                // when the menu item is selected go to main activity page.
                 case R.id.mainhome:
                     Intent mainPage = new Intent(this, MainActivity.class);
                     startActivity(mainPage);
                     break;
-
+                // when the menu item is selected go to welcome page.
                 case R.id.covidSearch:
                     Intent covidSearch = new Intent(this, WelcomePageCovid.class);
                     startActivity(covidSearch);
@@ -98,22 +110,24 @@ public class ViewHistory extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
+                //create a bundle to pass data to the new fragment
                 Bundle dataToPass = new Bundle();
                 dataToPass.putString(DATE, dateList.get(position));
 
-                if(isTablet){
-                    //dFragment = new CovidDetailsFragment();
-                    dFragment = new CovidResultByDateFragment();
-                    dFragment.setArguments(dataToPass);
+                if(isTablet){//both the date list and the details are on the screen
+                    dFragment = new CovidResultByDateFragment();//add a covidResultByDateFragment
+
+                    dFragment.setArguments(dataToPass);// pass it a bundle for info
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.fragmentLocation, dFragment)
-                            .commit();
+                            .replace(R.id.fragmentLocation, dFragment)//add a fragment in framelayout
+                            .commit();// load the fragment and calls onCreate() in covidResultByDateFragment
 
                 }
+                //for phone, can view only the dates list, for details need to go to the result by date activity page.
                 else {
-                    resultByDate.putExtra("DATE", dateList.get(position));
-                    startActivity(resultByDate);
+                    resultByDate.putExtra("DATE", dateList.get(position));// send data to reault by date activity
+                    startActivity(resultByDate);// making the transition
                 }
             }
         });
@@ -219,27 +233,30 @@ public class ViewHistory extends AppCompatActivity {
         // String message = null;
         //Look at your menu XML file. Put a case for every id in that file:
         switch (item.getItemId()) {
-            //what to do when the menu item is selected:
+            // when the menu item is selected go to view history page.
             case R.id.covidHistory:
                 Intent viewHistory = new Intent(this, ViewHistory.class);
                 startActivity(viewHistory);
-
                 break;
+            // when the menu item is selected go to main activity page.
             case R.id.mainhome:
                 Intent mainPage = new Intent(this, MainActivity.class);
                 startActivity(mainPage);
                 break;
+
+            // when the menu item is selected go to welcome page.
             case R.id.covidSearch:
                 Intent covidSearch = new Intent(this, WelcomePageCovid.class);
                 startActivity(covidSearch);
                 break;
 
+            // when the menu item is selected display a instruction to show how to use this page
             case R.id.covidHelpIcone:
                 AlertDialog.Builder helpmenu =new AlertDialog.Builder(this);
                 helpmenu.setTitle(getResources().getString(R.string.covidInstruction))
                         .setMessage(getResources().getString(R.string.cwInstuction))
                         .setMessage(getResources().getString(R.string.CviewHis_instruction))
-                        .setNeutralButton("OK",(click, arg)->{})
+                        .setNeutralButton((getResources().getString(R.string.cOK)),(click, arg)->{})
                         .create().show();
                 break;
         }

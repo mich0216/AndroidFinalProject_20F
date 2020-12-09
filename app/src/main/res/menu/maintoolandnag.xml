@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/eventSearch"
-        android:title="Event Search"
+        android:title="@string/event_search"
         android:icon="@drawable/event_search"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 
 
     <item android:id="@+id/receipeSearch"
-        android:title="Recipe Search"
+        android:title="@string/recipe_search"
         android:icon="@drawable/receipe_search"
         android:orderInCategory="200"
         app:showAsAction="always" />
 
 
     <item android:id="@+id/covidSearch"
-        android:title="Covid case Search "
+        android:title="@string/covid_19_case_data_search"
         android:icon="@drawable/covidsearch_icon"
         android:orderInCategory="300"
         app:showAsAction="always"/>
 
     <item android:id="@+id/alblumSearch"
-        android:title="Album Search "
+        android:title="@string/album_Search_main"
         android:icon="@drawable/music_icon"
         android:orderInCategory="400"
         app:showAsAction="always"/>

@@ -29,6 +29,10 @@
     <string name="the_audio_database_search"> La recherche dans la base de données audio </string>
     <string name="rs_please_enter_recipe_name"> Veuillez saisir le nom de la recette </string>
     <string name="rs_welcome_recipe_search_by_ahmed"> Bonjour !! \ nBienvenue dans la recherche de recettes par Ahmed. </string>
+
+    <string name="covidToastMessage">" Remplissez les champs pour rechercher"</string>
+    <string name="covidSnackBarMsg">Sélectionnez et maintenez sur la ligne pour plus de détails</string>
+
     <string name="covidToastMessage">Fill the fields to Search</string>
     <string name="covidSnackBarMsg">Select and Hold on Row for More Details</string>
     <string name="event_name">" Nom de l'événement"</string>
@@ -44,6 +48,7 @@
     <string name="EventURLButton">Aller à la page de l\'événement</string>
     <string name="EventSaveButton">Enregistrer l\'événement</string>
     <string name="eventListView">Voulez-vous supprimer la ville?</string>
+
     <string name="covidOpen">Ouverte</string>
     <string name="covidClose">" Proche"</string>
     <string name="covidTitle">" Données du cas Covid-19"</string>
@@ -80,6 +85,21 @@
     <string name="as_sale"> Vente d\'albums: </string>
     <string name="as_snackbar_message"> Affichage des albums de l\'artiste: </string>
     <string name="as_please_enter_album_name"> Veuillez saisir le nom de l\'artiste </string>
+
+    <string name="cwInstuction">" Entrez le nom du pays et les dates au format (AAAA-MM-JJ). Puis appuyez sur Rechercher"</string>
+    <string name="CviewHis_instruction">" Sélectionnez une date dans la liste et cliquez pour afficher les résultats enregistrés."</string>
+    <string name="covidInstruction">Instruction:</string>
+    <string name="C_caseData_instruction">" cliquez et maintenez sur l'une des listes ci-dessous pour plus d'informations. Cliquez sur \"Afficher l'historique de recherche\" pour afficher les résultats par date."</string>
+    <string name="album_Search_main">" Recherche d'album"</string>
+    <string name="cHome">Maison</string>
+    <string name="cHelp">Aidez-moi</string>
+    <string name="cView_history">Voir l\'historique</string>
+    <string name="cOK">D\'accord</string>
+    <string name="cProvince">La province est :</string>
+    <string name="cConfirmedCase">" Le numéro de dossier confirmé:"</string>
+    <string name="cDate">" La date est :"</string>
+    <string name="cDelete">SUPPRIMER</string>
+
     <string name="as_hide"> Masquer </string>
     <string name="as_add_or_remove_from_database"> Ajouter ou supprimer de la base de données </string>
     <string name="as_show_database_stored_albums"> Afficher les albums stockés dans la base de données </string>
@@ -108,5 +128,6 @@
     <string name="rs_recipy_already_added"> Recette déjà ajoutée aux favoris </string>
     <string name="rs_unable_to_add_fav"> Impossible d\'ajouter aux favoris </string>
     <string name="rs_added_to_fav"> Recette ajoutée aux favoris </string>
+
 
 </resources>
