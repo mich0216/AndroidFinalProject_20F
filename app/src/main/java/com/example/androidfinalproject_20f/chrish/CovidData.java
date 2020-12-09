@@ -4,6 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+/**
+ * @author Chrishanthi Michael
+ * CST 2335-020
+ * CovidData is the activity page
+ */
 public class CovidData {
     private String province;
     private int caseNumber;
@@ -11,11 +16,25 @@ public class CovidData {
     private String date;
     private String country;
 
+    /**
+     *
+     * @param province
+     * @param caseNumber
+     * @param date
+     * @param country
+     */
     public CovidData(String province, int caseNumber, String date, String country) {
         this(province, caseNumber,date, country, 0);
     }
 
-
+    /**
+     *
+     * @param province
+     * @param caseNumber
+     * @param date
+     * @param country
+     * @param dId
+     */
     public CovidData(String province, int caseNumber,String date, String country, long dId) {
         this.province = province;
         this.caseNumber = caseNumber;
@@ -23,6 +42,7 @@ public class CovidData {
         this.country = country;
         databaseId=dId;
     }
+
 
     public void setDatabaseId(Long databaseId) { this.databaseId = databaseId;
     }

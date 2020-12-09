@@ -62,17 +62,17 @@ public class ViewHistory extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener (item -> {
 
             switch (item.getItemId()) {
-                //what to do when the menu item is selected:
+                // when the menu item is selected go to view history page.
                 case R.id.covidHistory:
                     Intent viewHistory = new Intent(this, ViewHistory.class);
                     startActivity(viewHistory);
                     break;
-
+                // when the menu item is selected go to main activity page.
                 case R.id.mainhome:
                     Intent mainPage = new Intent(this, MainActivity.class);
                     startActivity(mainPage);
                     break;
-
+                // when the menu item is selected go to welcome page.
                 case R.id.covidSearch:
                     Intent covidSearch = new Intent(this, WelcomePageCovid.class);
                     startActivity(covidSearch);
@@ -219,27 +219,30 @@ public class ViewHistory extends AppCompatActivity {
         // String message = null;
         //Look at your menu XML file. Put a case for every id in that file:
         switch (item.getItemId()) {
-            //what to do when the menu item is selected:
+            // when the menu item is selected go to view history page.
             case R.id.covidHistory:
                 Intent viewHistory = new Intent(this, ViewHistory.class);
                 startActivity(viewHistory);
-
                 break;
+            // when the menu item is selected go to main activity page.
             case R.id.mainhome:
                 Intent mainPage = new Intent(this, MainActivity.class);
                 startActivity(mainPage);
                 break;
+
+            // when the menu item is selected go to welcome page.
             case R.id.covidSearch:
                 Intent covidSearch = new Intent(this, WelcomePageCovid.class);
                 startActivity(covidSearch);
                 break;
 
+            // when the menu item is selected display a instruction to show how to use this page
             case R.id.covidHelpIcone:
                 AlertDialog.Builder helpmenu =new AlertDialog.Builder(this);
                 helpmenu.setTitle(getResources().getString(R.string.covidInstruction))
                         .setMessage(getResources().getString(R.string.cwInstuction))
                         .setMessage(getResources().getString(R.string.CviewHis_instruction))
-                        .setNeutralButton("OK",(click, arg)->{})
+                        .setNeutralButton((getResources().getString(R.string.cOK)),(click, arg)->{})
                         .create().show();
                 break;
         }

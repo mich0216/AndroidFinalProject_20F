@@ -22,7 +22,9 @@ import com.example.androidfinalproject_20f.R;
 import com.google.android.material.navigation.NavigationView;
 
 /**
- *
+ * @author Chrishanthi Michael
+ * CST 2335-020
+ * WelcomePageCovid is the activity page where user inputs the country name and the dates
  */
 
 public class WelcomePageCovid extends AppCompatActivity {
@@ -42,7 +44,7 @@ public class WelcomePageCovid extends AppCompatActivity {
         // this gets the toolbar from the layout
         Toolbar tBar = (Toolbar) findViewById(R.id.covidToolbar);
 
-        //This loads the toolbar, which calls onCreateOptionMev
+        //This loads the toolbar, which calls onCreateOptionMenu
         setSupportActionBar(tBar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -55,17 +57,17 @@ public class WelcomePageCovid extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener (item -> {
 
             switch (item.getItemId()) {
-                //what to do when the menu item is selected:
+                // when the menu item is selected go to view history page.
                 case R.id.covidHistory:
                     Intent viewHistory = new Intent(this, ViewHistory.class);
                     startActivity(viewHistory);
                     break;
-
+                // when the menu item is selected go to main activity page.
                 case R.id.mainhome:
                     Intent mainPage = new Intent(this, MainActivity.class);
                     startActivity(mainPage);
                     break;
-
+                // when the menu item is selected go to welcome page.
                 case R.id.covidSearch:
                     Intent covidSearch = new Intent(this, WelcomePageCovid.class);
                     startActivity(covidSearch);
@@ -111,8 +113,7 @@ public class WelcomePageCovid extends AppCompatActivity {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.covidmenu, menu);
-        //    MenuInflater inflater2 = getMenuInflater();
-        // inflater.inflate(R.menu.nagvigationmenu, menu);
+
         return true;
     }
 
@@ -120,30 +121,30 @@ public class WelcomePageCovid extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-       // String message = null;
-        //Look at your menu XML file. Put a case for every id in that file:
+
+        //put a case for every id in  the covidmenu XML file, so that when it clicked it will go to the selected page.
         switch (item.getItemId()) {
-            //what to do when the menu item is selected:
+            // when the menu item is selected go to view history page.
             case R.id.covidHistory:
                 Intent viewHistory = new Intent(this, ViewHistory.class);
                 startActivity(viewHistory);
                 break;
-
+            // when the menu item is selected got to main activity page.
             case R.id.mainhome:
                 Intent mainPage = new Intent(this, MainActivity.class);
                 startActivity(mainPage);
                 break;
-
+            // when the menu item is selected go to welcome page.
             case R.id.covidSearch:
                 Intent covidSearch = new Intent(this, WelcomePageCovid.class);
                 startActivity(covidSearch);
                 break;
-
+            // when the menu item is selected display a instruction to show how to use this page
             case R.id.covidHelpIcone:
                 AlertDialog.Builder helpmenu =new AlertDialog.Builder(this);
                 helpmenu.setTitle(getResources().getString(R.string.covidInstruction))
                         .setMessage(getResources().getString(R.string.cwInstuction))
-                        .setNeutralButton("OK",(click, arg)->{})
+                        .setNeutralButton(getResources().getString(R.string.cOK),(click, arg)->{})
                         .create().show();
                 break;
         }

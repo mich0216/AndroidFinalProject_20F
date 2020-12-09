@@ -59,22 +59,23 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 //what to do when the menu item is selected:
                 case R.id.eventSearch:
+                    // when the menu item is selected go to event search page
                     Intent event = new Intent(this, EventSearchActivity.class);
                     startActivity(event);
                     break;
-
+                // when the menu item is selected go to recipe search page
                 case R.id.receipeSearch:
                     Intent recipe = new Intent(this, RecipeSearchActivity.class);
                     startActivity(recipe);
                     break;
-
+                // when the menu item is selected go to covid case search page
                 case R.id.covidSearch:
                     Intent covidSearch = new Intent(this, WelcomePageCovid.class);
                     startActivity(covidSearch);
                     break;
-
+                // when the menu item is selected go to album search page
                 case R.id.alblumSearch:
-                    Intent album = new Intent(this, Album.class);
+                    Intent album = new Intent(this, ArtistInputActivity.class);
                     startActivity(album);
                     break;
 
@@ -134,24 +135,24 @@ public class MainActivity extends AppCompatActivity {
         // String message = null;
         //Look at your menu XML file. Put a case for every id in that file:
         switch (item.getItemId()) {
-            //what to do when the menu item is selected:
+            // when the menu item is selected go to event search page
             case R.id.eventSearch:
-                Intent event = new Intent(this, Event.class);
+                Intent event = new Intent(this, EventSearchActivity.class);
                 startActivity(event);
                 break;
-
+            // when the menu item is selected go to recipe search page
             case R.id.receipeSearch:
-                Intent recipe = new Intent(this, Recipe.class);
+                Intent recipe = new Intent(this, RecipeSearchActivity.class);
                 startActivity(recipe);
                 break;
-
+            // when the menu item is selected go to covid case search page
             case R.id.covidSearch:
                 Intent covidSearch = new Intent(this, WelcomePageCovid.class);
                 startActivity(covidSearch);
                 break;
-
+            // when the menu item is selected go to album search page
             case R.id.alblumSearch:
-                Intent album = new Intent(this, Album.class);
+                Intent album = new Intent(this, ArtistInputActivity.class);
                 startActivity(album);
                 break;
 

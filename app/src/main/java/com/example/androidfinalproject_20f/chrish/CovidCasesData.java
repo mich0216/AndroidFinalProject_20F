@@ -79,7 +79,7 @@ public class CovidCasesData extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener (item -> {
 
             switch (item.getItemId()) {
-                //what to do when the menu item is selected:
+                // when the menu item is selected go to view history page.
                 case R.id.covidHistory:
                     Intent viewHistory = new Intent(this, ViewHistory.class);
                     startActivity(viewHistory);
@@ -122,11 +122,11 @@ public class CovidCasesData extends AppCompatActivity {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(getResources().getString(R.string.additionalDetail))
 
-                    .setMessage("The province is "+((CovidData)list.get(position)).getProvince()+"\n"+
-                            "The Confirmed Case Number : "+((CovidData)list.get(position)).getCaseNumber()+"\n"+
-                            "The date is : "+((CovidData)list.get(position)).getDate().substring(0,10)+"\n"+
-                            "The database ID is "+((CovidData)list.get(position)).getDatabaseId())
-                    .setNeutralButton("OK",(click, arg)->{})
+                    .setMessage(getResources().getString(R.string.cProvince)+((CovidData)list.get(position)).getProvince()+"\n"+
+                            getResources().getString(R.string.cConfirmedCase)+((CovidData)list.get(position)).getCaseNumber()+"\n"+
+                                    getResources().getString(R.string.cDate)+((CovidData)list.get(position)).getDate().substring(0,10)+"\n"+
+                                    getResources().getString(R.string.thedatabaseid)+((CovidData)list.get(position)).getDatabaseId())
+                    .setNeutralButton((getResources().getString(R.string.cOK)),(click, arg)->{})
                     .create().show();
 
             return true;
@@ -200,7 +200,7 @@ public class CovidCasesData extends AppCompatActivity {
                 helpmenu.setTitle(getResources().getString(R.string.covidInstruction))
                         .setMessage(getResources().getString(R.string.cwInstuction))
                         .setMessage(getResources().getString(R.string.C_caseData_instruction))
-                        .setNeutralButton("OK",(click, arg)->{})
+                        .setNeutralButton(getResources().getString(R.string.cOK),(click, arg)->{})
                         .create().show();
                 break;
         }

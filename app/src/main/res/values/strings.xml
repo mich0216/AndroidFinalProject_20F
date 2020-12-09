@@ -74,5 +74,14 @@
     <string name="cwInstuction">Enter the Country name and dates in (YYYY-MM-DD) format. Then hit Search</string>
     <string name="CviewHis_instruction">Select a date from the list and click to view saved results.</string>
     <string name="C_caseData_instruction">click and hold on any below list for more info. Click on \"View Search History\" to view results by date.</string>
+    <string name="album_Search_main">Album Search</string>
+    <string name="cHome">Home</string>
+    <string name="cHelp">Help</string>
+    <string name="cView_history">View history</string>
+    <string name="cDate">The date is :</string>
+    <string name="cConfirmedCase">The Confirmed Case Number :</string>
+    <string name="cProvince">The province is :</string>
+    <string name="cOK">OK</string>
+    <string name="cDelete">DELETE</string>
 
 </resources>
