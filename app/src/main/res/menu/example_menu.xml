@@ -5,7 +5,15 @@
     <item
         android:id="@+id/instructionsMenuItem"
         android:icon="@drawable/ic_info"
+        android:orderInCategory="500"
         android:title="@string/as_instructions"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/covid_home_icon"
+        android:orderInCategory="400"
+        android:title="Home"
         app:showAsAction="always" />
 
 </menu>
