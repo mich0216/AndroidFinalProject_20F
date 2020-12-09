@@ -29,12 +29,8 @@
     <string name="the_audio_database_search"> La recherche dans la base de données audio </string>
     <string name="rs_please_enter_recipe_name"> Veuillez saisir le nom de la recette </string>
     <string name="rs_welcome_recipe_search_by_ahmed"> Bonjour !! \ nBienvenue dans la recherche de recettes par Ahmed. </string>
-
     <string name="covidToastMessage">" Remplissez les champs pour rechercher"</string>
     <string name="covidSnackBarMsg">Sélectionnez et maintenez sur la ligne pour plus de détails</string>
-
-    <string name="covidToastMessage">Fill the fields to Search</string>
-    <string name="covidSnackBarMsg">Select and Hold on Row for More Details</string>
     <string name="event_name">" Nom de l'événement"</string>
     <string name="save_event_to_database">Enregistrer l\'événement dans la base de données</string>
     <string name="hide_event_details">" Masquer les détails de l'événement"</string>
