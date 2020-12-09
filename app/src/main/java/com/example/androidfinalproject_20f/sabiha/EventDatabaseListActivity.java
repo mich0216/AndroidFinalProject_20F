@@ -4,17 +4,24 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.androidfinalproject_20f.R;
 import com.google.android.material.snackbar.Snackbar;
@@ -29,7 +36,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class EventListActivity extends AppCompatActivity {
+public class EventDatabaseListActivity extends AppCompatActivity {
 
     public static final String EVENT_NAME = "EVENT_NAME";
     public static final String EVENT_START_DATE = "EVENT_START_DATE";
@@ -56,60 +63,51 @@ public class EventListActivity extends AppCompatActivity {
 
     private EventDetailsFragment dFragment;
 
+    private EventMyOpener db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
+
+        db = new EventMyOpener(this);
 
         String cityName = getIntent().getStringExtra("CITY_NAME");
 
         eventListView = findViewById(R.id.eventListView);
         progressBar = findViewById(R.id.progressBar);
 
+
         eventsAdaptor = new EventsAdaptor();
         eventListView.setAdapter(eventsAdaptor);
 
-        String url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=dCz4IrRpL3b9AqwGrbdLbl1ZZupGAJP6&city=" + cityName + "&radius=100";
-
-        MyHTTPRequest myHTTPRequest = new MyHTTPRequest();
-        myHTTPRequest.execute(url);
-
         eventListView.setOnItemLongClickListener((parent, view, position, id) -> {
-//            Event e = list.get(position);
-//            Bundle event  = new Bundle();
-//            event.putString(EVENT_NAME, e.getName());
-//            event.putString(EVENT_START_DATE, e.getStartDate());
-//            event.putDouble(EVENT_MIN_PRICE, e.getMinPrice());
-//            event.putDouble(EVENT_MAX_PRICE, e.getMaxPrice());
-//            event.putString(EVENT_TICKETMASTER_URL, e.getTicketMasterUrl());
-//            event.putString(EVENT_IMAGE_URL, e.getImageUrl());
-//
-//            Intent newIntent = new Intent(this, SaveEventDetailActivity.class);
-//            newIntent.putExtras(event);
-//            startActivity(newIntent);
             Event e = list.get(position);
+
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(e.getName())
                     .setMessage(
-                            getString(R.string.start_date) + e.getStartDate() +
-                                    "\n" + getString(R.string.min_price) + e.getMinPrice() +
-                                    "\n" + getString(R.string.max_price) + e.getMaxPrice()
+                            R.string.eventListView
                     )
-                    .setPositiveButton(R.string.open_url, (dialog, which) -> {
-
-                        // Reference: https://stackoverflow.com/a/3004542
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(e.getTicketMasterUrl()));
-                        startActivity(i);
-
+                    .setPositiveButton(R.string.yes, (dialog, which) -> {
+                        db.deleteEvent(e.getTicketMasterUrl());
+                        list.remove(e);
+                        eventsAdaptor.notifyDataSetChanged();
                     })
+                    .setNegativeButton(R.string.no, (dialog, which) -> {
+                    })
+
                     .create().show();
             return true;
         });
 
+        // load events detail from database
+
         boolean isTablet = findViewById(R.id.fragmentLocation) != null;
 
         eventListView.setOnItemClickListener((adapterView, view, position, l) -> {
+
+            Event e = list.get(position);
 
             Bundle dataToPass = new Bundle();
             dataToPass.putString(EVENT_NAME, (list.get(position).getName()));
@@ -129,7 +127,7 @@ public class EventListActivity extends AppCompatActivity {
                         .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
                         .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
             } else {
-                Intent nextActivity = new Intent(EventListActivity.this, EventEmptyActivity.class);
+                Intent nextActivity = new Intent(EventDatabaseListActivity.this, SaveEventDetailActivity.class);
                 nextActivity.putExtras(dataToPass); //send data to next activity
                 startActivity(nextActivity); //make the transition
             }
@@ -138,82 +136,44 @@ public class EventListActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Asynctask using url for searching the events and adding into the list
-     */
-    private class MyHTTPRequest extends AsyncTask<String, Integer, String> {
-        //Type3                Type1
-        public String doInBackground(String... args) {
-            try {
+    public void loadDataFromDatabase() {
+        progressBar.setVisibility(View.INVISIBLE);
 
-                //create a URL object of what server to contact:
-                URL url = new URL(args[0]);
+        EventMyOpener dbOpener = new EventMyOpener(this);
+        SQLiteDatabase db = dbOpener.getReadableDatabase();
 
-                //open the connection
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        String[] columns = { EventMyOpener.COL_NAME,  EventMyOpener.COL_STARTDATE,  EventMyOpener.COL_MINPRICE,  EventMyOpener.COL_MAXPRICE,   EventMyOpener.COL_TICKETMASTERURL,  EventMyOpener.COL_IMAGEURL};
+        Cursor res =  db.rawQuery( "select * from EVENTS", null );
+        int eventNameIndex  = res.getColumnIndex( EventMyOpener.COL_NAME);
+        int startDateIndex = res.getColumnIndex( EventMyOpener.COL_STARTDATE);
+        double minPriceIndex = res.getColumnIndex( EventMyOpener.COL_MINPRICE);
+        double maxPriceIndex = res.getColumnIndex( EventMyOpener.COL_MAXPRICE);
+        int ticketMasterUrlIndex = res.getColumnIndex( EventMyOpener.COL_TICKETMASTERURL);
+        int imageUrlIndex = res.getColumnIndex( EventMyOpener.COL_IMAGEURL);
 
-                //wait for data:
-                InputStream response = urlConnection.getInputStream();
-
-                //JSON reading:   Look at slide 26
-                //Build the entire string response:
-                BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
-                StringBuilder sb = new StringBuilder();
-
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                String result = sb.toString(); //result is the whole string
-
-
-                // convert string to JSON: Look at slide 27:
-                JSONObject jsonObjectResult = new JSONObject(result);
-
-                JSONObject embeddedJsonObject = jsonObjectResult.getJSONObject("_embedded");
-
-                JSONArray eventsJsonArray = embeddedJsonObject.getJSONArray("events");
-
-                for (int i = 0; i < eventsJsonArray.length(); i++) {
-
-                    JSONObject eventJsonObject = eventsJsonArray.getJSONObject(i);
-                    Log.i("EventListActivity", eventJsonObject.getString("name"));
-
-
-                    String eventName = eventJsonObject.getString("name");
-                    String startDate = eventJsonObject.getJSONObject("dates").getJSONObject("start").getString("localDate");
-                    double minPrice = eventJsonObject.getJSONArray("priceRanges").getJSONObject(0).getDouble("min");
-                    double maxPrice = eventJsonObject.getJSONArray("priceRanges").getJSONObject(0).getDouble("max");
-                    String ticketMasterUrl = eventJsonObject.getString("url");
-                    String imageUrl = eventJsonObject.getJSONArray("images").getJSONObject(0).getString("url");
-
-                    Event e = new Event(eventName, startDate, minPrice, maxPrice, ticketMasterUrl, imageUrl);
-
-                    list.add(e);
-
-                }
-
-
-            } catch (Exception e) {
-
-            }
-
-            return "Done";
+        //iterate over the results, return true if there is a next item:
+        list.clear();
+        while (res.moveToNext()){
+            String eventName = res.getString(res.getColumnIndex(EventMyOpener.COL_NAME));
+            String startDate = res.getString(res.getColumnIndex(EventMyOpener.COL_STARTDATE));
+            double minPrice = res.getDouble(res.getColumnIndex(EventMyOpener.COL_MINPRICE));
+            double maxPrice = res.getDouble(res.getColumnIndex(EventMyOpener.COL_MAXPRICE));
+            String ticketMasterUrl = res.getString(res.getColumnIndex(EventMyOpener.COL_TICKETMASTERURL));
+            String imageUrl = res.getString(res.getColumnIndex(EventMyOpener.COL_IMAGEURL));
+            //vent(String name, String startDate, double minPrice, double maxPrice, String ticketMasterUrl, String imageUrl)
+            Event event = new Event(eventName, startDate, minPrice, maxPrice,ticketMasterUrl, imageUrl);
+            list.add(event);
         }
-
-        //Type3
-        public void onPostExecute(String fromDoInBackground) {
-
-            progressBar.setVisibility(View.GONE);
-            eventsAdaptor.notifyDataSetChanged();
-
-            if (list.isEmpty()) {
-                Snackbar.make(eventListView, R.string.no_events_found, Snackbar.LENGTH_SHORT).show();
-            } else {
-                Snackbar.make(eventListView, R.string.events_loaded, Snackbar.LENGTH_SHORT).show();
-            }
-
+        if (list.isEmpty()) {
+            Toast.makeText(EventDatabaseListActivity.this, R.string.no_events_found, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadDataFromDatabase();
+        //EventsAdaptor.notifyDataSetChanged();
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.example.androidfinalproject_20f.audiosearch;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,10 +28,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -38,7 +37,7 @@ import java.util.ArrayList;
  * CST 2335 -020
  * The main class for the AlbumListActivity
  */
-public class AlbumListActivity extends AppCompatActivity {
+public class SongListActivity extends AppCompatActivity {
 
     /**
      * the albumListView
@@ -48,22 +47,24 @@ public class AlbumListActivity extends AppCompatActivity {
     /**
      * list of Album
      */
-    private ArrayList<Album> list = new ArrayList<>();
+    private ArrayList<Song> list = new ArrayList<>();
 
     /**
      * the albumAdapter object
      */
-    private AlbumAdaptor myAdapter;
+    private SongAdaptor myAdapter;
     /**
      * the progressbar object
      */
     private ProgressBar progress;
-    private String artistName;
+
+
+    private long albumIDFromInternet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_album_list);
+        setContentView(R.layout.activity_song_list);
 
         //This gets the toolbar from the layout:
         Toolbar tBar = (Toolbar) findViewById(R.id.toolbar);
@@ -71,82 +72,35 @@ public class AlbumListActivity extends AppCompatActivity {
         //This loads the toolbar, which calls onCreateOptionsMenu below:
         setSupportActionBar(tBar);
 
-        artistName = getIntent().getStringExtra("ARTIST_NAME");
+        albumIDFromInternet = getIntent().getLongExtra("ALBUMIDFROMINTERNET", 0);
 
         albumListView = findViewById(R.id.albumListView);
         progress = findViewById(R.id.progress);
 
-        myAdapter = new AlbumAdaptor();
+        myAdapter = new SongAdaptor();
         albumListView.setAdapter(myAdapter);
 
-        albumListView.setOnItemLongClickListener((parent, view, position, id) -> {
+        AlbumSongsQuery request = new AlbumSongsQuery(); //creates a background thread
 
-            Album alb = list.get(position);
+        request.execute("https://theaudiodb.com/api/v1/json/1/track.php?m=" + albumIDFromInternet);
 
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AlbumListActivity.this);
-            alertDialogBuilder.setTitle(R.string.as_album_details)
-
-                    .setMessage(
-                            getString(R.string.as_id) + alb.getId() +
-                                    "\n" + +position +
-                                    "\n" + getString(R.string.as_title) + alb.getTitle() +
-                                    "\n" + getString(R.string.as_year) + alb.getYear() +
-                                    "\n" + getString(R.string.as_description) + alb.getDescription() +
-                                    "\n" + getString(R.string.as_genre) + alb.getGenre() +
-                                    "\n" + getString(R.string.as_sale) + alb.getSale()
-                    )
-
-                    .setPositiveButton("Ok", null)
-
-                    .create().show();
-
-            return true;
-
-        });
-
-        ArtistAlbumQuery request = new ArtistAlbumQuery(); //creates a background thread
-
-        try {
-            request.execute("https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s=" + URLEncoder.encode(artistName, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
 
         boolean isTablet = findViewById(R.id.fragmentLocation) != null;
 
         albumListView.setOnItemClickListener((parent, view, position, id) -> {
 
-            Album alb = list.get(position);
-
-            //Create a bundle to pass data to the new fragment
-            Bundle dataToPass = new Bundle();
-            dataToPass.putLong("ID", alb.getId());
-            dataToPass.putLong("ALBUMIDFROMINTERNET", alb.getAlbumIDFromInternet());
-            dataToPass.putString("TITLE", alb.getTitle());
-            dataToPass.putString("YEAR", alb.getYear());
-            dataToPass.putString("DESCRIPTION", alb.getDescription());
-            dataToPass.putString("GENRE", alb.getGenre());
-            dataToPass.putString("SALE", alb.getSale());
-
-
-            if (isTablet) {
-                DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
-                dFragment.setArguments(dataToPass);//pass it a bundle for information
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
-                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
-            } else {
-                Intent nextActivity = new Intent(AlbumListActivity.this, EmptyActivity.class);
-                nextActivity.putExtras(dataToPass); //send data to next activity
-                startActivity(nextActivity); //make the transition
-            }
+            // https://stackoverflow.com/a/3004542
+            Song s = list.get(position);
+            String url = "https://www.google.com/search?q=" + s.getArtistName() + "+" + s.getSongName();
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
 
         });
 
     }
 
-    private class ArtistAlbumQuery extends AsyncTask<String, Integer, String> {
+    private class AlbumSongsQuery extends AsyncTask<String, Integer, String> {
 
         protected String doInBackground(String... args) {
             try {
@@ -168,19 +122,15 @@ public class AlbumListActivity extends AppCompatActivity {
 
                 JSONObject jsonObject = new JSONObject(result);
 
-                JSONArray albumJsonArray = jsonObject.getJSONArray("album");
+                JSONArray albumJsonArray = jsonObject.getJSONArray("track");
 
                 for (int i = 0; i < albumJsonArray.length(); i++) {
 
                     JSONObject albumJsonObject = albumJsonArray.getJSONObject(i);
 
-                    Album a = new Album(
-                            albumJsonObject.has("idAlbum") ? albumJsonObject.getLong("idAlbum") : 0,
-                            albumJsonObject.has("strAlbum") ? albumJsonObject.getString("strAlbum") : "",
-                            albumJsonObject.has("intYearReleased") ? albumJsonObject.getString("intYearReleased") : "",
-                            albumJsonObject.has("strDescriptionEN") ? albumJsonObject.getString("strDescriptionEN") : "",
-                            albumJsonObject.has("strGenre") ? albumJsonObject.getString("strGenre") : "",
-                            albumJsonObject.has("intSales") ? albumJsonObject.getString("intSales") : ""
+                    Song a = new Song(
+                            albumJsonObject.has("strTrack") ? albumJsonObject.getString("strTrack") : "",
+                            albumJsonObject.has("strArtist") ? albumJsonObject.getString("strArtist") : ""
                     );
                     list.add(a);
 
@@ -202,7 +152,7 @@ public class AlbumListActivity extends AppCompatActivity {
             myAdapter.notifyDataSetChanged();
             progress.setVisibility(View.INVISIBLE);
 
-            Snackbar.make(albumListView, getString(R.string.as_snackbar_message) + artistName, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(albumListView, getString(R.string.as_showing_songs_for_selected), Snackbar.LENGTH_LONG).show();
 
 
         }
@@ -211,7 +161,7 @@ public class AlbumListActivity extends AppCompatActivity {
     /**
      * AlbumAdaptor extended from BaseAdaper
      */
-    private class AlbumAdaptor extends BaseAdapter {
+    private class SongAdaptor extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -219,7 +169,7 @@ public class AlbumListActivity extends AppCompatActivity {
         }
 
         @Override
-        public Album getItem(int position) {
+        public Song getItem(int position) {
             return list.get(position);
         }
 
@@ -230,14 +180,14 @@ public class AlbumListActivity extends AppCompatActivity {
 
             newView = inflater.inflate(R.layout.album_layout, parent, false);
             TextView tv = newView.findViewById(R.id.albumTitleTextView);
-            tv.setText(getItem(position).getTitle());
+            tv.setText(getItem(position).getSongName());
 
             return newView;
         }
 
         @Override
         public long getItemId(int position) {
-            return getItem(position).getId();
+            return (long) position;
         }
     }
 
@@ -255,9 +205,9 @@ public class AlbumListActivity extends AppCompatActivity {
             //what to do when the menu item is selected:
             case R.id.instructionsMenuItem:
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AlbumListActivity.this);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SongListActivity.this);
                 alertDialogBuilder.setTitle(R.string.as_instructions)
-                        .setMessage(R.string.as_instruction_description)
+                        .setMessage(R.string.as_instruction_description_songs)
                         .setPositiveButton(R.string.as_ok, null)
                         .create().show();
 

@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".audiosearch.AlbumListActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    tools:context=".sabiha.EventListActivity">
 
     <ListView
-        android:id="@+id/albumListView"
+        android:id="@+id/eventListView"
+        android:layout_width="300dp"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/fragmentLocation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar" />
+        android:layout_toRightOf="@id/eventListView"/>
 
     <ProgressBar
-        android:id="@+id/progress"
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
