@@ -1,9 +1,8 @@
 package com.example.androidfinalproject_20f.sabiha;
 
-import android.content.ContentValues;
+
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,13 +23,26 @@ import com.example.androidfinalproject_20f.R;
  * create an instance of this fragment.
  */
 public class EventDetailsFragment extends Fragment {
-
+    /**
+     * Adaptor to handle events in the listview
+     */
     private Bundle dataFromActivity;
+    /**
+     * declaration of variable id and EventIDFromInternet
+     */
     private long id, eventIDFromInternet;
+    /**
+     * declaration of parentActivity variable
+     */
     private AppCompatActivity parentActivity;
+    /**
+     * MyOpener variable declared
+     */
     private EventMyOpener db;
 
-    // Database object
+    /**
+     * Declared event detail info
+     */
     private String event_name, start_date, min_price,max_price;
 
 
@@ -46,7 +58,6 @@ public class EventDetailsFragment extends Fragment {
         start_date = dataFromActivity.getString("EVENT_START_DATE");
         min_price = dataFromActivity.getString("EVENT_MIN_PRICE");
         max_price = dataFromActivity.getString("EVENT_MAX_PRICE");
-
 
 
         // Inflate the layout for this fragment
@@ -75,7 +86,6 @@ public class EventDetailsFragment extends Fragment {
             db.insertEvent(e);
             Toast.makeText(parentActivity, R.string.EventSaveButton, Toast.LENGTH_SHORT).show();
 
-
         });
 
         Button btnEventURL = (Button) result.findViewById(R.id.btnEventURL);
@@ -85,12 +95,8 @@ public class EventDetailsFragment extends Fragment {
             i.setData(Uri.parse(dataFromActivity.getString(EventListActivity.EVENT_TICKETMASTER_URL)));
             startActivity(i);
 
-
         });
 
-
-
-       // });
 
         // get the Hide button, and add a click listener:
         Button hideButton = (Button) result.findViewById(R.id.hideButton);

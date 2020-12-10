@@ -79,7 +79,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@android:color/white"
-            app:headerLayout="@layout/recipe_header_layout"
             app:menu="@menu/recipemenu" />
     </androidx.drawerlayout.widget.DrawerLayout>
 

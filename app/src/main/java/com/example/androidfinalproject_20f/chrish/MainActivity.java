@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             //what to do when the menu item is selected:
             case R.id.eventSearch:
-                Intent event = new Intent(this, Event.class);
+                Intent event = new Intent(this, EventSearchActivity.class);
                 startActivity(event);
                 break;
 

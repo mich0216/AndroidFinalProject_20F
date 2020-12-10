@@ -53,6 +53,9 @@ public class EventListActivity extends AppCompatActivity {
      * Adapter object to be attached with ListView
      */
     private EventsAdaptor eventsAdaptor;
+    /**
+     * Fragment object to be attached with ListView for Tablet
+     */
 
     private EventDetailsFragment dFragment;
 
