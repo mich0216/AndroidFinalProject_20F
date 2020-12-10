@@ -370,7 +370,7 @@ public class RecipeListActivity extends AppCompatActivity {
                     elements.add(r);
 
                     int p = ((i + 1) * 100) / recipeJsonArray.length();
-                    publishProgress(p);
+                    publishProgress(p); // to disuplay the progress bar
 
                 }
 

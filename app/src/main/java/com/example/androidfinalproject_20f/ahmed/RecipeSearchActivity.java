@@ -22,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.androidfinalproject_20f.R;
+import com.example.androidfinalproject_20f.chrish.MainActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -93,7 +94,9 @@ public class RecipeSearchActivity extends AppCompatActivity {
                 alertDialog(getString(R.string.rs_search_screen_info));
                 return true;
             case R.id.menu_home:
-                Toast.makeText(this, R.string.rs_we_already_home, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, R.string.rs_we_already_home, Toast.LENGTH_SHORT).show();
+                Intent mainPage = new Intent(this, MainActivity.class);
+                startActivity(mainPage);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -154,7 +157,9 @@ public class RecipeSearchActivity extends AppCompatActivity {
                 alertDialog(getString(R.string.rs_search_screen_info));
                 break;
             case R.id.menu_home:
-                Toast.makeText(this, R.string.rs_we_already_home, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, R.string.rs_we_already_home, Toast.LENGTH_SHORT).show();
+                Intent mainPage = new Intent(this, MainActivity.class);
+                startActivity(mainPage);
                 break;
         }
         mDrawer.closeDrawers();
