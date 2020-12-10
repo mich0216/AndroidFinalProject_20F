@@ -140,7 +140,7 @@ public class EventSearchActivity extends AppCompatActivity {
                 AlertDialog.Builder helpmenu =new AlertDialog.Builder(this);
                 helpmenu.setTitle(getResources().getString(R.string.eventInstruction))
                         .setMessage(getResources().getString(R.string.eventInstmsg))
-                        .setNeutralButton("OK",(click, arg)->{})
+                        .setNeutralButton(getResources().getString(R.string.cOK),(click, arg)->{})
                         .create().show();
                 break;
         }
