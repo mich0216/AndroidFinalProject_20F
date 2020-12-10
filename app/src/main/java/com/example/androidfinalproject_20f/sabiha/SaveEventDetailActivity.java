@@ -31,6 +31,9 @@ public class SaveEventDetailActivity extends AppCompatActivity {
      * save and event URL button name declaration
      */
     private Button btnEventURL, btnSaveEvent;
+    /**
+     * save and event URL button name declaration
+     */
 
     private EventMyOpener db;
 

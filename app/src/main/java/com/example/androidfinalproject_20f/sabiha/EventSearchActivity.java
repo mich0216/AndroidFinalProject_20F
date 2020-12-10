@@ -42,7 +42,7 @@ public class EventSearchActivity extends AppCompatActivity {
     private SharedPreferences prefs = null;
 
     /**
-     * saving Events
+     * saving Events button declaration
      */
 
     private Button savedEventButton;

@@ -49,7 +49,7 @@ public class EventDatabaseListActivity extends AppCompatActivity {
      */
     private ListView eventListView;
     /**
-     * To display loading
+     * Declared progressBar to display loading
      */
     private ProgressBar progressBar;
     /**
@@ -60,9 +60,13 @@ public class EventDatabaseListActivity extends AppCompatActivity {
      * Adapter object to be attached with ListView
      */
     private EventsAdaptor eventsAdaptor;
-
+    /**
+     * Fragment object to be attached with ListView for Tablet
+     */
     private EventDetailsFragment dFragment;
-
+    /**
+     * MyOpener object declared
+     */
     private EventMyOpener db;
 
     @Override
