@@ -11,16 +11,16 @@
         android:id="@+id/EventTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Event Search Activity"
-        android:textSize="25dp"  />
+        android:text="@string/EventTitle"
+        android:textSize="15dp"  />
 
 
     <TextView
         android:id="@+id/EventAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sabiha"
-        android:textSize="20dp"
+        android:text="Sabiha Rahman"
+        android:textSize="15dp"
         />
 
 
@@ -29,6 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Verison1"
-        android:textSize="20dp" />
+        android:textSize="15dp" />
 
     </LinearLayout>
