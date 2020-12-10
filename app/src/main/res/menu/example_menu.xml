@@ -10,10 +10,10 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/audiohome"
         android:icon="@drawable/covid_home_icon"
         android:orderInCategory="400"
-        android:title="Home"
+        android:title="@string/cHome"
         app:showAsAction="always" />
 
 </menu>

@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.androidfinalproject_20f.R;
+import com.example.androidfinalproject_20f.chrish.MainActivity;
 import com.google.android.material.navigation.NavigationView;
 
 /**
@@ -109,6 +110,11 @@ public class ArtistInputActivity extends AppCompatActivity implements Navigation
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            // when the menu item is selected got to main activity page.
+            case R.id.audiohome:
+                Intent mainPage = new Intent(this, MainActivity.class);
+                startActivity(mainPage);
+                break;
             //what to do when the menu item is selected:
             case R.id.instructionsMenuItem:
 
@@ -127,6 +133,11 @@ public class ArtistInputActivity extends AppCompatActivity implements Navigation
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            // when the menu item is selected got to main activity page.
+            case R.id.audiohome:
+                Intent mainPage = new Intent(this, MainActivity.class);
+                startActivity(mainPage);
+                break;
             //what to do when the menu item is selected:
             case R.id.instructionsMenuItem:
 
