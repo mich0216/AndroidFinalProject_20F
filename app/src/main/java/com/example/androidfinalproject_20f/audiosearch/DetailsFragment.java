@@ -87,7 +87,7 @@ public class DetailsFragment extends Fragment {
                 // remove album from database
                 db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[]{Long.toString(id)});
                 id = 0;
-                Snackbar.make(databaseButton, "Removed the album from database", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(databaseButton, getResources().getString(R.string.as_remove_msg), Snackbar.LENGTH_SHORT).show();
             } else {
                 //store the album in the database
                 ContentValues newRowValue = new ContentValues();
@@ -104,7 +104,7 @@ public class DetailsFragment extends Fragment {
                 //Now insert in the database:
                 long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValue);
                 id = newId;
-                Snackbar.make(databaseButton, "Saved the album into database", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(databaseButton, getResources().getString(R.string.as_save_to_db_msg), Snackbar.LENGTH_SHORT).show();
             }
 
         });

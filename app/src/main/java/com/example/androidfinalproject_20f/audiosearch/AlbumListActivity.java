@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.androidfinalproject_20f.R;
+import com.example.androidfinalproject_20f.chrish.MainActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -252,7 +253,12 @@ public class AlbumListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //what to do when the menu item is selected:
+
+            case R.id.audiohome:
+                Intent mainPage = new Intent(this, MainActivity.class);
+                startActivity(mainPage);
+                break;
+                //what to do when the menu item is selected:
             case R.id.instructionsMenuItem:
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AlbumListActivity.this);

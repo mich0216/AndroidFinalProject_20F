@@ -103,7 +103,7 @@
     <string name="as_version_1"> Version: 1 </string>
     <string name="as_name_vetti"> Nom: Vetti </string>
     <string name="as_instructions"> Instructions </string>
-    <string name="as_ok"> Ok </string>
+    <string name="as_ok">D\'accord</string>
     <string name="as_close"> Fermer </string>
     <string name="as_open"> Ouvrir </string>
     <string name="as_get_songs"> Obtenir des chansons </string>
@@ -119,11 +119,16 @@
     <string name="rs_we_already_home"> Nous sommes déjà à la recherche de recettes </string>
     <string name="rs_continue"> Continuer </string>
     <string name="rs_remove_from_fav"> Supprimer des favoris </string>
-    <string name="rs_title">Title: </string>
+    <string name="rs_title">" Titre"</string>
     <string name="rs_recipe_removed"> Recette supprimée des favoris </string>
     <string name="rs_recipy_already_added"> Recette déjà ajoutée aux favoris </string>
     <string name="rs_unable_to_add_fav"> Impossible d\'ajouter aux favoris </string>
     <string name="rs_added_to_fav"> Recette ajoutée aux favoris </string>
+    <string name="rs_webpage">Page Web des détails de la recette</string>
+    <string name="rs_addToFav">Ajouter aux Favoris</string>
+    <string name="rs_author">" Auteur: Ahmed Akad"</string>
+    <string name="as_remove_msg">Suppression de l\'album de la base de données</string>
+    <string name="as_save_to_db_msg">Enregistré l\'album dans la base de données</string>
 
 
 </resources>

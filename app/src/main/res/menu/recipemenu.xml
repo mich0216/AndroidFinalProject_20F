@@ -8,12 +8,12 @@
         app:showAsAction="never" />
 
     <item android:id="@+id/menu_help"
-        android:title="Help"
+        android:title="@string/cHelp"
         android:icon="@drawable/covid_help_icon"
         app:showAsAction="always" />
 
     <item android:id="@+id/menu_home"
-        android:title="Recipe Search"
+        android:title="@string/cHome"
         android:icon="@drawable/covid_home_icon"
         app:showAsAction="always"/>
 
